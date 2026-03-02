@@ -11,21 +11,11 @@ Thumbs.db
 .vscode/
 .idea/
 
-
-cat > .gitignore <<'EOF'
-# Node / tooling
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# OS / editor
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
 # Optional build/export
 dist/
 public/
+
+# Local QA / browser artifacts
+_screens/
+_chrome-profile/
+.vercel/

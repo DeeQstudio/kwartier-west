@@ -1,0 +1,7 @@
+_screens/
+_chrome-profile/
+.github/
+docs/
+.git/
+.gitignore
+.vercel/
