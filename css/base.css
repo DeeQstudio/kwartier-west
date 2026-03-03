@@ -2701,11 +2701,26 @@ input[disabled] {
   padding-top: 0.72rem;
 }
 
+.booking-human-check {
+  display: block;
+  margin-top: -0.12rem;
+}
+
+.booking-human-check[hidden] {
+  display: none !important;
+}
+
+.booking-turnstile {
+  display: inline-flex;
+  min-height: 66px;
+}
+
 .error-text {
   border-left: 3px solid var(--danger);
   background: rgba(255, 111, 91, 0.08);
   color: #ffd1c9;
   padding: 0.65rem 0.72rem;
+  overflow-wrap: anywhere;
 }
 
 .success-panel {
@@ -2713,6 +2728,18 @@ input[disabled] {
   padding-left: 0.72rem;
   display: grid;
   gap: 0.6rem;
+}
+
+.verify-state {
+  gap: 0.72rem;
+}
+
+.verify-state .inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.44rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding-top: 0.56rem;
 }
 
 .payload-preview {

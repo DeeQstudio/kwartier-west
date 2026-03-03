@@ -1,0 +1,41 @@
+﻿<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n-title="meta.bookingVerify.title">Kwartier West - Bevestig booking</title>
+  <meta name="description" content="Bevestig je bookingaanvraag via e-mailverificatie." data-i18n-content="meta.bookingVerify.description">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://kwartierwest.be/pages/booking/verify/index.html">
+  <link rel="stylesheet" href="../../../css/base.css?v=20260303a">
+</head>
+<body class="kw-page">
+  <div data-nav></div>
+
+  <main id="main-content" class="page-shell">
+    <header class="hero-surface hero-surface--lane hero-surface--lane-global">
+      <p class="eyebrow" data-i18n="booking.verify.eyebrow">Boeking / E-mailverificatie</p>
+      <h1 data-i18n="booking.verify.heroTitle">Bevestig je booking</h1>
+      <p class="lead" data-i18n="booking.verify.heroLead">Na je bevestiging sturen we je aanvraag direct door naar het Kwartier West team.</p>
+    </header>
+
+    <section class="surface">
+      <div data-booking-verify></div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+
+  <script type="module">
+    import { initI18nPage } from "../../../js/core/i18n.js";
+    import { renderNav } from "../../../partials/nav.js";
+    import { renderFooter } from "../../../partials/footer.js";
+    import { mountBookingVerification } from "../../../js/booking-verify.js";
+
+    initI18nPage();
+    renderNav({ sideKey: "global", baseDepth: 3 });
+    renderFooter({ baseDepth: 3 });
+    mountBookingVerification({ baseDepth: 3 });
+  </script>
+</body>
+</html>

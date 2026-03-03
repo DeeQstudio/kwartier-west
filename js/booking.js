@@ -1,9 +1,14 @@
-import { loadArtists, loadIntegrations } from "./core/content-api.js";
+﻿import { loadArtists, loadIntegrations } from "./core/content-api.js";
 import { asArray, bookingReference, escapeHTML, normalizeSlug, sideLabel } from "./core/format.js";
 import { t } from "./core/i18n.js";
 import { postJSONWithTimeout, resolveEndpoint } from "./core/integration-client.js";
+import { loadPublicConfig } from "./core/public-config.js";
 
 const STORAGE_KEY = "kw.booking.last";
+const TURNSTILE_SCRIPT_ID = "kw-turnstile-script";
+const TURNSTILE_SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
+let turnstileScriptPromise = null;
 
 const TYPE_META = {
   single: {
@@ -190,6 +195,10 @@ function formTemplate({ sideKey, prefilledType }) {
         </div>
       </section>
 
+      <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" data-honeypot>
+
+      <div class="booking-human-check" data-human-check hidden></div>
+
       <div class="form-actions">
         <button type="submit" class="cta-btn" data-submit-btn>${t("booking.form.submit")}</button>
         <p class="muted" id="booking-form-note">${t("booking.form.helper")}</p>
@@ -241,6 +250,90 @@ function prefillFromLastPayload(form, payload) {
   setField(form, "organisation", payload?.contact?.organisation || "");
 }
 
+function turnstileGlobal() {
+  return typeof window !== "undefined" ? window.turnstile : null;
+}
+
+function loadTurnstileScript() {
+  if (turnstileGlobal()) {
+    return Promise.resolve();
+  }
+
+  if (turnstileScriptPromise) {
+    return turnstileScriptPromise;
+  }
+
+  turnstileScriptPromise = new Promise((resolve, reject) => {
+    const existing = document.getElementById(TURNSTILE_SCRIPT_ID);
+    if (existing) {
+      existing.addEventListener("load", () => resolve(), { once: true });
+      existing.addEventListener("error", () => reject(new Error("Turnstile script kon niet geladen worden.")), {
+        once: true
+      });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = TURNSTILE_SCRIPT_ID;
+    script.src = TURNSTILE_SCRIPT_SRC;
+    script.async = true;
+    script.defer = true;
+    script.addEventListener("load", () => resolve(), { once: true });
+    script.addEventListener("error", () => reject(new Error("Turnstile script kon niet geladen worden.")), { once: true });
+    document.head.appendChild(script);
+  });
+
+  return turnstileScriptPromise;
+}
+
+async function mountTurnstileWidget({ container, siteKey, onToken, onExpire }) {
+  if (!container || !siteKey) {
+    return { ok: false, widgetId: "", error: "site key ontbreekt" };
+  }
+
+  await loadTurnstileScript();
+  const turnstile = turnstileGlobal();
+  if (!turnstile || typeof turnstile.render !== "function") {
+    return { ok: false, widgetId: "", error: "turnstile niet beschikbaar" };
+  }
+
+  container.hidden = false;
+  container.innerHTML = "";
+
+  const target = document.createElement("div");
+  target.className = "booking-turnstile";
+  container.appendChild(target);
+
+  const widgetId = turnstile.render(target, {
+    sitekey: siteKey,
+    theme: "dark",
+    appearance: "always",
+    callback: (token) => {
+      if (typeof onToken === "function") {
+        onToken(String(token || "").trim());
+      }
+    },
+    "expired-callback": () => {
+      if (typeof onExpire === "function") onExpire();
+    },
+    "error-callback": () => {
+      if (typeof onExpire === "function") onExpire();
+    }
+  });
+
+  return { ok: true, widgetId };
+}
+
+function resetTurnstileWidget(widgetId) {
+  const turnstile = turnstileGlobal();
+  if (!widgetId || !turnstile || typeof turnstile.reset !== "function") return;
+  try {
+    turnstile.reset(widgetId);
+  } catch {
+    // ignore reset issue
+  }
+}
+
 async function pushBookingWebhook(payload, { baseDepth = 0 } = {}) {
   const integrations = await loadIntegrations({ baseDepth, revalidate: true });
   const webhook = integrations?.bookingWebhook || { enabled: false };
@@ -249,7 +342,8 @@ async function pushBookingWebhook(payload, { baseDepth = 0 } = {}) {
     return {
       attempted: false,
       ok: false,
-      status: 0
+      status: 0,
+      message: ""
     };
   }
 
@@ -277,6 +371,7 @@ async function pushBookingWebhook(payload, { baseDepth = 0 } = {}) {
       attempted: true,
       ok: result.ok,
       status: result.status,
+      body: rawBody,
       message: responseMessage || ""
     };
   } catch (error) {
@@ -285,27 +380,10 @@ async function pushBookingWebhook(payload, { baseDepth = 0 } = {}) {
       attempted: true,
       ok: false,
       status: 0,
+      body: null,
       message: String(error?.message || "").trim()
     };
   }
-}
-
-function renderWebhookStatus(webhookResult) {
-  if (!webhookResult?.attempted) {
-    return `<p class="muted">${t("booking.result.webhookDisabled")}</p>`;
-  }
-
-  if (webhookResult.ok) {
-    return `<p class="muted">${t("booking.result.webhookOk")}</p>`;
-  }
-
-  const statusDetail = webhookResult?.status
-    ? t("booking.result.webhookHttp", { status: webhookResult.status })
-    : t("booking.result.webhookNetwork");
-  const rawMessage = String(webhookResult?.message || "").trim();
-  const detail = rawMessage ? `${statusDetail} - ${escapeHTML(rawMessage)}` : statusDetail;
-
-  return `<p class="error-text" role="alert">${t("booking.result.webhookFail")}: ${escapeHTML(detail)}</p>`;
 }
 
 function resetInvalidFields(form) {
@@ -331,6 +409,37 @@ function showError(result, form, message, { fieldName = "", fallbackFocus } = {}
   }
 }
 
+function renderNetworkError(result, serverResult) {
+  const statusLine = serverResult?.status
+    ? t("booking.result.webhookHttp", { status: serverResult.status })
+    : t("booking.result.webhookNetwork");
+  const message = String(serverResult?.message || "").trim();
+  const detail = message ? `${statusLine} - ${escapeHTML(message)}` : statusLine;
+
+  result.innerHTML = `<p class="error-text" role="alert">${t("booking.result.webhookFail")}: ${detail}</p>`;
+}
+
+function renderVerificationSent(result, payload, responseBody) {
+  const expiresInMinutes = Number(responseBody?.expiresInMinutes || 0);
+  const hasExpiry = Number.isFinite(expiresInMinutes) && expiresInMinutes > 0;
+
+  result.innerHTML = `
+    <div class="surface success-panel">
+      <h3 tabindex="-1" data-booking-result-title>${t("booking.result.verifyTitle")}</h3>
+      <p class="muted">${t("booking.result.reference")}: <strong>${escapeHTML(payload.reference)}</strong></p>
+      <p>${t("booking.result.verifyBody")}</p>
+      <p class="muted">${t("booking.result.verifyMailTo")} <strong>${escapeHTML(payload.contact.email)}</strong></p>
+      ${hasExpiry ? `<p class="muted">${t("booking.result.verifyExpiry", { minutes: expiresInMinutes })}</p>` : ""}
+      <p class="muted">${t("booking.result.verifySpamHint")}</p>
+    </div>
+  `;
+
+  const resultTitle = result.querySelector("[data-booking-result-title]");
+  if (resultTitle instanceof HTMLElement) {
+    resultTitle.focus();
+  }
+}
+
 export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) {
   const mount = document.querySelector("[data-booking-form]");
   const result = document.querySelector("[data-booking-result]");
@@ -351,8 +460,41 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
   const artistList = mount.querySelector("[data-artist-list]");
   const hint = mount.querySelector("[data-type-hint]");
   const submitButton = mount.querySelector("[data-submit-btn]");
+  const honeypot = mount.querySelector("[data-honeypot]");
+  const humanCheck = mount.querySelector("[data-human-check]");
 
-  if (!form || !typeSelect || !artistList || !hint || !submitButton) return;
+  if (!form || !typeSelect || !artistList || !hint || !submitButton || !honeypot || !humanCheck) return;
+
+  const publicConfig = await loadPublicConfig({ baseDepth });
+  const verificationEnabled = publicConfig?.bookingVerificationEnabled !== false;
+  const turnstileEnabled = Boolean(publicConfig?.turnstileEnabled && publicConfig?.turnstileSiteKey);
+
+  const antiBotState = {
+    startedAt: Date.now(),
+    turnstileToken: "",
+    turnstileWidgetId: ""
+  };
+
+  if (turnstileEnabled) {
+    try {
+      const mounted = await mountTurnstileWidget({
+        container: humanCheck,
+        siteKey: publicConfig.turnstileSiteKey,
+        onToken: (token) => {
+          antiBotState.turnstileToken = token;
+        },
+        onExpire: () => {
+          antiBotState.turnstileToken = "";
+        }
+      });
+      if (mounted.ok) {
+        antiBotState.turnstileWidgetId = mounted.widgetId;
+      }
+    } catch {
+      // If widget fails to render we continue without blocking; server checks key presence.
+      humanCheck.hidden = true;
+    }
+  }
 
   const lastPayload = safeReadLastPayload();
   prefillFromLastPayload(form, lastPayload);
@@ -486,6 +628,11 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
       return;
     }
 
+    if (turnstileEnabled && !String(antiBotState.turnstileToken || "").trim()) {
+      showError(result, form, t("booking.validate.turnstile"));
+      return;
+    }
+
     if (type === "single" && selectedArtists.length !== 1) {
       showError(result, form, t("booking.validate.single"), {
         fallbackFocus: () => {
@@ -552,20 +699,50 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
       // ignore storage issues
     }
 
-    submitButton.disabled = true;
-    submitButton.textContent = `${t("common.loading")}`;
+    const antiBotPayload = {
+      website: String(formData.get("website") || "").trim(),
+      elapsedMs: Math.max(1, Date.now() - antiBotState.startedAt),
+      turnstileToken: turnstileEnabled ? String(antiBotState.turnstileToken || "") : ""
+    };
 
-    const webhookResult = await pushBookingWebhook(payload, { baseDepth });
+    submitButton.disabled = true;
+    submitButton.textContent = t("common.loading");
+
+    const requestPayload = verificationEnabled
+      ? { action: "request_verification", booking: payload, antiBot: antiBotPayload }
+      : payload;
+
+    const webhookResult = await pushBookingWebhook(requestPayload, { baseDepth });
 
     submitButton.disabled = false;
     submitButton.textContent = t("booking.form.submit");
+
+    antiBotState.startedAt = Date.now();
+    antiBotState.turnstileToken = "";
+    if (turnstileEnabled && antiBotState.turnstileWidgetId) {
+      resetTurnstileWidget(antiBotState.turnstileWidgetId);
+    }
+
+    if (!webhookResult.attempted) {
+      result.innerHTML = `<p class="error-text" role="alert">${t("booking.result.webhookDisabled")}</p>`;
+      return;
+    }
+
+    if (!webhookResult.ok) {
+      renderNetworkError(result, webhookResult);
+      return;
+    }
+
+    if (verificationEnabled) {
+      renderVerificationSent(result, payload, webhookResult.body || {});
+      return;
+    }
 
     result.innerHTML = `
       <div class="surface success-panel">
         <h3 tabindex="-1" data-booking-result-title>${t("booking.result.title")}</h3>
         <p class="muted">${t("booking.result.reference")}: <strong>${escapeHTML(payload.reference)}</strong></p>
-
-        ${renderWebhookStatus(webhookResult)}
+        <p class="muted">${t("booking.result.webhookOk")}</p>
       </div>
     `;
 
