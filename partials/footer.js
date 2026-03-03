@@ -41,7 +41,7 @@ export function renderFooter({ baseDepth = 0 } = {}) {
           <p class="kw-footer__title">${t("footer.title.info")}</p>
           <span class="kw-footer__note">${t("footer.note.privacySoon")}</span>
           <span class="kw-footer__note">${t("footer.note.termsSoon")}</span>
-          <a class="kw-footer__link" href="mailto:kwartierwest@gmail.com">kwartierwest@gmail.com</a>
+          <a class="kw-footer__link" href="mailto:kwrtr.west@gmail.com">kwrtr.west@gmail.com</a>
           <span class="kw-footer__powered">${t("landing.footer.powered")}</span>
         </section>
       </div>

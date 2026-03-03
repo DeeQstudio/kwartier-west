@@ -1,5 +1,5 @@
 import { findArtistBySlug, loadArtists } from "./core/content-api.js";
-import { artistPath, asArray, escapeHTML, normalizeSlug, sideLabel } from "./core/format.js";
+import { artistPath, asArray, decodeHTMLEntities, escapeHTML, normalizeSlug, sideLabel } from "./core/format.js";
 import { t } from "./core/i18n.js";
 import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260226c";
 
@@ -157,8 +157,10 @@ export async function renderArtistDetail(sideKey, { baseDepth = 0 } = {}) {
   }
 
   function setHero(title = "", lead = "") {
-    if (heroTitle && title) heroTitle.textContent = title;
-    if (heroLead && lead) heroLead.textContent = lead;
+    const cleanTitle = decodeHTMLEntities(title);
+    const cleanLead = decodeHTMLEntities(lead);
+    if (heroTitle && cleanTitle) heroTitle.textContent = cleanTitle;
+    if (heroLead && cleanLead) heroLead.textContent = cleanLead;
   }
 
   root.innerHTML = `<p class="muted">${t("artist.loading")}</p>`;

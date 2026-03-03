@@ -1,6 +1,53 @@
 {
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "kwartierwest.be"
+        },
+        {
+          "type": "header",
+          "key": "x-forwarded-proto",
+          "value": "http"
+        }
+      ],
+      "destination": "https://kwartierwest.be/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.kwartierwest.be"
+        }
+      ],
+      "destination": "https://kwartierwest.be/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/pages/hiphop/artist/:slug/index.html",
+      "destination": "/pages/hiphop/artist/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/pages/hiphop/artist/:slug/",
+      "destination": "/pages/hiphop/artist/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/pages/tekno/artist/:slug/index.html",
+      "destination": "/pages/tekno/artist/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/pages/tekno/artist/:slug/",
+      "destination": "/pages/tekno/artist/:slug",
+      "permanent": true
+    },
+    {
       "source": "/pages/hiphop/artist.html",
       "has": [
         {
@@ -23,24 +70,6 @@
       ],
       "destination": "/pages/tekno/artist/:slug",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/pages/hiphop/artist/:slug",
-      "destination": "/pages/hiphop/artist.html?slug=:slug"
-    },
-    {
-      "source": "/pages/hiphop/artist/:slug/",
-      "destination": "/pages/hiphop/artist.html?slug=:slug"
-    },
-    {
-      "source": "/pages/tekno/artist/:slug",
-      "destination": "/pages/tekno/artist.html?slug=:slug"
-    },
-    {
-      "source": "/pages/tekno/artist/:slug/",
-      "destination": "/pages/tekno/artist.html?slug=:slug"
     }
   ],
   "headers": [

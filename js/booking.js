@@ -107,7 +107,7 @@ function formTemplate({ sideKey, prefilledType }) {
             </select>
           </label>
 
-          <label>
+          <label data-booking-side-wrap>
             <span>${t("booking.form.collective")}</span>
             ${isGlobal
               ? `<select name="side" data-booking-side aria-describedby="booking-type-hint">
@@ -196,26 +196,6 @@ function formTemplate({ sideKey, prefilledType }) {
       </div>
     </form>
   `;
-}
-
-function bookingTypeLabel(type) {
-  return t(TYPE_META[type]?.labelKey || "booking.type.single.label");
-}
-
-function payloadSummary(payload) {
-  const artists = payload.artists.length ? payload.artists.join(", ") : t("common.na");
-  const venue = payload.event.venue || t("common.tba");
-  const budget = payload.budget.amount || t("common.tba");
-  return [
-    `${t("booking.result.reference")}: ${payload.reference}`,
-    `${t("booking.form.type")}: ${bookingTypeLabel(payload.bookingType)}`,
-    `${t("booking.form.collective")}: ${payload.side}`,
-    `${t("booking.summary.artists")}: ${artists}`,
-    `${t("booking.summary.event")}: ${payload.event.date} ${payload.event.time || ""} - ${payload.event.city}`,
-    `${t("booking.summary.venue")}: ${venue}`,
-    `${t("booking.summary.budget")}: ${budget} ${payload.budget.currency}`,
-    `${t("booking.summary.contact")}: ${payload.contact.name} (${payload.contact.email})`
-  ].join("\n");
 }
 
 function typeHint(type, side) {
@@ -387,9 +367,31 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
     return typeSelect.value;
   }
 
+  function syncSideControl(type) {
+    if (!isGlobal || !sideSelect) return;
+
+    const sideWrap = sideSelect.closest("[data-booking-side-wrap]") || sideSelect.closest("label");
+    if (!sideWrap) return;
+
+    if (type === "collective_full") {
+      sideSelect.value = "both";
+      sideSelect.disabled = true;
+      sideWrap.hidden = true;
+      return;
+    }
+
+    sideSelect.disabled = false;
+    sideWrap.hidden = false;
+
+    if (type === "collective_side" && sideSelect.value === "both") {
+      sideSelect.value = "tekno";
+    }
+  }
+
   function paintArtistOptions() {
-    const side = currentSide();
     const type = currentType();
+    syncSideControl(type);
+    const side = currentSide();
     const artists = flattenArtistsBySide(artistsData, side).sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
     const selectedInUI = new Set(collectChecked(artistList));
     const selectedFromQuery = selectedInUI.size ? selectedInUI : new Set(query.artists);
@@ -453,6 +455,7 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
     const formData = new FormData(form);
     const type = currentType();
     const side = currentSide();
+    const effectiveSide = type === "collective_full" ? "both" : side;
 
     const selectedArtists = collectChecked(artistList);
 
@@ -495,11 +498,11 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
     let artistPayload = selectedArtists;
 
     if (type === "collective_side") {
-      if (side === "both") {
+      if (effectiveSide === "both") {
         showError(result, form, t("booking.validate.side"), { fieldName: "side" });
         return;
       }
-      artistPayload = collectSideArtists(artistsData, side);
+      artistPayload = collectSideArtists(artistsData, effectiveSide);
     }
 
     if (type === "collective_full") {
@@ -511,7 +514,7 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
       submittedAt: new Date().toISOString(),
       source: "kwartier-west-website",
       bookingType: type,
-      side,
+      side: effectiveSide,
       artists: artistPayload,
       event: {
         name: String(formData.get("eventName") || "").trim(),
@@ -531,10 +534,6 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
         organisation: String(formData.get("organisation") || "").trim()
       }
     };
-
-    const summary = payloadSummary(payload);
-    const subject = `[Booking ${payload.reference}] ${payload.bookingType} - ${payload.event.city}`;
-    const mailto = `mailto:kwartierwest@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(summary)}`;
 
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -556,10 +555,6 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
         <p class="muted">${t("booking.result.reference")}: <strong>${escapeHTML(payload.reference)}</strong></p>
 
         ${renderWebhookStatus(webhookResult)}
-
-        <div class="inline-actions">
-          <a class="cta-btn" href="${mailto}">${t("booking.result.mail")}</a>
-        </div>
       </div>
     `;
 

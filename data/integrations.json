@@ -13,13 +13,13 @@
     "notes": "Set endpoint + enable=true zodra de social bridge live staat."
   },
   "bookingWebhook": {
-    "enabled": false,
-    "endpoint": "",
+    "enabled": true,
+    "endpoint": "/api/bookings",
     "method": "POST",
-    "auth": "bearer-token",
+    "auth": "none",
     "authToken": "",
     "timeoutMs": 9000,
-    "notes": "Ontvangt booking payload van js/booking.js voor app intake."
+    "notes": "Ontvangt booking payload van js/booking.js en verstuurt bookingmail via server-side API."
   },
   "shopApi": {
     "enabled": false,

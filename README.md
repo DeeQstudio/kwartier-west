@@ -47,4 +47,14 @@ When backend/app is ready, connect:
 3. `data/integrations.json.shopApi.endpoint`
 
 The frontend already emits structured booking payloads and consumes normalized data contracts.
-If `bookingWebhook.enabled=true`, booking submissions are POSTed automatically and still return mail + JSON fallback on failure.
+If `bookingWebhook.enabled=true`, booking submissions are POSTed automatically from the website.
+
+## Booking email delivery (Vercel)
+The project includes a server-side endpoint at `/api/bookings` for direct booking email delivery.
+
+Set these environment variables in Vercel:
+- `RESEND_API_KEY` (required)
+- `BOOKING_TO_EMAIL` (optional, default: `kwrtr.west@gmail.com`)
+- `BOOKING_FROM_EMAIL` (optional, default: `Kwartier West <onboarding@resend.dev>`)
+
+Without `RESEND_API_KEY`, booking submissions will fail with a clear error message.
