@@ -1,5 +1,8 @@
+import nodemailer from "nodemailer";
+
 const DEFAULT_TO_EMAIL = "kwrtr.west@gmail.com";
-const DEFAULT_FROM_EMAIL = "Kwartier West <onboarding@resend.dev>";
+const DEFAULT_FROM_EMAIL_SMTP = "Kwartier West <info@kwartierwest.be>";
+const DEFAULT_FROM_EMAIL_RESEND = "Kwartier West <onboarding@resend.dev>";
 
 function escapeHTML(value = "") {
   return String(value)
@@ -17,6 +20,37 @@ function asText(value = "", fallback = "-") {
 
 function toArray(value) {
   return Array.isArray(value) ? value : [];
+}
+
+function envString(name, fallback = "") {
+  return String(process.env[name] ?? fallback).trim();
+}
+
+function envBool(name, fallback = false) {
+  const raw = envString(name, fallback ? "true" : "false").toLowerCase();
+  return ["1", "true", "yes", "on"].includes(raw);
+}
+
+function bookingProviderPreference() {
+  return envString("BOOKING_PROVIDER", "auto").toLowerCase();
+}
+
+function smtpSettings() {
+  const host = envString("BOOKING_SMTP_HOST");
+  const port = Number(envString("BOOKING_SMTP_PORT", "587")) || 587;
+  const secure = envBool("BOOKING_SMTP_SECURE", port === 465);
+  const user = envString("BOOKING_SMTP_USER");
+  const pass = envString("BOOKING_SMTP_PASS");
+  return { host, port, secure, user, pass };
+}
+
+function hasSmtpConfig() {
+  const cfg = smtpSettings();
+  return Boolean(cfg.host && cfg.user && cfg.pass);
+}
+
+function resendApiKey() {
+  return envString("RESEND_API_KEY") || envString("RESEND_KEY") || envString("RESEND_TOKEN");
 }
 
 function parseBody(req) {
@@ -106,12 +140,7 @@ function buildEmailHtml(payload) {
 }
 
 async function sendViaResend(payload) {
-  const apiKey = String(
-    process.env.RESEND_API_KEY ||
-      process.env.RESEND_KEY ||
-      process.env.RESEND_TOKEN ||
-      ""
-  ).trim();
+  const apiKey = resendApiKey();
   if (!apiKey) {
     return {
       ok: false,
@@ -121,8 +150,8 @@ async function sendViaResend(payload) {
     };
   }
 
-  const to = String(process.env.BOOKING_TO_EMAIL || DEFAULT_TO_EMAIL).trim();
-  const from = String(process.env.BOOKING_FROM_EMAIL || DEFAULT_FROM_EMAIL).trim();
+  const to = envString("BOOKING_TO_EMAIL", DEFAULT_TO_EMAIL);
+  const from = envString("BOOKING_FROM_EMAIL", DEFAULT_FROM_EMAIL_RESEND);
   const subject = `[Booking ${asText(payload?.reference, "zonder-ref")}] ${asText(payload?.bookingType)} - ${asText(payload?.event?.city)}`;
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -159,6 +188,95 @@ async function sendViaResend(payload) {
   };
 }
 
+async function sendViaSmtp(payload) {
+  if (!hasSmtpConfig()) {
+    return {
+      ok: false,
+      status: 503,
+      message:
+        "SMTP config ontbreekt. Zet BOOKING_SMTP_HOST, BOOKING_SMTP_PORT, BOOKING_SMTP_SECURE, BOOKING_SMTP_USER en BOOKING_SMTP_PASS in Vercel Environment Variables."
+    };
+  }
+
+  const cfg = smtpSettings();
+  const to = envString("BOOKING_TO_EMAIL", DEFAULT_TO_EMAIL);
+  const from = envString("BOOKING_FROM_EMAIL", DEFAULT_FROM_EMAIL_SMTP);
+  const subject = `[Booking ${asText(payload?.reference, "zonder-ref")}] ${asText(payload?.bookingType)} - ${asText(payload?.event?.city)}`;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: cfg.host,
+      port: cfg.port,
+      secure: cfg.secure,
+      auth: {
+        user: cfg.user,
+        pass: cfg.pass
+      }
+    });
+
+    const info = await transporter.sendMail({
+      from,
+      to,
+      replyTo: asText(payload?.contact?.email, ""),
+      subject,
+      text: buildEmailBody(payload),
+      html: buildEmailHtml(payload)
+    });
+
+    return {
+      ok: true,
+      status: 200,
+      message: "Mail verzonden.",
+      providerId: info?.messageId || ""
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      status: 502,
+      message: `SMTP kon de mail niet versturen. ${asText(error?.message, "Onbekende fout.")}`
+    };
+  }
+}
+
+async function dispatchBookingEmail(payload) {
+  const preference = bookingProviderPreference();
+
+  if (preference === "smtp") {
+    return sendViaSmtp(payload);
+  }
+
+  if (preference === "resend") {
+    return sendViaResend(payload);
+  }
+
+  // auto: probeer SMTP eerst, daarna Resend als fallback
+  if (hasSmtpConfig()) {
+    const smtpResult = await sendViaSmtp(payload);
+    if (smtpResult.ok) return smtpResult;
+    if (resendApiKey()) {
+      const resendResult = await sendViaResend(payload);
+      if (resendResult.ok) return resendResult;
+      return {
+        ok: false,
+        status: resendResult.status || smtpResult.status || 500,
+        message: `${smtpResult.message} | Resend fallback: ${resendResult.message}`
+      };
+    }
+    return smtpResult;
+  }
+
+  if (resendApiKey()) {
+    return sendViaResend(payload);
+  }
+
+  return {
+    ok: false,
+    status: 503,
+    message:
+      "Geen mailprovider geconfigureerd. Configureer SMTP (BOOKING_SMTP_*) of Resend (RESEND_API_KEY) in Vercel."
+  };
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -179,7 +297,7 @@ export default async function handler(req, res) {
     return res.status(422).json({ ok: false, message: "Verplichte velden ontbreken in booking payload." });
   }
 
-  const result = await sendViaResend(payload);
+  const result = await dispatchBookingEmail(payload);
   if (!result.ok) {
     return res.status(result.status || 500).json({ ok: false, message: result.message || "Mail kon niet verstuurd worden." });
   }

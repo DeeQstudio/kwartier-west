@@ -55,9 +55,24 @@ If `bookingWebhook.enabled=true`, booking submissions are POSTed automatically f
 ## Booking email delivery (Vercel)
 The project includes a server-side endpoint at `/api/bookings` for direct booking email delivery.
 
-Set these environment variables in Vercel:
-- `RESEND_API_KEY` (required)
-- `BOOKING_TO_EMAIL` (optional, default: `kwrtr.west@gmail.com`)
-- `BOOKING_FROM_EMAIL` (optional, default: `Kwartier West <onboarding@resend.dev>`)
+Supported providers:
+- `smtp` (recommended if you already have a mailbox, e.g. one.com)
+- `resend`
+- `auto` (default): tries SMTP first, then Resend fallback
 
-Without `RESEND_API_KEY`, booking submissions will fail with a clear error message.
+Set these environment variables in Vercel:
+- `BOOKING_PROVIDER` = `auto` | `smtp` | `resend` (optional, default: `auto`)
+- `BOOKING_TO_EMAIL` (optional, default: `kwrtr.west@gmail.com`)
+- `BOOKING_FROM_EMAIL` (optional; for SMTP default is `Kwartier West <info@kwartierwest.be>`, for Resend default is `Kwartier West <onboarding@resend.dev>`)
+
+SMTP variables:
+- `BOOKING_SMTP_HOST`
+- `BOOKING_SMTP_PORT` (e.g. `587`)
+- `BOOKING_SMTP_SECURE` (`true` for SSL/465, `false` for STARTTLS/587)
+- `BOOKING_SMTP_USER`
+- `BOOKING_SMTP_PASS`
+
+Resend variables:
+- `RESEND_API_KEY` (or `RESEND_KEY` / `RESEND_TOKEN`)
+
+Without valid SMTP or Resend configuration, booking submissions return a clear configuration error.

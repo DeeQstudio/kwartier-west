@@ -12,5 +12,8 @@
     "seo-build": "npm run artist-pages && npm run event-pages && npm run sitemap",
     "site-check": "node scripts/site-check.mjs",
     "check": "npm run validate && npm run i18n-check && npm run site-check"
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.1"
   }
 }
