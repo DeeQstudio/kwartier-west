@@ -80,7 +80,7 @@
     const socialMount = document.querySelector("[data-contact-socials]");
     if (socialMount) {
       const fallbackLinks = [
-        { platform: "email", label: "Mail", url: "mailto:kwrtr.west@gmail.com" },
+        { platform: "email", label: "Mail", url: "mailto:info@kwartierwest.be" },
         { platform: "instagram", label: "@kwtr_west", url: "https://www.instagram.com/kwtr_west/" },
         { platform: "facebook", label: "Kwartier West", url: "https://www.facebook.com/profile.php?id=61557994985369" },
         { platform: "soundcloud", label: "Kwartier West", url: "https://soundcloud.com/kwartier-west" }
@@ -96,7 +96,7 @@
         .then((partnersData) => {
           const partners = Array.isArray(partnersData?.partners) ? partnersData.partners : [];
           const channels = partners.find((partner) => partner?.slug === "kwartier-west-channels");
-          const links = [{ platform: "email", label: "Mail", url: "mailto:kwrtr.west@gmail.com" }, ...(channels?.links || [])];
+          const links = [{ platform: "email", label: "Mail", url: "mailto:info@kwartierwest.be" }, ...(channels?.links || [])];
           if (links.length > 1) mountSocials(links);
         })
         .catch(() => {

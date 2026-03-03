@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const DEFAULT_TO_EMAIL = "kwrtr.west@gmail.com";
+const DEFAULT_TO_EMAIL = "info@kwartierwest.be";
 const DEFAULT_FROM_EMAIL_SMTP = "Kwartier West <info@kwartierwest.be>";
 const DEFAULT_FROM_EMAIL_RESEND = "Kwartier West <onboarding@resend.dev>";
 

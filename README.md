@@ -62,7 +62,7 @@ Supported providers:
 
 Set these environment variables in Vercel:
 - `BOOKING_PROVIDER` = `auto` | `smtp` | `resend` (optional, default: `auto`)
-- `BOOKING_TO_EMAIL` (optional, default: `kwrtr.west@gmail.com`)
+- `BOOKING_TO_EMAIL` (optional, default: `info@kwartierwest.be`)
 - `BOOKING_FROM_EMAIL` (optional; for SMTP default is `Kwartier West <info@kwartierwest.be>`, for Resend default is `Kwartier West <onboarding@resend.dev>`)
 
 SMTP variables:
