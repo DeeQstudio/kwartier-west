@@ -106,12 +106,18 @@ function buildEmailHtml(payload) {
 }
 
 async function sendViaResend(payload) {
-  const apiKey = String(process.env.RESEND_API_KEY || "").trim();
+  const apiKey = String(
+    process.env.RESEND_API_KEY ||
+      process.env.RESEND_KEY ||
+      process.env.RESEND_TOKEN ||
+      ""
+  ).trim();
   if (!apiKey) {
     return {
       ok: false,
       status: 503,
-      message: "RESEND_API_KEY ontbreekt in de omgeving."
+      message:
+        "Resend key ontbreekt. Zet RESEND_API_KEY (of RESEND_KEY / RESEND_TOKEN) in Vercel Environment Variables."
     };
   }
 

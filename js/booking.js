@@ -265,18 +265,27 @@ async function pushBookingWebhook(payload, { baseDepth = 0 } = {}) {
       timeoutMs: Number(webhook.timeoutMs || 9000),
       headers
     });
+    const rawBody = result?.body;
+    const responseMessage =
+      typeof rawBody === "string"
+        ? rawBody.trim()
+        : typeof rawBody?.message === "string"
+          ? rawBody.message.trim()
+          : "";
 
     return {
       attempted: true,
       ok: result.ok,
-      status: result.status
+      status: result.status,
+      message: responseMessage || ""
     };
   } catch (error) {
     console.error(error);
     return {
       attempted: true,
       ok: false,
-      status: 0
+      status: 0,
+      message: String(error?.message || "").trim()
     };
   }
 }
@@ -290,9 +299,11 @@ function renderWebhookStatus(webhookResult) {
     return `<p class="muted">${t("booking.result.webhookOk")}</p>`;
   }
 
-  const detail = webhookResult?.status
+  const statusDetail = webhookResult?.status
     ? t("booking.result.webhookHttp", { status: webhookResult.status })
     : t("booking.result.webhookNetwork");
+  const rawMessage = String(webhookResult?.message || "").trim();
+  const detail = rawMessage ? `${statusDetail} - ${escapeHTML(rawMessage)}` : statusDetail;
 
   return `<p class="error-text" role="alert">${t("booking.result.webhookFail")}: ${escapeHTML(detail)}</p>`;
 }
