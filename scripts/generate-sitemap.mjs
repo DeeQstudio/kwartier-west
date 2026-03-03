@@ -16,7 +16,6 @@ const staticRoutes = [
   "/pages/tekno/booking.html",
   "/pages/hiphop/booking.html",
   "/pages/tickets/index.html",
-  "/pages/shop/index.html",
   "/pages/partners/index.html",
   "/pages/contact/index.html",
   "/pages/manifest/index.html"
@@ -80,8 +79,8 @@ async function buildRoutes() {
     fs.readFile(path.join(rootDir, "data", "artists.json"), "utf8"),
     fs.readFile(path.join(rootDir, "data", "events.json"), "utf8")
   ]);
-  const artistData = JSON.parse(artistDataRaw);
-  const eventsData = JSON.parse(eventsDataRaw);
+  const artistData = JSON.parse(String(artistDataRaw || "").replace(/^\uFEFF/, ""));
+  const eventsData = JSON.parse(String(eventsDataRaw || "").replace(/^\uFEFF/, ""));
   const updatedAt = normalizeDate(artistData?.updatedAt || new Date().toISOString());
   const routes = new Set(staticRoutes);
 

@@ -17,7 +17,6 @@ export function renderFooter({ baseDepth = 0 } = {}) {
           <p class="kw-footer__title">${t("footer.title.platform")}</p>
           <a class="kw-footer__link" href="${prefix}pages/events/index.html">${t("nav.events")}</a>
           <a class="kw-footer__link" href="${prefix}pages/booking/index.html">${t("nav.bookingDesk")}</a>
-          <a class="kw-footer__link" href="${prefix}pages/shop/index.html">${t("nav.shop")}</a>
           <a class="kw-footer__link" href="${prefix}pages/tickets/index.html">${t("tickets.hero.title")}</a>
         </section>
 

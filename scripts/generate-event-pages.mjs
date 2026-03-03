@@ -312,8 +312,8 @@ async function main() {
     fs.readFile(artistsFile, "utf8")
   ]);
 
-  const eventsData = JSON.parse(eventsRaw);
-  const artistsData = JSON.parse(artistsRaw);
+  const eventsData = JSON.parse(String(eventsRaw || "").replace(/^\uFEFF/, ""));
+  const artistsData = JSON.parse(String(artistsRaw || "").replace(/^\uFEFF/, ""));
   const artistMap = buildArtistMap(artistsData);
 
   const entries = [];

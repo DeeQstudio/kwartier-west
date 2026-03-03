@@ -1,12 +1,7 @@
-{
-    "updatedAt":  "2026-02-24T16:26:00Z",
+﻿{
+    "updatedAt":  "2026-03-03T11:56:41Z",
     "sources":  {
                     "tekno":  [
-                                  {
-                                      "platform":  "Instagram",
-                                      "account":  "@kwtr_west",
-                                      "url":  "https://www.instagram.com/kwtr_west"
-                                  },
                                   {
                                       "platform":  "Facebook",
                                       "account":  "Kwartier West",
@@ -15,11 +10,6 @@
                               ],
                     "hiphop":  [
                                    {
-                                       "platform":  "Instagram",
-                                       "account":  "@kwtr_west",
-                                       "url":  "https://www.instagram.com/kwtr_west"
-                                   },
-                                   {
                                        "platform":  "Facebook",
                                        "account":  "Kwartier West",
                                        "url":  "https://www.facebook.com/profile.php?id=61557994985369"
@@ -27,68 +17,6 @@
                                ]
                 },
     "tekno":  [
-                  {
-                      "id":  "tek-pressure-unit-2026-03-14",
-                      "title":  "Pressure Unit - Roeselare",
-                      "date":  "2026-03-14",
-                      "time":  "23:00",
-                      "region":  "Roeselare",
-                      "venue":  "Warehouselocatie (invite release)",
-                      "status":  "Komend",
-                      "lineup":  [
-                                     {
-                                         "slug":  "onschuldig"
-                                     },
-                                     {
-                                         "slug":  "hyperion"
-                                     },
-                                     {
-                                         "slug":  "mombietekk"
-                                     }
-                                 ],
-                      "tickets":  {
-                                      "mode":  "external",
-                                      "label":  "Reserveer plaats",
-                                      "url":  "https://www.instagram.com/kwtr_west"
-                                  },
-                      "source":  {
-                                     "platform":  "Instagram",
-                                     "url":  "https://www.instagram.com/kwtr_west",
-                                     "syncedAt":  "2026-02-23T18:05:00Z"
-                                 },
-                      "notes":  "Definitief adres wordt op de eventdag gedeeld met bevestigde aanwezigen."
-                  },
-                  {
-                      "id":  "tek-east-yard-2026-04-04",
-                      "title":  "East Yard Sessions",
-                      "date":  "2026-04-04",
-                      "time":  "22:30",
-                      "region":  "Gent",
-                      "venue":  "East Yard",
-                      "status":  "Komend",
-                      "lineup":  [
-                                     {
-                                         "slug":  "woebn"
-                                     },
-                                     {
-                                         "slug":  "spoorloos"
-                                     },
-                                     {
-                                         "slug":  "kulture"
-                                     }
-                                 ],
-                      "tickets":  {
-                                      "mode":  "internal",
-                                      "label":  "Vraag toegang",
-                                      "url":  ""
-                                  },
-                      "source":  {
-                                     "platform":  "Instagram",
-                                     "url":  "https://www.instagram.com/kwtr_west",
-                                     "syncedAt":  "2026-02-23T18:05:00Z"
-                                 },
-                      "notes":  "Toegang enkel op lijst met beperkte capaciteit."
-                  },
                   {
                       "id":  "tek-teknorelics-eye-of-the-temple-2026-03-28",
                       "title":  "Teknorelics: Eye of the Temple",
@@ -131,188 +59,9 @@
                                      "syncedAt":  "2026-02-24T16:02:00Z"
                                  },
                       "notes":  "Teknorelics-nacht met multi-artiest line-up in Het Entrepot, Brugge."
-                  },
-                  {
-                      "id":  "tek-westfront-ii-2025-07-19",
-                      "title":  "Westfront II",
-                      "date":  "2025-07-19",
-                      "time":  "20:00",
-                      "region":  "Roeselare",
-                      "venue":  "TRAX concertgebouw",
-                      "status":  "Voorbij",
-                      "lineup":  [
-                                     {
-                                         "slug":  "mombietekk"
-                                     },
-                                     {
-                                         "slug":  "spoorloos"
-                                     },
-                                     {
-                                         "name":  "Alexer \u0026 Bwart"
-                                     },
-                                     {
-                                         "name":  "Eli"
-                                     },
-                                     {
-                                         "name":  "Radze"
-                                     },
-                                     {
-                                         "slug":  "kulture"
-                                     },
-                                     {
-                                         "slug":  "masschie"
-                                     },
-                                     {
-                                         "slug":  "hyperion"
-                                     },
-                                     {
-                                         "slug":  "woebn"
-                                     },
-                                     {
-                                         "name":  "Xinnix \u0026 Schizotek"
-                                     }
-                                 ],
-                      "tickets":  {
-                                      "mode":  "tba",
-                                      "label":  "Tickets",
-                                      "url":  ""
-                                  },
-                      "source":  {
-                                     "platform":  "Midwest",
-                                     "url":  "https://www.midwest.be/activiteiten/detail/28861/westfront-ii",
-                                     "syncedAt":  "2026-02-24T16:26:00Z"
-                                 },
-                      "notes":  "Kwartier West-event in samenwerking met regionale soundsystems. Deuren 20:00."
-                  },
-                  {
-                      "id":  "tek-perron23-2025-12-13",
-                      "title":  "Perron23",
-                      "date":  "2025-12-13",
-                      "time":  "21:00",
-                      "region":  "Ganshoren",
-                      "venue":  "Jeugdhuis Tongeluk",
-                      "status":  "Voorbij",
-                      "lineup":  [
-                                     {
-                                         "slug":  "kulture"
-                                     },
-                                     {
-                                         "name":  "Lillie"
-                                     },
-                                     {
-                                         "name":  "Nate23"
-                                     },
-                                     {
-                                         "name":  "Anneloog"
-                                     },
-                                     {
-                                         "name":  "W1LDCARD"
-                                     },
-                                     {
-                                         "name":  "Survitek"
-                                     },
-                                     {
-                                         "name":  "Yoene303"
-                                     }
-                                 ],
-                      "tickets":  {
-                                      "mode":  "tba",
-                                      "label":  "Tickets",
-                                      "url":  ""
-                                  },
-                      "source":  {
-                                     "platform":  "AllEvents",
-                                     "url":  "https://allevents.in/ganshoren/perron23/200029152074138",
-                                     "syncedAt":  "2026-02-24T16:26:00Z"
-                                 },
-                      "notes":  "Kwartier West x Spoorloos Soundsystem samenwerkingsnacht."
                   }
               ],
     "hiphop":  [
-                   {
-                       "id":  "hiphop-showcase-bruges-2026-03-07",
-                       "title":  "West Mic Showcase",
-                       "date":  "2026-03-07",
-                       "time":  "20:30",
-                       "region":  "Brugge",
-                       "venue":  "Clubruimte",
-                       "status":  "Komend",
-                       "lineup":  [
-                                      {
-                                          "slug":  "de-kweker"
-                                      },
-                                      {
-                                          "slug":  "mc-tubbie"
-                                      },
-                                      {
-                                          "slug":  "thepanda"
-                                      }
-                                  ],
-                       "tickets":  {
-                                       "mode":  "external",
-                                       "label":  "Koop tickets",
-                                       "url":  "https://www.instagram.com/kwtr_west"
-                                   },
-                       "source":  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/kwtr_west",
-                                      "syncedAt":  "2026-02-23T18:05:00Z"
-                                  },
-                       "notes":  "Deuren 19:30. Beperkte pre-sale beschikbaar."
-                   },
-                   {
-                       "id":  "hiphop-band-night-2026-04-11",
-                       "title":  "Live Pen Session",
-                       "date":  "2026-04-11",
-                       "time":  "21:00",
-                       "region":  "Kortrijk",
-                       "venue":  "Stagebox",
-                       "status":  "Komend",
-                       "lineup":  [
-                                      {
-                                          "slug":  "duvve"
-                                      },
-                                      {
-                                          "slug":  "bruce"
-                                      },
-                                      {
-                                          "slug":  "creamz"
-                                      }
-                                  ],
-                       "tickets":  {
-                                       "mode":  "internal",
-                                       "label":  "Vraag toegang",
-                                       "url":  ""
-                                   },
-                       "source":  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/kwtr_west",
-                                      "syncedAt":  "2026-02-23T18:05:00Z"
-                                  },
-                       "notes":  "Hybride showcase met DJ- en live-segmenten."
-                   },
-                   {
-                       "id":  "hiphop-bambino-goes-west-2025-07-05",
-                       "title":  "Bambino Goes West",
-                       "date":  "2025-07-05",
-                       "time":  "17:00",
-                       "region":  "Roeselare",
-                       "venue":  "Bambino cafe",
-                       "status":  "Voorbij",
-                       "lineup":  [
 
-                                  ],
-                       "tickets":  {
-                                       "mode":  "tba",
-                                       "label":  "Tickets",
-                                       "url":  ""
-                                   },
-                       "source":  {
-                                      "platform":  "AllEvents",
-                                      "url":  "https://allevents.in/roeselare/bambino-goes-west/200028396260123",
-                                      "syncedAt":  "2026-02-24T16:26:00Z"
-                                  },
-                       "notes":  "Voorbij Kwartier West-event in Roeselare."
-                   }
                ]
 }

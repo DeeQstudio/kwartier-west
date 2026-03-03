@@ -28,6 +28,26 @@
       "permanent": true
     },
     {
+      "source": "/pages/shop",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/pages/shop/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/pages/shop/index.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/pages/shop/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/pages/hiphop/artist/:slug/index.html",
       "destination": "/pages/hiphop/artist/:slug",
       "permanent": true
