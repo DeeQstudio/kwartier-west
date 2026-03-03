@@ -42,6 +42,12 @@ function renderPartnerMark(partner, baseDepth) {
   `;
 }
 
+function firstExternalLink(partner) {
+  const links = asArray(partner?.links);
+  const item = links.find((link) => /^https?:\/\//i.test(String(link?.url || "")));
+  return item ? String(item.url).trim() : "";
+}
+
 function partnerCard(partner, baseDepth) {
   const name = escapeHTML(partner?.name || "Partner");
   const type = escapeHTML(partner?.type || "");
@@ -51,16 +57,22 @@ function partnerCard(partner, baseDepth) {
     limit: 5,
     className: "partner-card__socials"
   });
-
-  return `
-    <article class="tile-card tile-card--partner">
-      <div class="partner-card__head">
-        ${renderPartnerMark(partner, baseDepth)}
-
+  const externalUrl = firstExternalLink(partner);
+  const hasExternal = Boolean(externalUrl);
+  const safeUrl = escapeHTML(externalUrl);
+  const titleMarkup = `
         <div class="partner-card__title">
           <h3>${name}</h3>
           ${type ? `<p class="muted">${type}</p>` : ""}
         </div>
+      `;
+  const headMark = renderPartnerMark(partner, baseDepth);
+
+  return `
+    <article class="tile-card tile-card--partner">
+      <div class="partner-card__head">
+        ${hasExternal ? `<a class="partner-card__logo-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer" aria-label="${name}">${headMark}</a>` : headMark}
+        ${hasExternal ? `<a class="partner-card__title-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${titleMarkup}</a>` : titleMarkup}
       </div>
 
       ${region ? `<p class="partner-card__meta muted">${region}</p>` : ""}

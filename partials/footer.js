@@ -41,7 +41,10 @@ export function renderFooter({ baseDepth = 0 } = {}) {
           <span class="kw-footer__note">${t("footer.note.privacySoon")}</span>
           <span class="kw-footer__note">${t("footer.note.termsSoon")}</span>
           <a class="kw-footer__link" href="mailto:info@kwartierwest.be">info@kwartierwest.be</a>
-          <span class="kw-footer__powered">${t("landing.footer.powered")}</span>
+          <a class="kw-footer__powered" href="https://www.deeqstudio.com" target="_blank" rel="noopener noreferrer" aria-label="${t("landing.footer.powered")}">
+            <span class="kw-footer__powered-prefix">${t("landing.footer.poweredPrefix")}</span>
+            <img class="kw-footer__powered-logo" src="${prefix}assets/partners/deeqstudio-wordmark.svg" alt="DeeQstudio">
+          </a>
         </section>
       </div>
     </footer>

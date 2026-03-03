@@ -502,8 +502,7 @@ body.landing::before {
   padding-top: 0.48rem;
 }
 
-.portal-footer a,
-.portal-footer span {
+.portal-footer a {
   text-decoration: none;
   font-family: "Space Mono", monospace;
   text-transform: uppercase;
@@ -517,14 +516,29 @@ body.landing::before {
   align-items: center;
 }
 
+.portal-footer__powered {
+  border-bottom-color: rgba(227, 13, 13, 0.36);
+  padding: 0.34rem 0.5rem;
+  gap: 0.34rem;
+}
+
+.portal-footer__powered-prefix {
+  font-family: "Space Mono", monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.portal-footer__powered img {
+  height: clamp(0.64rem, 0.8vw, 0.72rem);
+  width: auto;
+  display: block;
+}
+
 .portal-footer a:hover,
 .portal-footer a:focus-visible {
   border-bottom-color: color-mix(in srgb, var(--accent) 84%, #ffffff);
-}
-
-.portal-footer span {
-  color: #cbcbcb;
-  border-bottom-color: rgba(227, 13, 13, 0.36);
 }
 
 @keyframes hero-mist-drift {

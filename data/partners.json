@@ -105,8 +105,13 @@
                                   ],
                          "links":  [
                                        {
+                                           "platform":  "website",
+                                           "label":  "deeqstudio.com",
+                                           "url":  "https://www.deeqstudio.com/"
+                                       },
+                                       {
                                            "platform":  "email",
-                                           "label":  "Studio",
+                                           "label":  "info@deeqstudio.com",
                                            "url":  "mailto:info@deeqstudio.com"
                                        }
                                    ]

@@ -688,10 +688,34 @@ textarea {
 
 .kw-footer__powered {
   margin-top: 0.14rem;
+  width: max-content;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(227, 13, 13, 0.36);
+  padding-bottom: 0.16rem;
+}
+
+.kw-footer__powered-prefix {
   font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: #e5e5e5;
+  color: #d6d6d6;
+  line-height: 1;
+}
+
+.kw-footer__powered-logo {
+  height: clamp(0.72rem, 0.9vw, 0.82rem);
+  width: auto;
+  display: block;
+}
+
+.kw-footer__powered:hover,
+.kw-footer__powered:focus-visible {
+  border-bottom-color: var(--accent);
 }
 
 @media (max-height: 860px) and (min-width: 981px) {
@@ -1544,6 +1568,23 @@ button.chip-link:hover {
   grid-template-columns: auto 1fr;
   gap: 0.62rem;
   align-items: center;
+}
+
+.partner-card__logo-link {
+  text-decoration: none;
+  width: max-content;
+  max-width: 100%;
+  display: inline-grid;
+}
+
+.partner-card__title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.partner-card__title-link:hover h3,
+.partner-card__title-link:focus-visible h3 {
+  color: #fff;
 }
 
 .partner-card__mark {
