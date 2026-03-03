@@ -44,6 +44,10 @@ function routeToFilePath(route) {
   if (artistMatch) {
     return path.join(rootDir, "pages", artistMatch[1], "artist.html");
   }
+  const eventMatch = plainRoute.match(/^\/pages\/events\/detail\/([^/]+)$/);
+  if (eventMatch?.[1]) {
+    return path.join(rootDir, "pages", "events", "detail", decodeURIComponent(eventMatch[1]), "index.html");
+  }
   return path.join(rootDir, plainRoute.replace(/^\//, ""));
 }
 
@@ -72,9 +76,12 @@ function buildChangefreq(route) {
 }
 
 async function buildRoutes() {
-  const artistDataPath = path.join(rootDir, "data", "artists.json");
-  const artistDataRaw = await fs.readFile(artistDataPath, "utf8");
+  const [artistDataRaw, eventsDataRaw] = await Promise.all([
+    fs.readFile(path.join(rootDir, "data", "artists.json"), "utf8"),
+    fs.readFile(path.join(rootDir, "data", "events.json"), "utf8")
+  ]);
   const artistData = JSON.parse(artistDataRaw);
+  const eventsData = JSON.parse(eventsDataRaw);
   const updatedAt = normalizeDate(artistData?.updatedAt || new Date().toISOString());
   const routes = new Set(staticRoutes);
 
@@ -84,6 +91,24 @@ async function buildRoutes() {
       const slug = String(artist?.slug || "").trim().toLowerCase();
       if (!slug) continue;
       routes.add(`/pages/${sideKey}/artist/${encodeURIComponent(slug)}`);
+    }
+  }
+
+  const normalizeEventSlug = (value = "") =>
+    String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9\-_.\s]/g, "")
+      .replace(/[\s_]+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  for (const sideKey of ["tekno", "hiphop"]) {
+    const events = Array.isArray(eventsData?.[sideKey]) ? eventsData[sideKey] : [];
+    for (const eventItem of events) {
+      const slug = normalizeEventSlug(eventItem?.id || eventItem?.title || "");
+      if (!slug) continue;
+      routes.add(`/pages/events/detail/${encodeURIComponent(slug)}`);
     }
   }
 

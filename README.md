@@ -31,11 +31,14 @@ Production-grade frontend for Kwartier West.
 ## Commands
 - `npm run dev`
 - `npm run validate`
+- `npm run artist-pages`
+- `npm run event-pages`
+- `npm run seo-build`
 - `npm run site-check`
 - `npm run check`
 
 ## Internationalization
-- Base language: English.
+- Base language: Dutch (nl-BE).
 - Language switch is available globally in the navigation and on the landing page.
 - Language preference is saved in local storage and also synced via `?lang=<code>` in the URL.
 - Core UI translations are provided for: `en`, `nl`, `fr`, `de`, `es`, `pt`, `it`, `pl`, `ru`, `tr`, `ar`, `zh`.

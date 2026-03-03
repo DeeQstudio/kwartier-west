@@ -48,6 +48,16 @@
       "permanent": true
     },
     {
+      "source": "/pages/events/detail/:slug/index.html",
+      "destination": "/pages/events/detail/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/pages/events/detail/:slug/",
+      "destination": "/pages/events/detail/:slug",
+      "permanent": true
+    },
+    {
       "source": "/pages/hiphop/artist.html",
       "has": [
         {
@@ -70,6 +80,16 @@
       ],
       "destination": "/pages/tekno/artist/:slug",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/pages/:side(tekno|hiphop)/artist/:slug",
+      "destination": "/pages/:side/artist/:slug/index.html"
+    },
+    {
+      "source": "/pages/events/detail/:slug",
+      "destination": "/pages/events/detail/:slug/index.html"
     }
   ],
   "headers": [

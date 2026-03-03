@@ -6,8 +6,10 @@
     "dev": "npx --yes http-server -c-1 -p 5173 .",
     "validate": "node data/validate.mjs",
     "artist-pages": "node scripts/generate-artist-pages.mjs",
+    "event-pages": "node scripts/generate-event-pages.mjs",
     "i18n-check": "node scripts/i18n-check.mjs",
     "sitemap": "node scripts/generate-sitemap.mjs",
+    "seo-build": "npm run artist-pages && npm run event-pages && npm run sitemap",
     "site-check": "node scripts/site-check.mjs",
     "check": "npm run validate && npm run i18n-check && npm run site-check"
   }

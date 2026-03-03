@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
     <loc>https://kwartierwest.be/</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -14,9 +14,57 @@
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/contact/index.html</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+<url>
+    <loc>https://kwartierwest.be/pages/events/detail/hiphop-bambino-goes-west-2025-07-05</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+<url>
+    <loc>https://kwartierwest.be/pages/events/detail/hiphop-band-night-2026-04-11</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+<url>
+    <loc>https://kwartierwest.be/pages/events/detail/hiphop-showcase-bruges-2026-03-07</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+<url>
+    <loc>https://kwartierwest.be/pages/events/detail/tek-east-yard-2026-04-04</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+<url>
+    <loc>https://kwartierwest.be/pages/events/detail/tek-perron23-2025-12-13</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+<url>
+    <loc>https://kwartierwest.be/pages/events/detail/tek-pressure-unit-2026-03-14</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+<url>
+    <loc>https://kwartierwest.be/pages/events/detail/tek-teknorelics-eye-of-the-temple-2026-03-28</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+<url>
+    <loc>https://kwartierwest.be/pages/events/detail/tek-westfront-ii-2025-07-19</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/events/index.html</loc>
@@ -26,43 +74,43 @@
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/hiphop/artist/bruce</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/hiphop/artist/creamz</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/hiphop/artist/de-kweker</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/hiphop/artist/duvve</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/hiphop/artist/mc-tubbie</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/hiphop/artist/thepanda</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/hiphop/artist/thorre</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -98,73 +146,73 @@
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/alexer</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/hyperion</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/jenesaispas</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/kulture</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/kumatekz</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/masschie</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/mombietekk</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/noratn</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/onschuldig</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/psamtek</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/spoorloos</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/artist/woebn</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -176,7 +224,7 @@
   </url>
 <url>
     <loc>https://kwartierwest.be/pages/tekno/index.html</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

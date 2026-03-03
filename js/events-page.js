@@ -5,7 +5,7 @@ import {
   normalizeLineup,
   splitEventsByDate
 } from "./core/content-api.js";
-import { artistPath, escapeHTML, formatDateTime, sideLabel, sideShortLabel } from "./core/format.js";
+import { artistPath, escapeHTML, eventPath, formatDateTime, sideLabel, sideShortLabel } from "./core/format.js";
 import { t } from "./core/i18n.js";
 
 function localizedEventStatus(eventItem) {
@@ -57,6 +57,7 @@ function sourceMarkup(eventItem) {
 
 function featuredCard(eventItem, artistsData) {
   const title = escapeHTML(eventItem?.title || t("events.untitled"));
+  const detailHref = escapeHTML(eventPath(eventItem?.id || ""));
   const meta = escapeHTML(formatDateTime(eventItem?.date, eventItem?.time));
   const location = [eventItem?.region, eventItem?.venue].filter(Boolean).map(escapeHTML).join(" - ");
 
@@ -67,12 +68,13 @@ function featuredCard(eventItem, artistsData) {
         <span class="status-pill">${escapeHTML(localizedEventStatus(eventItem))}</span>
       </div>
 
-      <h3>${title}</h3>
+      <h3><a class="inline-link" href="${detailHref}">${title}</a></h3>
       <p class="feature-card__meta">${meta}${location ? ` <span class="dot-sep"></span> ${location}` : ""}</p>
 
       <p class="feature-card__lineup"><span class="muted">${t("events.lineup")}:</span> ${listLineup(eventItem, artistsData)}</p>
 
       <div class="inline-actions">
+        <a class="chip-link" href="${detailHref}">Bekijk event</a>
         ${ticketCTA(eventItem)}
         <a class="chip-link" href="../${escapeHTML(eventItem.sideKey)}/booking.html?type=collective_side">${t("events.bookSide", { side: escapeHTML(sideLabel(eventItem.sideKey)) })}</a>
         ${sourceMarkup(eventItem)}
@@ -82,6 +84,7 @@ function featuredCard(eventItem, artistsData) {
 }
 
 function listItem(eventItem, artistsData) {
+  const detailHref = escapeHTML(eventPath(eventItem?.id || ""));
   const dateLabel = escapeHTML(formatDateTime(eventItem?.date, eventItem?.time));
   const location = [eventItem?.region, eventItem?.venue].filter(Boolean).map(escapeHTML).join(" - ");
   const sideChip = `<span class="status-pill">${escapeHTML(sideShortLabel(eventItem.sideKey))}</span>`;
@@ -91,7 +94,7 @@ function listItem(eventItem, artistsData) {
   return `
     <article class="event-card" data-side="${escapeHTML(eventItem.sideKey)}" data-scope="${eventItem.__isPast ? "past" : "upcoming"}">
       <div class="event-card__main">
-        <h3 class="event-card__title">${escapeHTML(eventItem?.title || t("events.untitled"))}</h3>
+        <h3 class="event-card__title"><a class="inline-link" href="${detailHref}">${escapeHTML(eventItem?.title || t("events.untitled"))}</a></h3>
         <p class="event-card__meta">${dateLabel}${location ? ` <span class="dot-sep"></span> ${location}` : ""}</p>
         <p class="event-card__lineup"><span class="event-card__label">${t("events.lineup")}:</span> ${listLineup(eventItem, artistsData)}</p>
         ${source ? `<p class="event-card__source">${source}</p>` : ""}
@@ -100,6 +103,9 @@ function listItem(eventItem, artistsData) {
       <div class="event-card__actions">
         <div class="event-card__badges">${sideChip}${statusChip}</div>
         <div class="event-card__cta-group">
+          <div class="event-card__cta">
+            <a class="chip-link" href="${detailHref}">Bekijk event</a>
+          </div>
           <div class="event-card__cta">${ticketCTA(eventItem)}</div>
           <div class="event-card__cta">
             <a class="chip-link" href="../${escapeHTML(eventItem.sideKey)}/booking.html?type=collective_side">${t("events.bookSide", {

@@ -136,6 +136,21 @@ export function artistPath(sideKey, slug = "") {
   return `/pages/${side}/artist/${encoded}`;
 }
 
+export function normalizeEventSlug(value = "") {
+  const normalized = normalizeSlug(value)
+    .replace(/[^a-z0-9\-_.\s]/g, "")
+    .replace(/[\s_]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return normalized;
+}
+
+export function eventPath(slug = "") {
+  const normalized = normalizeEventSlug(slug);
+  if (!normalized) return "/pages/events/index.html";
+  return `/pages/events/detail/${encodeURIComponent(normalized)}`;
+}
+
 export function pluralize(count, singular, plural) {
   return count === 1 ? singular : plural;
 }
