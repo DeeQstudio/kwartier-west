@@ -1,7 +1,7 @@
 import { findArtistBySlug, loadArtists } from "./core/content-api.js";
 import { artistPath, asArray, decodeHTMLEntities, escapeHTML, normalizeSlug, sideLabel } from "./core/format.js";
 import { t } from "./core/i18n.js";
-import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260226c";
+import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260304d";
 
 function getSlug() {
   const params = new URLSearchParams(window.location.search);
