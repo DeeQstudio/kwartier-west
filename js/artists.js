@@ -1,7 +1,7 @@
 import { loadArtists, pickSideCollection } from "./core/content-api.js";
 import { artistPath, asArray, escapeHTML, normalizeSlug } from "./core/format.js";
 import { t } from "./core/i18n.js";
-import { renderSocialRail } from "./core/social-links.js?v=20260304f";
+import { renderSocialRail } from "./core/social-links.js?v=20260304g";
 
 function artistSort(a, b) {
   const aLead = Boolean(a?.lead);

@@ -1,7 +1,7 @@
 import { findArtistBySlug, loadArtists } from "./core/content-api.js";
 import { artistPath, asArray, decodeHTMLEntities, escapeHTML, normalizeSlug, sideLabel } from "./core/format.js";
 import { t } from "./core/i18n.js";
-import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260304f";
+import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260304g";
 
 function getSlug() {
   const params = new URLSearchParams(window.location.search);
@@ -128,7 +128,7 @@ function applyHeroSocialGrid(root) {
   const rail = root?.querySelector?.(".artist-hero__socials.social-links--full");
   if (!rail) return;
 
-  const columns = window.matchMedia("(max-width: 360px)").matches ? 1 : 2;
+  const columns = 2;
   rail.style.display = "grid";
   rail.style.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
   rail.style.gap = "0.34rem 0.44rem";

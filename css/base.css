@@ -4059,10 +4059,6 @@ input[disabled] {
 }
 
 @media (max-width: 360px) {
-  .artist-hero__socials.social-links--full {
-    grid-template-columns: 1fr !important;
-  }
-
   .artist-card__socials.social-links--icon {
     grid-template-columns: repeat(2, minmax(0, 2.05rem)) !important;
   }
