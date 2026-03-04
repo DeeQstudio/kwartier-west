@@ -1,7 +1,7 @@
 import { loadArtists, pickSideCollection } from "./core/content-api.js";
 import { artistPath, asArray, escapeHTML, normalizeSlug } from "./core/format.js";
 import { t } from "./core/i18n.js";
-import { renderSocialRail } from "./core/social-links.js";
+import { renderSocialRail } from "./core/social-links.js?v=20260304f";
 
 function artistSort(a, b) {
   const aLead = Boolean(a?.lead);
@@ -67,6 +67,28 @@ function artistCard(artist, sideKey) {
   `;
 }
 
+function iconColumnsByViewport() {
+  if (window.matchMedia("(max-width: 360px)").matches) return 2;
+  if (window.matchMedia("(max-width: 640px)").matches) return 3;
+  if (window.matchMedia("(max-width: 980px)").matches) return 4;
+  return 5;
+}
+
+function applyArtistCardSocialGrid(mount) {
+  if (!mount) return;
+  const columns = iconColumnsByViewport();
+  const rails = mount.querySelectorAll(".artist-card__socials.social-links--icon");
+  rails.forEach((rail) => {
+    rail.style.display = "grid";
+    rail.style.gridTemplateColumns = `repeat(${columns}, minmax(0, 2.05rem))`;
+    rail.style.gap = "0.34rem";
+    rail.style.justifyContent = "flex-start";
+    rail.style.alignContent = "start";
+    rail.style.maxWidth = "100%";
+    rail.style.overflow = "hidden";
+  });
+}
+
 export async function renderArtists(sideKey, { baseDepth = 0 } = {}) {
   const mount = document.querySelector("[data-artists]");
   if (!mount) return;
@@ -83,9 +105,10 @@ export async function renderArtists(sideKey, { baseDepth = 0 } = {}) {
     }
 
     mount.innerHTML = `<div class="artist-grid">${list.map((artist) => artistCard(artist, sideKey)).join("")}</div>`;
+    applyArtistCardSocialGrid(mount);
+    window.addEventListener("resize", () => applyArtistCardSocialGrid(mount), { passive: true });
   } catch (error) {
     console.error(error);
     mount.innerHTML = `<p class="muted">${t("artists.error")}</p>`;
   }
 }
-

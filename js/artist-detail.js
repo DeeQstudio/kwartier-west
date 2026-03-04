@@ -1,7 +1,7 @@
 import { findArtistBySlug, loadArtists } from "./core/content-api.js";
 import { artistPath, asArray, decodeHTMLEntities, escapeHTML, normalizeSlug, sideLabel } from "./core/format.js";
 import { t } from "./core/i18n.js";
-import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260304d";
+import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260304f";
 
 function getSlug() {
   const params = new URLSearchParams(window.location.search);
@@ -122,6 +122,26 @@ function truncateText(value = "", maxLength = 240) {
   const safeCut = slice.lastIndexOf(" ");
   const clipped = safeCut > 80 ? slice.slice(0, safeCut) : slice;
   return `${clipped.trim()}...`;
+}
+
+function applyHeroSocialGrid(root) {
+  const rail = root?.querySelector?.(".artist-hero__socials.social-links--full");
+  if (!rail) return;
+
+  const columns = window.matchMedia("(max-width: 360px)").matches ? 1 : 2;
+  rail.style.display = "grid";
+  rail.style.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
+  rail.style.gap = "0.34rem 0.44rem";
+  rail.style.width = "100%";
+
+  rail.querySelectorAll(".social-link").forEach((node) => {
+    node.style.display = "grid";
+    node.style.gridTemplateColumns = "auto minmax(0, 1fr)";
+    node.style.alignItems = "center";
+    node.style.width = "100%";
+    node.style.minWidth = "0";
+    node.style.gap = "0.52rem";
+  });
 }
 
 function applyArtistSeo(artist, sideKey, slug, links = []) {
@@ -408,6 +428,9 @@ export async function renderArtistDetail(sideKey, { baseDepth = 0 } = {}) {
         }
       });
     }
+
+    applyHeroSocialGrid(root);
+    window.addEventListener("resize", () => applyHeroSocialGrid(root), { passive: true });
   } catch (error) {
     console.error(error);
     root.innerHTML = `<p class="muted">${t("events.error")}</p>`;
