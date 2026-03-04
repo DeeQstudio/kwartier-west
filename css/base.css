@@ -2078,11 +2078,6 @@ button.chip-link:hover {
     grid-template-columns: minmax(116px, 152px) minmax(0, 1fr);
     gap: 0.62rem;
   }
-
-  .artist-card__socials.social-links--icon {
-    display: flex;
-    grid-template-columns: none;
-  }
 }
 
 @media (min-width: 1320px) {
@@ -2251,9 +2246,13 @@ button.chip-link:hover {
 
 .artist-card__socials.social-links--icon {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 2.1rem));
+  grid-template-columns: repeat(5, minmax(0, 2.05rem));
+  grid-auto-flow: row;
   gap: 0.34rem;
   justify-content: flex-start;
+  align-content: start;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .artist-card__actions {
@@ -2268,6 +2267,11 @@ button.chip-link:hover {
 .artist-card__socials .social-link {
   position: relative;
   z-index: 4;
+}
+
+.artist-card__socials.social-links--icon .social-link {
+  width: 2.05rem;
+  justify-content: center;
 }
 
 .artist-card__actions .chip-link {
@@ -4038,6 +4042,12 @@ input[disabled] {
   }
 }
 
+@media (max-width: 640px) {
+  .artist-card__socials.social-links--icon {
+    grid-template-columns: repeat(3, minmax(0, 2.05rem)) !important;
+  }
+}
+
 @media (max-width: 520px) {
   .artist-hero__socials.social-links--full {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -4051,6 +4061,10 @@ input[disabled] {
 @media (max-width: 360px) {
   .artist-hero__socials.social-links--full {
     grid-template-columns: 1fr !important;
+  }
+
+  .artist-card__socials.social-links--icon {
+    grid-template-columns: repeat(2, minmax(0, 2.05rem)) !important;
   }
 }
 
