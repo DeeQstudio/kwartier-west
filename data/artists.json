@@ -329,7 +329,7 @@
                       "story":  "Onschuldig bouwt de ruggengraat van de collectieve sound: rauw, puur en zonder grenzen. Vanuit resident posities in onbegrensd soundsystem en WTK soundsystem blijft de focus op druk, groove en authenticiteit.",
                       "live":  "Discography: CD 303Day 2024 (303 Breakstreet). Livesets bewegen tussen pure acidlijnen, tekno-energie en tribe-momentum.",
                       "focus":  [
-                                    "Hardtek-structuur",
+                                    "Hardtekk-structuur",
                                     "Acid-opbouw",
                                     "Langdurige rave-opbouw"
                                 ],
@@ -365,7 +365,7 @@
                       "lang":  "EN",
                       "photo":  "/assets/img/artists/tekno/hyperion.png",
                       "bio":  "Snelle, rauwe druksets met strakke dynamiek en ravegerichte slagkracht.",
-                      "headline":  "Directe hardtek-snelheid zonder dode lucht.",
+                      "headline":  "Directe hardtekk-snelheid zonder dode lucht.",
                       "story":  "Hyperion is afgestemd op nachtdruk: snelle keuzes, dichte kickpatronen en een no-frills sequencingstijl.",
                       "live":  "De setarchitectuur kiest voor intensiteit boven ornament. BPM klimt snel en blijft vergrendeld in het kernvenster.",
                       "focus":  [
@@ -375,7 +375,7 @@
                                 ],
                       "tags":  [
                                    "Nachtsets",
-                                   "Hardtek"
+                                   "Hardtekk"
                                ],
                       "priority":  70,
                       "collective":  "tekno",
@@ -399,12 +399,12 @@
                       "name":  "Woebn",
                       "role":  "DJ / Live-set",
                       "city":  "West Flanders, BE",
-                      "lang":  "EN",
+                      "lang":  "NL",
                       "photo":  "/assets/img/artists/tekno/woebn.png",
-                      "bio":  "Bekend voor high-BPM verschuivingen en aanhoudende laatnachtelijke druk.",
-                      "headline":  "High-BPM discipline met strakke breaktiming.",
-                      "story":  "Woebn stuurt sets vanuit momentumwiskunde: korte adempunten, lange spanningsbogen en agressieve timing rond transities.",
-                      "live":  "Het sterkst in piekvensters waar tempo en precisie belangrijker zijn dan stilistische omwegen.",
+                      "bio":  "Deze underground krachtpatser uit België staat bekend om zijn unieke sound, waarin meerdere genres naadloos samenvloeien tot één sterke muzikale trip.",
+                      "headline":  "Een herkenbare multi-genre sound met constante energie en drive.",
+                      "story":  "Met invloeden uit Hardtekk, Acidcore, Hardcore en Rap brengt Woebn een direct herkenbare stijl in zijn eigen producties en remixes. Hij groeit stevig door, bouwde al een sterke fanbase op en dropte zijn album \"Arte Pattatn\" als visitekaartje van zijn sound.",
+                      "live":  "Sinds zijn signing bij het Duitse label \"Best Of Hardtekk\" trekt hij die lijn nog harder door: meer druk, meer kracht en sets die de dansvloer losmaken en meteen die bass face bovenhalen.",
                       "focus":  [
                                     "Piektijd-sequencing",
                                     "High-BPM beweging",
@@ -412,7 +412,7 @@
                                 ],
                       "tags":  [
                                    "Piektijd",
-                                   "Hardtek"
+                                   "Hardtekk"
                                ],
                       "priority":  68,
                       "collective":  "tekno",
@@ -786,5 +786,3 @@
                   }
               ]
 }
-
-

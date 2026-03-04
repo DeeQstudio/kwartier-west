@@ -51,7 +51,7 @@
 
   <g font-family="'Space Mono', monospace" fill="#f2f2f2" text-transform="uppercase" letter-spacing="5">
     <text x="120" y="940" font-size="30" opacity="0.85">Tekno Collective</text>
-    <text x="120" y="985" font-size="22" opacity="0.72">Hardtek - Acid - System Discipline</text>
+    <text x="120" y="985" font-size="22" opacity="0.72">Hardtekk - Acid - System Discipline</text>
   </g>
 
   <rect width="1920" height="1080" filter="url(#grain)" opacity="0.35"/>

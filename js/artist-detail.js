@@ -86,6 +86,44 @@ function bookingPath(sideKey, type, slug) {
   return `/pages/${safeSide}/booking.html?${params.toString()}`;
 }
 
+function cleanText(value = "") {
+  return decodeHTMLEntities(String(value || "").trim());
+}
+
+function uniqueParagraphs(values = []) {
+  const seen = new Set();
+  const result = [];
+
+  for (const value of asArray(values)) {
+    const raw = cleanText(value);
+    if (!raw) continue;
+
+    const chunks = raw
+      .split(/\r?\n+/)
+      .map((chunk) => chunk.replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+
+    for (const chunk of chunks) {
+      const key = chunk.toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      result.push(chunk);
+    }
+  }
+
+  return result;
+}
+
+function truncateText(value = "", maxLength = 240) {
+  const source = cleanText(value).replace(/\s+/g, " ").trim();
+  if (!source || source.length <= maxLength) return source;
+
+  const slice = source.slice(0, Math.max(1, maxLength - 1));
+  const safeCut = slice.lastIndexOf(" ");
+  const clipped = safeCut > 80 ? slice.slice(0, safeCut) : slice;
+  return `${clipped.trim()}...`;
+}
+
 function applyArtistSeo(artist, sideKey, slug, links = []) {
   const artistName = String(artist?.name || "").trim();
   const sideName = sideLabel(sideKey) || sideKey;
@@ -231,18 +269,39 @@ export async function renderArtistDetail(sideKey, { baseDepth = 0 } = {}) {
     }
 
     const artist = found.artist;
-    const photo = escapeHTML(artist.photo || "");
-    const name = escapeHTML(artist.name || t("artists.defaultName"));
-    const role = escapeHTML(artist.role || t("artists.defaultRole"));
-    const city = escapeHTML(artist.city || "");
-    const lang = escapeHTML(artist.lang || "");
-    const summaryRaw = String(artist?.headline || artist?.bio || "").trim();
-    const storyRaw = String(artist?.story || "").trim();
-    const summary = escapeHTML(summaryRaw);
-    const bio = storyRaw && storyRaw !== summaryRaw ? escapeHTML(storyRaw) : "";
-    const tags = asArray(artist.tags).map((tag) => `<span class="tag-pill">${escapeHTML(tag)}</span>`).join("");
-    const signatureLine = escapeHTML(artist.signatureLine || "");
+    const photo = escapeHTML(cleanText(artist.photo || ""));
+    const nameText = cleanText(artist.name || t("artists.defaultName"));
+    const roleText = cleanText(artist.role || t("artists.defaultRole"));
+    const cityText = cleanText(artist.city || "");
+    const langText = cleanText(artist.lang || "");
+    const headlineText = cleanText(artist.headline || "");
+    const bioText = cleanText(artist.bio || "");
+    const storyText = cleanText(artist.story || "");
+    const liveText = cleanText(artist.live || "");
+    const summaryText = headlineText || bioText || storyText || liveText;
+    const detailParagraphs = uniqueParagraphs([
+      bioText && bioText !== summaryText ? bioText : "",
+      storyText && storyText !== summaryText ? storyText : "",
+      liveText && liveText !== summaryText ? liveText : ""
+    ]);
+    const previewText = truncateText(detailParagraphs[0] || "", 240);
+    const hasFullBio = detailParagraphs.length > 0;
     const artistSlug = normalizeSlug(artist.slug || "");
+    const panelId = `artist-full-bio-${artistSlug || "profile"}`;
+    const fullBioTitle = t("artist.bio.fullTitle", { name: nameText || t("artists.defaultName") });
+    const fullBioHtml = detailParagraphs.map((paragraph) => `<p>${escapeHTML(paragraph)}</p>`).join("");
+    const name = escapeHTML(nameText);
+    const role = escapeHTML(roleText);
+    const city = escapeHTML(cityText);
+    const lang = escapeHTML(langText);
+    const summary = escapeHTML(summaryText);
+    const preview = escapeHTML(previewText);
+    const tags = asArray(artist.tags)
+      .map((tag) => cleanText(tag))
+      .filter(Boolean)
+      .map((tag) => `<span class="tag-pill">${escapeHTML(tag)}</span>`)
+      .join("");
+    const signatureLine = escapeHTML(cleanText(artist.signatureLine || ""));
     const isSpotlightProfile =
       normalizeSlug(artist.profileStyle || "") === "spotlight" ||
       artistSlug === "de-kweker" ||
@@ -258,7 +317,7 @@ export async function renderArtistDetail(sideKey, { baseDepth = 0 } = {}) {
 
     setHero(
       artist.name || t("artists.profile"),
-      summary || `${artist.role || t("artists.defaultRole")}${artist.city ? ` - ${artist.city}` : ""}`
+      summaryText || `${roleText || t("artists.defaultRole")}${cityText ? ` - ${cityText}` : ""}`
     );
 
     root.innerHTML = `
@@ -268,27 +327,87 @@ export async function renderArtistDetail(sideKey, { baseDepth = 0 } = {}) {
         </div>
 
         <div class="artist-hero__body">
-          <p class="eyebrow">${escapeHTML(sideLabel(currentSide))} ${escapeHTML(t("artist.collectiveSuffix"))}</p>
-          <h1>${name}</h1>
-          <p class="artist-hero__meta">${role}${city ? ` <span class="dot-sep"></span> ${city}` : ""}${lang ? ` <span class="dot-sep"></span> ${lang}` : ""}</p>
-          ${summary ? `<p class="artist-hero__summary">${summary}</p>` : ""}
-          ${bio ? `<p class="artist-hero__bio">${bio}</p>` : ""}
-          ${tags ? `<div class="artist-hero__tags">${tags}</div>` : ""}
-
-          <div class="artist-hero__connect">
-            <p class="eyebrow">${t("artist.section.channels")}</p>
-            ${socialRail || `<p class="muted">${t("artist.linksEmpty")}</p>`}
+          <div class="artist-hero__intro">
+            <p class="eyebrow">${escapeHTML(sideLabel(currentSide))} ${escapeHTML(t("artist.collectiveSuffix"))}</p>
+            <h1>${name}</h1>
+            <p class="artist-hero__meta">${role}${city ? ` <span class="dot-sep"></span> ${city}` : ""}${lang ? ` <span class="dot-sep"></span> ${lang}` : ""}</p>
+            ${summary ? `<p class="artist-hero__summary">${summary}</p>` : ""}
+            ${preview ? `<p class="artist-hero__preview">${preview}</p>` : ""}
+            ${hasFullBio ? `<button type="button" class="chip-link artist-hero__bio-toggle" data-artist-bio-toggle aria-expanded="false" aria-controls="${panelId}">${escapeHTML(t("artist.bio.readMore"))}</button>` : ""}
+            ${tags ? `<div class="artist-hero__tags">${tags}</div>` : ""}
           </div>
 
-          ${signatureLine ? `<p class="artist-hero__signature">${signatureLine}</p>` : ""}
+          <div class="artist-hero__lower">
+            <div class="artist-hero__connect">
+              <p class="eyebrow">${t("artist.section.channels")}</p>
+              ${socialRail || `<p class="muted">${t("artist.linksEmpty")}</p>`}
+            </div>
 
-          <div class="inline-actions artist-hero__actions">
-            <a class="chip-link" href="${escapeHTML(bookingPath(currentSide, "single", resolvedSlug))}">${t("artist.bookSolo")}</a>
-            <a class="chip-link" href="${escapeHTML(bookingPath(currentSide, "multiple", resolvedSlug))}">${t("artist.bookMultiple")}</a>
+            <div class="artist-hero__booking">
+              ${signatureLine ? `<p class="artist-hero__signature">${signatureLine}</p>` : ""}
+              <div class="inline-actions artist-hero__actions">
+                <a class="chip-link" href="${escapeHTML(bookingPath(currentSide, "single", resolvedSlug))}">${t("artist.bookSolo")}</a>
+                <a class="chip-link" href="${escapeHTML(bookingPath(currentSide, "multiple", resolvedSlug))}">${t("artist.bookMultiple")}</a>
+              </div>
+            </div>
           </div>
         </div>
+
+        ${
+          hasFullBio
+            ? `
+              <div class="artist-bio-panel" id="${panelId}" data-artist-bio-panel hidden>
+                <button type="button" class="artist-bio-panel__backdrop" data-artist-bio-close aria-label="${escapeHTML(t("artist.bio.close"))}"></button>
+                <article class="artist-bio-panel__dialog" role="dialog" aria-modal="true" aria-labelledby="${panelId}-title">
+                  <p class="eyebrow">${escapeHTML(sideLabel(currentSide))} ${escapeHTML(t("artist.collectiveSuffix"))}</p>
+                  <h2 id="${panelId}-title">${escapeHTML(fullBioTitle)}</h2>
+                  <div class="artist-bio-panel__content">${fullBioHtml}</div>
+                  <div class="inline-actions artist-bio-panel__actions">
+                    <button type="button" class="chip-link" data-artist-bio-close>${escapeHTML(t("artist.bio.close"))}</button>
+                  </div>
+                </article>
+              </div>
+            `
+            : ""
+        }
       </section>
     `;
+
+    const bioToggle = root.querySelector("[data-artist-bio-toggle]");
+    const bioPanel = root.querySelector("[data-artist-bio-panel]");
+    if (bioToggle && bioPanel) {
+      const closeTargets = Array.from(root.querySelectorAll("[data-artist-bio-close]"));
+      const dialogCloseButton = closeTargets.find((node) => node.tagName.toLowerCase() === "button" && !node.classList.contains("artist-bio-panel__backdrop"));
+
+      const closePanel = (restoreFocus = true) => {
+        bioPanel.hidden = true;
+        bioToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("artist-bio-open");
+        if (restoreFocus) bioToggle.focus();
+      };
+
+      const openPanel = () => {
+        bioPanel.hidden = false;
+        bioToggle.setAttribute("aria-expanded", "true");
+        document.body.classList.add("artist-bio-open");
+        if (dialogCloseButton) dialogCloseButton.focus();
+      };
+
+      bioToggle.addEventListener("click", openPanel);
+      closeTargets.forEach((node) =>
+        node.addEventListener("click", (event) => {
+          event.preventDefault();
+          closePanel(true);
+        })
+      );
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !bioPanel.hidden) {
+          event.preventDefault();
+          closePanel(true);
+        }
+      });
+    }
   } catch (error) {
     console.error(error);
     root.innerHTML = `<p class="muted">${t("events.error")}</p>`;
