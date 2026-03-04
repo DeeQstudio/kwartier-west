@@ -1,7 +1,7 @@
 import { findArtistBySlug, loadArtists } from "./core/content-api.js";
 import { artistPath, asArray, decodeHTMLEntities, escapeHTML, normalizeSlug, sideLabel } from "./core/format.js";
 import { t } from "./core/i18n.js";
-import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260304g";
+import { normalizeSocialLinks, renderSocialRail } from "./core/social-links.js?v=20260304h";
 
 function getSlug() {
   const params = new URLSearchParams(window.location.search);
@@ -129,18 +129,20 @@ function applyHeroSocialGrid(root) {
   if (!rail) return;
 
   const columns = 2;
-  rail.style.display = "grid";
-  rail.style.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
-  rail.style.gap = "0.34rem 0.44rem";
-  rail.style.width = "100%";
+  rail.classList.add("artist-hero__socials--forced");
+  rail.style.setProperty("display", "grid", "important");
+  rail.style.setProperty("grid-template-columns", `repeat(${columns}, minmax(0, 1fr))`, "important");
+  rail.style.setProperty("gap", "0.34rem 0.44rem", "important");
+  rail.style.setProperty("width", "100%", "important");
+  rail.style.setProperty("align-content", "start", "important");
 
   rail.querySelectorAll(".social-link").forEach((node) => {
-    node.style.display = "grid";
-    node.style.gridTemplateColumns = "auto minmax(0, 1fr)";
-    node.style.alignItems = "center";
-    node.style.width = "100%";
-    node.style.minWidth = "0";
-    node.style.gap = "0.52rem";
+    node.style.setProperty("display", "grid", "important");
+    node.style.setProperty("grid-template-columns", "auto minmax(0, 1fr)", "important");
+    node.style.setProperty("align-items", "center", "important");
+    node.style.setProperty("width", "100%", "important");
+    node.style.setProperty("min-width", "0", "important");
+    node.style.setProperty("gap", "0.52rem", "important");
   });
 }
 
@@ -429,8 +431,10 @@ export async function renderArtistDetail(sideKey, { baseDepth = 0 } = {}) {
       });
     }
 
-    applyHeroSocialGrid(root);
-    window.addEventListener("resize", () => applyHeroSocialGrid(root), { passive: true });
+    const enforceHeroSocialGrid = () => applyHeroSocialGrid(root);
+    enforceHeroSocialGrid();
+    window.addEventListener("resize", enforceHeroSocialGrid, { passive: true });
+    window.setTimeout(enforceHeroSocialGrid, 120);
   } catch (error) {
     console.error(error);
     root.innerHTML = `<p class="muted">${t("events.error")}</p>`;
