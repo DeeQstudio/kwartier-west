@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-03-03T10:30:00Z",
+    "updatedAt":  "2026-03-05T11:20:00Z",
     "partners":  [
                      {
                          "slug":  "all-tek-soundsystem",
@@ -63,6 +63,26 @@
                                   ],
                          "links":  [
 
+                                   ]
+                     },
+                     {
+                         "slug":  "acidelics",
+                         "name":  "Acidelics",
+                         "type":  "Collectiefpartner",
+                         "region":  "Belgie",
+                         "logo":  "assets/partners/acidelics.jpg",
+                         "bio":  "Tekno-collectief en partner binnen het Kwartier West-netwerk.",
+                         "tags":  [
+                                      "Tekno",
+                                      "Collectief",
+                                      "Samenwerking"
+                                  ],
+                         "links":  [
+                                       {
+                                           "platform":  "website",
+                                           "label":  "acidelics.be",
+                                           "url":  "https://www.acidelics.be/"
+                                       }
                                    ]
                      },
                      {
