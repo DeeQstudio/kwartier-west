@@ -33,7 +33,9 @@ function renderPartnerMark(partner, baseDepth) {
   const logoSrc = resolveAssetPath(partner?.logo, baseDepth);
   if (!logoSrc) return `<div class="partner-card__mark" aria-hidden="true">${escapeHTML(initials(partner?.name || ""))}</div>`;
   const logoMode = String(partner?.logoMode || "").toLowerCase();
-  const modeClass = logoMode === "wordmark" ? " partner-card__mark--wordmark" : "";
+  let modeClass = "";
+  if (logoMode === "wordmark") modeClass = " partner-card__mark--wordmark";
+  if (logoMode === "wide") modeClass = " partner-card__mark--wide";
 
   return `
     <div class="partner-card__mark partner-card__mark--logo${modeClass}">

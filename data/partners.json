@@ -70,7 +70,8 @@
                          "name":  "Acidelics",
                          "type":  "Collectiefpartner",
                          "region":  "Belgie",
-                         "logo":  "assets/partners/acidelics.jpg",
+                         "logo":  "assets/partners/acidelics-outline.png",
+                         "logoMode":  "wide",
                          "bio":  "Tekno-collectief en partner binnen het Kwartier West-netwerk.",
                          "tags":  [
                                       "Tekno",
