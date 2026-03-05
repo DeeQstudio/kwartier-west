@@ -51,9 +51,11 @@ function firstExternalLink(partner) {
 }
 
 function partnerCard(partner, baseDepth) {
+  const slug = escapeHTML(partner?.slug || "");
   const name = escapeHTML(partner?.name || "Partner");
   const type = escapeHTML(partner?.type || "");
   const region = escapeHTML(partner?.region || "");
+  const bio = escapeHTML(partner?.bio || "");
   const links = renderSocialRail(partner?.links, {
     variant: "full",
     limit: 5,
@@ -71,17 +73,18 @@ function partnerCard(partner, baseDepth) {
   const headMark = renderPartnerMark(partner, baseDepth);
 
   return `
-    <article class="tile-card tile-card--partner">
+    <article class="tile-card tile-card--partner" data-partner="${slug}">
       <div class="partner-card__head">
         ${hasExternal ? `<a class="partner-card__logo-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer" aria-label="${name}">${headMark}</a>` : headMark}
         ${hasExternal ? `<a class="partner-card__title-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${titleMarkup}</a>` : titleMarkup}
       </div>
 
       ${region ? `<p class="partner-card__meta muted">${region}</p>` : ""}
+      ${bio ? `<p class="partner-card__bio">${bio}</p>` : ""}
       ${renderTags(partner?.tags)}
 
-      <div class="partner-card__actions">
-        ${links || `<span class="muted">${t("partners.linksPending")}</span>`}
+      <div class="partner-card__actions${links ? "" : " is-empty"}">
+        ${links || `<span class="muted partner-card__pending">${t("partners.linksPending")}</span>`}
       </div>
     </article>
   `;

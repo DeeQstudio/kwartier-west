@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Vertrouwde partners van Kwartier West voor productie, visuals, sound en werking.">
   <meta name="twitter:image" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
   <link rel="canonical" href="https://kwartierwest.be/pages/partners/index.html">
-  <link rel="stylesheet" href="../../css/base.css?v=20260305a">
+  <link rel="stylesheet" href="../../css/base.css?v=20260305t">
 </head>
 <body class="kw-page">
   <div data-nav></div>
@@ -40,6 +40,18 @@
     <section class="surface">
       <div data-partners></div>
     </section>
+
+    <section class="surface surface--partner-protocol">
+      <div class="section-header">
+        <h2 data-i18n="partners.protocol.title">Hoe we samenwerken</h2>
+      </div>
+      <div class="partner-protocol">
+        <p class="partner-protocol__line" data-i18n="partners.protocol.one">Eerst duidelijke afspraken over productie, timing en rollen.</p>
+        <p class="partner-protocol__line" data-i18n="partners.protocol.two">Heldere communicatiekanalen en snelle opvolging.</p>
+        <p class="partner-protocol__line" data-i18n="partners.protocol.three">Samenwerkingen die inhoudelijk kloppen en lang meegaan.</p>
+        <a class="chip-link partner-protocol__cta" href="../contact/index.html" data-i18n="partners.protocol.cta">Ga naar contactdesk</a>
+      </div>
+    </section>
   </main>
 
   <div data-footer></div>
@@ -48,7 +60,7 @@
     import { initI18nPage } from "../../js/core/i18n.js";
     import { renderNav } from "../../partials/nav.js";
     import { renderFooter } from "../../partials/footer.js";
-    import { renderPartners } from "../../js/partners.js?v=20260305a";
+    import { renderPartners } from "../../js/partners.js?v=20260305t";
 
     initI18nPage();
     renderNav({ sideKey: "global", baseDepth: 2 });

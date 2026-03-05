@@ -5,8 +5,8 @@ body.landing {
   overflow-x: clip;
   color: #f5f5f5;
   background:
-    radial-gradient(880px 420px at 8% 0%, rgba(227, 13, 13, 0.16), transparent 72%),
-    radial-gradient(920px 480px at 92% -10%, rgba(227, 13, 13, 0.09), transparent 74%),
+    radial-gradient(820px 360px at 8% 0%, rgba(227, 13, 13, 0.13), transparent 72%),
+    radial-gradient(860px 420px at 92% -10%, rgba(227, 13, 13, 0.07), transparent 74%),
     linear-gradient(162deg, #020202 0%, #070707 46%, #020202 100%);
 }
 
@@ -20,7 +20,7 @@ body.landing::before {
     linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
     linear-gradient(180deg, rgba(255, 255, 255, 0.009) 1px, transparent 1px);
   background-size: 64px 64px;
-  opacity: 0.26;
+  opacity: 0.2;
 }
 
 .skip-link--landing {
@@ -33,16 +33,16 @@ body.landing::before {
 }
 
 .landing-portal {
-  --gridOpacity: 0.07;
-  --mistStrength: 0.24;
-  --riftGlow: 0.38;
+  --gridOpacity: 0.055;
+  --mistStrength: 0.2;
+  --riftGlow: 0.3;
   --rift-width: 1px;
   --rift-shift: 0px;
   --parallax-x: 0px;
   --parallax-y: 0px;
   position: relative;
   min-height: 100svh;
-  width: min(1480px, 100%);
+  width: min(1460px, 100%);
   max-width: 100%;
   margin: 0 auto;
   padding: clamp(0.72rem, 1.3vw, 1.2rem);
@@ -57,7 +57,7 @@ body.landing::before {
   justify-content: space-between;
   gap: 0.9rem;
   padding: 0.18rem 0.24rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .portal-brand {
@@ -67,11 +67,11 @@ body.landing::before {
 }
 
 .portal-brand__logo {
-  width: clamp(164px, 10.2vw, 216px);
+  width: clamp(152px, 9.6vw, 196px);
   aspect-ratio: 903 / 216;
   display: block;
   background: url("/assets/kw-wordmark-real.png") center / contain no-repeat;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.44));
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.36));
 }
 
 .portal-controls {
@@ -92,11 +92,11 @@ body.landing::before {
 .portal-quick a {
   text-decoration: none;
   font-family: "Space Mono", monospace;
-  font-size: 0.69rem;
+  font-size: 0.67rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 0.46rem 0.54rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.26);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   min-height: 2.04rem;
   display: inline-flex;
   align-items: center;
@@ -109,15 +109,15 @@ body.landing::before {
 
 .rift-hero {
   position: relative;
-  min-height: clamp(560px, calc(100svh - 150px), 920px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  min-height: clamp(560px, calc(100svh - 154px), 900px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   overflow: clip;
   isolation: isolate;
   display: grid;
   place-items: center;
-  padding: clamp(1.1rem, 2.8vw, 2.8rem);
+  padding: clamp(1rem, 2.4vw, 2.4rem);
   background:
-    radial-gradient(520px 300px at 50% 50%, rgba(227, 13, 13, 0.12), rgba(3, 3, 3, 0.84) 72%),
+    radial-gradient(460px 260px at 50% 50%, rgba(227, 13, 13, 0.1), rgba(3, 3, 3, 0.84) 72%),
     #040404;
   cursor: pointer;
 }
@@ -167,20 +167,20 @@ body.landing::before {
 
 .hero-layer--grid {
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 36px 36px;
   opacity: var(--gridOpacity);
 }
 
 .hero-layer--mist {
   background:
-    radial-gradient(40% 28% at 50% 52%, rgba(255, 92, 92, 0.34), rgba(255, 92, 92, 0) 70%),
-    radial-gradient(30% 24% at 41% 57%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 100%),
-    radial-gradient(30% 24% at 59% 43%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 100%);
+    radial-gradient(40% 28% at 50% 52%, rgba(255, 92, 92, 0.26), rgba(255, 92, 92, 0) 70%),
+    radial-gradient(30% 24% at 41% 57%, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0) 100%),
+    radial-gradient(30% 24% at 59% 43%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 100%);
   opacity: var(--mistStrength);
   transform: translate(var(--parallax-x), var(--parallax-y));
-  filter: blur(22px);
+  filter: blur(18px);
   animation: hero-mist-drift 14s ease-in-out infinite;
 }
 
@@ -283,7 +283,7 @@ body.landing::before {
   width: min(42rem, 100%);
   text-align: center;
   display: grid;
-  gap: 0.42rem;
+  gap: 0.36rem;
   justify-items: center;
   transition: transform 680ms cubic-bezier(0.2, 0.86, 0.24, 1), opacity 500ms ease;
 }
@@ -291,9 +291,9 @@ body.landing::before {
 .hero-copy__title {
   margin: 0;
   font-family: "Bebas Neue", "Archivo", sans-serif;
-  font-size: clamp(3.2rem, 11vw, 8.6rem);
+  font-size: clamp(3rem, 10.6vw, 8rem);
   line-height: 0.88;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.032em;
   text-transform: uppercase;
   text-shadow: 0 10px 20px rgba(0, 0, 0, 0.56);
 }
@@ -302,7 +302,7 @@ body.landing::before {
   margin: 0;
   font-family: "Space Mono", monospace;
   font-size: clamp(0.8rem, 1.2vw, 1rem);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba(240, 240, 240, 0.92);
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
@@ -312,8 +312,8 @@ body.landing::before {
 .hero-copy__instruction {
   margin: 0;
   font-family: "Space Mono", monospace;
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(214, 214, 214, 0.86);
 }
@@ -328,12 +328,12 @@ body.landing::before {
 .hero-panel {
   position: absolute;
   bottom: clamp(1rem, 2vw, 1.7rem);
-  width: min(460px, 44%);
+  width: min(420px, 43%);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  min-height: clamp(188px, 25vh, 252px);
-  background: rgba(3, 3, 3, 0.64);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42);
+  min-height: clamp(184px, 24vh, 240px);
+  background: rgba(3, 3, 3, 0.68);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(0.8px);
   opacity: 0;
   pointer-events: none;
@@ -382,9 +382,9 @@ body.landing::before {
   bottom: auto;
   z-index: 2;
   display: grid;
-  gap: 0.48rem;
+  gap: 0.4rem;
   max-width: none;
-  padding: clamp(0.82rem, 1.2vw, 1rem);
+  padding: clamp(0.76rem, 1.1vw, 0.92rem);
   border-top: 1px solid rgba(255, 255, 255, 0.24);
   opacity: 0;
   transform: translateY(14px);
@@ -398,7 +398,7 @@ body.landing::before {
 .hero-panel__title {
   margin: 0;
   font-family: "Bebas Neue", "Archivo", sans-serif;
-  font-size: clamp(2rem, 5.2vw, 4.2rem);
+  font-size: clamp(1.86rem, 4.8vw, 3.7rem);
   line-height: 0.9;
   letter-spacing: 0.045em;
   text-transform: uppercase;
@@ -408,7 +408,8 @@ body.landing::before {
   margin: 0;
   max-width: 40ch;
   color: rgba(236, 236, 236, 0.92);
-  line-height: 1.5;
+  line-height: 1.44;
+  font-size: 0.88rem;
 }
 
 .hero-panel--hiphop .hero-panel__line {
@@ -430,9 +431,9 @@ body.landing::before {
   text-decoration: none;
   font-family: "Space Mono", monospace;
   text-transform: uppercase;
-  letter-spacing: 0.11em;
-  font-size: 0.64rem;
-  padding: 0.4rem 0.56rem;
+  letter-spacing: 0.1em;
+  font-size: 0.62rem;
+  padding: 0.38rem 0.52rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(6, 6, 6, 0.68);
 }
@@ -498,7 +499,7 @@ body.landing::before {
   flex-wrap: wrap;
   gap: 0.3rem;
   justify-content: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
   padding-top: 0.48rem;
 }
 
@@ -507,10 +508,10 @@ body.landing::before {
   font-family: "Space Mono", monospace;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  font-size: 0.63rem;
+  font-size: 0.61rem;
   color: #dfdfdf;
   padding: 0.4rem 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   min-height: 2rem;
   display: inline-flex;
   align-items: center;
