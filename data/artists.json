@@ -545,23 +545,24 @@
                    },
                    {
                        "slug":  "spoorloos",
-                      "name":  "Spoorloos",
-                      "role":  "DJ / Live-set",
-                      "city":  "West Flanders, BE",
-                      "lang":  "EN",
-                      "photo":  "/assets/img/artists/tekno/spoorloos.png",
-                      "bio":  "Donkere tribale texturen en non-stop opbouw voor lange soundsystemnachten.",
-                      "headline":  "Tribale stuwkracht en tunnelvisie-momentum.",
-                      "story":  "Spoorloos kiest voor diepe ritmische hypnose en trekt de zaal vooruit met gelaagde percussie en minimale melodische ruis.",
-                      "live":  "Ontworpen voor lange duur: gecontroleerde opbouw, dichte middendruk en zware closingsequenties.",
-                      "focus":  [
-                                    "Tribale beweging",
-                                    "Langdurige opbouw",
-                                    "Nachtdrive-structuren"
+                       "name":  "Spoorloos",
+                       "role":  "Tekno-producer / Live-artiest",
+                       "city":  "Brugge, West-Vlaanderen, BE",
+                       "lang":  "NL",
+                       "photo":  "/assets/img/artists/tekno/spoorloos.png",
+                       "bio":  "Spoorloos is een tekno-producer en live-artiest uit West-Vlaanderen (Brugge). Zijn energie is geinspireerd door de free party scene. Zijn sound beweegt zich tussen tekno, tribecore en harde underground techno, met duidelijke invloeden uit tribe, acid en industriele noise.",
+                       "headline":  "Hybride livesets met zware kicks, tribale ritmes en pure tekno-energie.",
+                       "story":  "In zijn livesets bouwt hij zijn muziek live op met een hybride setup van hardware en software. Machines zoals de Elektron Analog Rytm vormen het hart van zijn sound: zware kicks, tribale ritmes en vervormde texturen die gemaakt zijn voor donkere warehouses, soundsystems en lange nachten op de dansvloer.\n\nZijn muziek draait rond ritme, groove en rauwe energie. Distorted kicks, hypnotische percussie en atmosfeer vloeien samen tot een intense stroom van geluid die het publiek meeneemt in een hypnotische trip.",
+                       "live":  "Spoorloos blijft trouw aan de DIY-mentaliteit van de underground. Geen compromissen, geen flauwe filters. Alleen machines, ritme en pure tekno-energie.",
+                       "focus":  [
+                                    "Hybride hardware/software livesets",
+                                    "Zware kicks en tribale ritmes",
+                                    "DIY-underground aanpak"
                                 ],
-                      "tags":  [
-                                   "Tribal",
-                                   "Nachtdrive"
+                       "tags":  [
+                                   "Tekno",
+                                   "Tribecore",
+                                   "Underground techno"
                                ],
                       "priority":  66,
                       "collective":  "tekno",
@@ -572,16 +573,26 @@
                                                     "multiple"
                                                 ]
                                   },
-                      "links":  [
+                       "links":  [
+                                    {
+                                        "platform":  "instagram",
+                                        "label":  "@spoorloos23",
+                                        "url":  "https://instagram.com/spoorloos23"
+                                    },
                                     {
                                         "platform":  "soundcloud",
-                                        "label":  "Spoorloos",
+                                        "label":  "spoorloostekno",
                                         "url":  "https://soundcloud.com/spoorloostekno"
                                     },
                                     {
-                                        "platform":  "instagram",
-                                        "label":  "@spoorlooostekno",
-                                        "url":  "https://www.instagram.com/spoorlooostekno/"
+                                        "platform":  "linktree",
+                                        "label":  "@spoorloos23",
+                                        "url":  "https://linktr.ee/spoorloos23"
+                                    },
+                                    {
+                                        "platform":  "facebook",
+                                        "label":  "Brecht Timmerman",
+                                        "url":  "https://www.facebook.com/brecht.timmerman/"
                                     }
                                 ]
                   },
