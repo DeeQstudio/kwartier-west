@@ -224,6 +224,11 @@
                                           "platform":  "instagram",
                                           "label":  "@thep_a_n_d_a",
                                           "url":  "https://instagram.com/thep_a_n_d_a"
+                                      },
+                                      {
+                                          "platform":  "spotify",
+                                          "label":  "The P.A.N.D.A",
+                                          "url":  "https://open.spotify.com/artist/5e6QAZeoE0uhAHylYVHyoX"
                                       }
                                   ]
                     },
