@@ -43,6 +43,17 @@
     <section class="surface">
       <div data-booking-result></div>
     </section>
+
+    <section class="surface surface--newsletter">
+      <div class="section-header">
+        <h2 data-i18n="newsletter.section.bookingTitle">Westpost club</h2>
+        <span class="muted" data-i18n="newsletter.section.meta">Nieuwsbrief</span>
+      </div>
+      <p class="muted newsletter-section__intro" data-i18n="newsletter.section.bookingLead">
+        Blijf mee met nieuwe boekingsvensters, eventdrops en labelupdates.
+      </p>
+      <div data-newsletter-form data-newsletter-source="tekno-booking"></div>
+    </section>
   </main>
 
   <div data-footer></div>
@@ -52,11 +63,13 @@
     import { renderNav } from "../../partials/nav.js";
     import { renderFooter } from "../../partials/footer.js";
     import { mountBookingDesk } from "../../js/booking.js";
+    import { mountNewsletterForm } from "../../js/newsletter.js";
 
     initI18nPage();
     renderNav({ sideKey: "tekno", baseDepth: 2 });
     renderFooter({ baseDepth: 2 });
     mountBookingDesk({ sideKey: "tekno", baseDepth: 2 });
+    mountNewsletterForm({ baseDepth: 2, source: "tekno-booking" });
   </script>
 </body>
 </html>

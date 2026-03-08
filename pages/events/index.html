@@ -65,6 +65,17 @@
       </div>
       <div data-events-page></div>
     </section>
+
+    <section class="surface surface--newsletter">
+      <div class="section-header">
+        <h2 data-i18n="newsletter.section.eventsTitle">Westpost club</h2>
+        <span class="muted" data-i18n="newsletter.section.meta">Nieuwsbrief</span>
+      </div>
+      <p class="muted newsletter-section__intro" data-i18n="newsletter.section.eventsLead">
+        Schrijf je in en krijg als eerste updates over nieuwe events, line-ups en ticketdrops.
+      </p>
+      <div data-newsletter-form data-newsletter-source="events"></div>
+    </section>
   </main>
 
   <div data-footer></div>
@@ -74,11 +85,13 @@
     import { renderNav } from "../../partials/nav.js";
     import { renderFooter } from "../../partials/footer.js";
     import { mountEventsPage } from "../../js/events-page.js";
+    import { mountNewsletterForm } from "../../js/newsletter.js";
 
     initI18nPage();
     renderNav({ sideKey: "global", baseDepth: 2 });
     renderFooter({ baseDepth: 2 });
     mountEventsPage({ baseDepth: 2 });
+    mountNewsletterForm({ baseDepth: 2, source: "events" });
   </script>
 </body>
 </html>
