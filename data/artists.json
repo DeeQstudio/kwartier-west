@@ -184,38 +184,49 @@
                                      }
                                  ]
                    },
-                   {
-                       "slug":  "thepanda",
-                       "name":  "ThePANDA",
-                       "role":  "Rapper / Podiumartiest",
-                       "city":  "Brussels, BE",
-                       "lang":  "EN",
-                       "photo":  "/assets/img/artists/hiphop/thepanda.jpg",
-                       "bio":  "Engelstalige performer die melodische hooks balanceert met technische bars.",
-                       "headline":  "Melodische spanning ontmoet directe bars.",
-                       "story":  "ThePANDA vertegenwoordigt de Engelstalige kant binnen het collectief. De schrijfstijl combineert strakke hookarchitectuur met donkerdere versetexturen.",
-                       "live":  "Het liveformat leunt op contrast: atmosferische openingen, strakkere midset-flows en een percussieve eindsprint voor grotere zalen.",
-                       "focus":  [
-                                     "Engelstalig lyric schrijven",
-                                     "Hook- en versecontrast",
-                                     "Genre-overstijgende samenwerkingen"
+                    {
+                        "slug":  "thepanda",
+                        "name":  "The P.A.N.D.A",
+                        "role":  "Indie hiphopartiest",
+                        "city":  "Vlaanderen, BE",
+                        "lang":  "EN",
+                        "photo":  "/assets/img/artists/hiphop/thepanda.jpg",
+                        "bio":  "The P.A.N.D.A, aka The Persevering Alchemist Naughty Drum's Addict, is een indie hiphopartiest uit Vlaanderen.",
+                        "headline":  "Knallende drums, soulful en jazzy old-school beats, en strakke bars recht uit hart en ziel.",
+                        "story":  "Hij is geboren en opgegroeid in de Vlaamse regio van Belgie, opgevoed door een sterke moeder die hem leerde overleven in een harde wereld. Muziek kreeg hij van thuis mee: via zijn vader leerde hij drummen en improviseren, via zijn moeder groeide hij op met hiphop. Tijdens zijn jeugd jamde hij constant met zijn vader, en met zijn moeder luisterde hij naar classics terwijl hij haar ook hoorde rappen.\n\nOp zijn negentiende kreeg hij de smaak van rap echt te pakken. Sindsdien bracht hij meerdere projecten onafhankelijk uit onder de naam \"PandaShaolin\" en stond hij live op podia in heel Belgie. Onderweg nam hij ook een MPC vast en begon hij met beatmaking en fingerdrumming. Terwijl hij zijn pen bleef scherpen en zijn skills uitbouwde, begon hij zich als artiest echt te definieren.",
+                        "live":  "Na een frisse start, ontstaan uit zelfreflectie en een heldere visie op waar hij naartoe wil, nodigt hij iedereen uit in The P.A.N.D.A Universe.\n\nVerwacht knockende drums die je doen bewegen, soulful, jazzy, old-school en ondeugende beats recht uit zijn vingertoppen. Daarbovenop brengt hij lyrisch strakke bars recht uit zijn bewustzijn, en vooral uit zijn hart en ziel.\n\nDeze jonge menace is nog maar net begonnen en denkt er niet aan om te vertragen. Muziek is zijn leven, dus hij blijft maken tot het einde.",
+                        "focus":  [
+                                      "MPC beatmaking en fingerdrumming",
+                                      "Soulful en jazzy old-school beats",
+                                      "Strakke bars uit bewustzijn, hart en ziel"
+                                  ],
+                        "tags":  [
+                                     "EN",
+                                     "Indie hip hop",
+                                     "PandaShaolin"
                                  ],
-                       "tags":  [
-                                    "EN",
-                                    "Live-rap",
-                                    "Brussel"
-                                ],
                        "priority":  68,
                        "collective":  "hiphop",
-                       "booking":  {
-                                       "available":  true,
-                                       "types":  [
-                                                     "solo",
-                                                     "multiple"
-                                                 ]
-                                   },
-                       "links":  []
-                   },
+                        "booking":  {
+                                        "available":  true,
+                                        "types":  [
+                                                      "solo",
+                                                      "multiple"
+                                                  ]
+                                    },
+                        "links":  [
+                                      {
+                                          "platform":  "linktree",
+                                          "label":  "@TheP_A_N_D_A",
+                                          "url":  "https://linktr.ee/TheP_A_N_D_A"
+                                      },
+                                      {
+                                          "platform":  "instagram",
+                                          "label":  "@thep_a_n_d_a",
+                                          "url":  "https://instagram.com/thep_a_n_d_a"
+                                      }
+                                  ]
+                    },
                    {
                        "slug":  "duvve",
                        "name":  "Duvve",
