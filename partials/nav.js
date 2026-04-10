@@ -43,6 +43,7 @@ export function renderNav({ sideKey = "global", baseDepth = 0 } = {}) {
 
   const main = [
     { href: `${prefix}pages/events/index.html`, label: t("nav.events") },
+    { href: `${prefix}pages/archive/index.html`, label: t("nav.archive") },
     { href: `${prefix}pages/tekno/index.html`, label: t("nav.tekno") },
     { href: `${prefix}pages/hiphop/index.html`, label: t("nav.hiphop") },
     { href: `${prefix}pages/booking/index.html`, label: t("nav.bookings") }

@@ -10,6 +10,7 @@ const siteUrl = "https://kwartierwest.be";
 const staticRoutes = [
   "/",
   "/pages/events/index.html",
+  "/pages/archive/index.html",
   "/pages/tekno/index.html",
   "/pages/hiphop/index.html",
   "/pages/booking/index.html",

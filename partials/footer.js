@@ -16,6 +16,7 @@ export function renderFooter({ baseDepth = 0 } = {}) {
         <section class="kw-footer__col" aria-label="${t("footer.title.platform")}">
           <p class="kw-footer__title">${t("footer.title.platform")}</p>
           <a class="kw-footer__link" href="${prefix}pages/events/index.html">${t("nav.events")}</a>
+          <a class="kw-footer__link" href="${prefix}pages/archive/index.html">${t("nav.archive")}</a>
           <a class="kw-footer__link" href="${prefix}pages/booking/index.html">${t("nav.bookingDesk")}</a>
           <a class="kw-footer__link" href="${prefix}pages/tickets/index.html">${t("tickets.hero.title")}</a>
         </section>

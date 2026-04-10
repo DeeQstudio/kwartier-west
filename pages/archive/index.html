@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n-title="meta.archive.title">Kwartier West - Archief</title>
+  <meta name="description" content="Archief van voorbije Kwartier West-events met foto's en video's." data-i18n-content="meta.archive.description">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kwartier West">
+  <meta property="og:title" content="Kwartier West - Archief" data-i18n-content="meta.archive.title">
+  <meta property="og:description" content="Archief van voorbije Kwartier West-events met foto's en video's." data-i18n-content="meta.archive.description">
+  <meta property="og:url" content="https://kwartierwest.be/pages/archive/index.html">
+  <meta property="og:image" content="https://kwartierwest.be/assets/img/archive/teknorelics-eye-of-the-temple/web/tek-eye-temple-poster.png">
+  <meta property="og:image:secure_url" content="https://kwartierwest.be/assets/img/archive/teknorelics-eye-of-the-temple/web/tek-eye-temple-poster.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Teknorelics: Eye of the Temple poster">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kwartier West - Archief" data-i18n-content="meta.archive.title">
+  <meta name="twitter:description" content="Archief van voorbije Kwartier West-events met foto's en video's." data-i18n-content="meta.archive.description">
+  <meta name="twitter:image" content="https://kwartierwest.be/assets/img/archive/teknorelics-eye-of-the-temple/web/tek-eye-temple-poster.png">
+  <link rel="canonical" href="https://kwartierwest.be/pages/archive/index.html">
+  <link rel="stylesheet" href="../../css/base.css?v=20260305u">
+  <link rel="stylesheet" href="../../css/archive.css?v=20260410b">
+</head>
+<body class="kw-page archive-page">
+  <div data-nav></div>
+
+  <main id="main-content" class="page-shell">
+    <header class="hero-surface hero-surface--lane hero-surface--archive">
+      <p class="eyebrow" data-i18n="archive.hero.eyebrow">Kwartier West / Archief</p>
+      <h1 data-i18n="archive.hero.title">Archief</h1>
+      <p class="lead" data-i18n="archive.hero.lead">Voorbije nachten in foto's en video's.</p>
+
+      <div class="inline-actions">
+        <a class="chip-link" href="../events/index.html?scope=past" data-i18n="archive.hero.ctaEvents">Voorbije events</a>
+        <a class="chip-link" href="#archive-chooser" data-i18n="archive.hero.ctaJump">Kies event</a>
+      </div>
+    </header>
+
+    <section class="surface surface--archive">
+      <div class="section-header">
+        <h2 data-i18n="archive.section.editions">Events</h2>
+        <span class="muted" data-i18n="archive.section.meta">Archief</span>
+      </div>
+      <div data-archive-root></div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+
+  <script type="module">
+    import { initI18nPage } from "../../js/core/i18n.js";
+    import { renderNav } from "../../partials/nav.js";
+    import { renderFooter } from "../../partials/footer.js";
+    import { mountArchivePage } from "../../js/archive.js";
+
+    initI18nPage();
+    renderNav({ sideKey: "global", baseDepth: 2 });
+    renderFooter({ baseDepth: 2 });
+    mountArchivePage({ baseDepth: 2 });
+  </script>
+</body>
+</html>
