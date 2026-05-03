@@ -14,7 +14,7 @@ const SIDE_OG = {
   tekno: `${SITE_ORIGIN}/assets/landing-tekno.jpg`,
   hiphop: `${SITE_ORIGIN}/assets/landing-hiphop.jpg`
 };
-const ASSET_VERSION = "20260303c";
+const CSS_ASSET_VERSION = "20260305u";
 
 function normalizeSlug(value = "") {
   return String(value || "")
@@ -51,7 +51,7 @@ function trimText(value = "", maxLength = 240) {
   const compact = String(value || "").replace(/\s+/g, " ").trim();
   if (!compact) return "";
   if (compact.length <= maxLength) return compact;
-  return `${compact.slice(0, maxLength - 1).trim()}…`;
+  return `${compact.slice(0, maxLength - 3).trim()}...`;
 }
 
 function eventSlug(eventItem, fallback = "event") {
@@ -82,6 +82,33 @@ function formatDate(dateValue = "", timeValue = "") {
 
   if (!time) return humanDate;
   return `${humanDate} - ${time}`;
+}
+
+function parseEventDay(dateValue = "") {
+  const date = String(dateValue || "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  const parsed = new Date(`${date}T00:00:00`);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function isPastEvent(eventItem, now = new Date()) {
+  const eventDay = parseEventDay(eventItem?.date);
+  if (!eventDay) return false;
+
+  const today = new Date(now);
+  today.setHours(0, 0, 0, 0);
+  return eventDay.getTime() < today.getTime();
+}
+
+function normalizedStatusLabel(eventItem, isPastByDate = false) {
+  if (isPastByDate) return "Voorbij";
+
+  const raw = String(eventItem?.status || "").trim().toLowerCase();
+  if (raw === "completed" || raw === "past" || raw === "voorbij" || raw === "voorbije") return "Voorbij";
+  if (raw === "upcoming" || raw === "komend") return "Komend";
+
+  const original = String(eventItem?.status || "").trim();
+  return original || "Komend";
 }
 
 function buildArtistMap(artistsData) {
@@ -155,7 +182,7 @@ function eventDescription(eventItem, sideKey) {
   return trimText(base || `${sideLabel(sideKey)} event van Kwartier West.`);
 }
 
-function toJsonLd(eventItem, sideKey, canonical, imageUrl, artistMap) {
+function toJsonLd(eventItem, sideKey, canonical, imageUrl, artistMap, { isPastByDate = false } = {}) {
   const locationName = [eventItem?.region, eventItem?.venue].filter(Boolean).join(" - ");
   const startDate = String(eventItem?.date || "").trim();
   const startTime = String(eventItem?.time || "").trim();
@@ -188,7 +215,7 @@ function toJsonLd(eventItem, sideKey, canonical, imageUrl, artistMap) {
     name: String(eventItem?.title || "Kwartier West Event"),
     url: canonical,
     startDate: isoStart || undefined,
-    eventStatus: "https://schema.org/EventScheduled",
+    eventStatus: isPastByDate ? "https://schema.org/EventCompleted" : "https://schema.org/EventScheduled",
     image: imageUrl || DEFAULT_OG_IMAGE,
     description: eventDescription(eventItem, sideKey),
     location: locationName
@@ -217,14 +244,15 @@ function renderEventPage(eventItem, sideKey, artistMap) {
   const description = eventDescription(eventItem, sideKey);
   const eventDate = formatDate(eventItem?.date, eventItem?.time);
   const location = [eventItem?.region, eventItem?.venue].filter(Boolean).join(" - ");
-  const status = String(eventItem?.status || "Komend").trim() || "Komend";
+  const isPastByDate = isPastEvent(eventItem);
+  const status = normalizedStatusLabel(eventItem, isPastByDate);
   const notes = String(eventItem?.notes || "").trim();
 
   const headline = notes || description;
   const lineup = lineupMarkup(eventItem, artistMap, sideKey);
   const ticket = ticketMarkup(eventItem);
   const source = sourceMarkup(eventItem);
-  const jsonLd = toJsonLd(eventItem, sideKey, canonical, ogImage, artistMap);
+  const jsonLd = toJsonLd(eventItem, sideKey, canonical, ogImage, artistMap, { isPastByDate });
 
   return `<!doctype html>
 <html lang="nl">
@@ -247,8 +275,8 @@ function renderEventPage(eventItem, sideKey, artistMap) {
   <meta name="twitter:image" content="${escapeHtml(ogImage)}">
   <link rel="canonical" href="${escapeHtml(canonical)}">
   <script type="application/ld+json">${jsonLd}</script>
-  <link rel="stylesheet" href="/css/base.css?v=${ASSET_VERSION}">
-  <link rel="stylesheet" href="/css/events.css?v=${ASSET_VERSION}">
+  <link rel="stylesheet" href="/css/base.css?v=${CSS_ASSET_VERSION}">
+  <link rel="stylesheet" href="/css/events.css?v=${CSS_ASSET_VERSION}">
 </head>
 <body class="kw-page events-page kw-side-${escapeHtml(sideKey)}">
   <div data-nav></div>

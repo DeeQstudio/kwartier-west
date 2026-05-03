@@ -10,7 +10,8 @@ const outputRoot = path.join(projectRoot, "pages");
 
 const SITE_ORIGIN = "https://kwartierwest.be";
 const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og/og-cover.png`;
-const ASSET_VERSION = "20260303b";
+const BASE_CSS_VERSION = "20260305u";
+const ARTIST_DETAIL_VERSION = "20260304e";
 
 function normalizeSlug(value = "") {
   return String(value || "").trim().toLowerCase();
@@ -38,7 +39,7 @@ function trimText(value = "", maxLength = 230) {
   const compact = String(value || "").replace(/\s+/g, " ").trim();
   if (!compact) return "";
   if (compact.length <= maxLength) return compact;
-  return `${compact.slice(0, maxLength - 1).trim()}…`;
+  return `${compact.slice(0, maxLength - 3).trim()}...`;
 }
 
 function sideLabel(sideKey) {
@@ -132,7 +133,7 @@ function renderArtistPage(sideKey, artist) {
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${escapeHtml(ogImage)}">
   <link rel="canonical" href="${escapeHtml(canonical)}">
-  <link rel="stylesheet" href="/css/base.css?v=${ASSET_VERSION}">
+  <link rel="stylesheet" href="/css/base.css?v=${BASE_CSS_VERSION}">
 </head>
 <body class="kw-page kw-side-${escapeHtml(sideKey)} kw-page--artist">
   <div data-nav></div>
@@ -162,7 +163,7 @@ function renderArtistPage(sideKey, artist) {
     import { renderNav } from "/partials/nav.js";
     import { renderFooter } from "/partials/footer.js";
     import { renderSideSwitch } from "/partials/side-switch.js";
-    import { renderArtistDetail } from "/js/artist-detail.js?v=${ASSET_VERSION}";
+    import { renderArtistDetail } from "/js/artist-detail.js?v=${ARTIST_DETAIL_VERSION}";
 
     const pathname = String(window.location.pathname || "");
     const isIndexFileRoute = /\\/pages\\/(tekno|hiphop)\\/artist\\/[^/]+\\/index\\.html$/i.test(pathname);

@@ -3,6 +3,10 @@ import { artistPath, escapeHTML, eventPath, formatDateTime, sideShortLabel } fro
 import { t } from "./core/i18n.js";
 
 function localizedEventStatus(eventItem) {
+  if (eventItem?.__isPast) {
+    return t("events.filter.past");
+  }
+
   const raw = String(eventItem?.status || "").trim().toLowerCase();
   if (raw === "completed" || raw === "past" || raw === "voorbij" || raw === "voorbije") {
     return t("events.filter.past");
@@ -79,7 +83,9 @@ function renderRailEvents(sideEvents, sideKey) {
   if (!mount) return;
 
   const { upcoming, past } = splitEventsByDate(sideEvents);
-  const ordered = upcoming.length ? upcoming : past.slice().reverse();
+  const upcomingEvents = upcoming.map((eventItem) => ({ ...eventItem, __isPast: false }));
+  const pastEvents = past.map((eventItem) => ({ ...eventItem, __isPast: true }));
+  const ordered = upcomingEvents.length ? upcomingEvents : pastEvents.slice().reverse();
   const limited = ordered.slice(0, 3);
 
   if (!limited.length) {
@@ -141,7 +147,10 @@ export async function renderEvents(sideKey, { baseDepth = 0 } = {}) {
     }
 
     const { upcoming, past } = splitEventsByDate(sideEvents);
-    const ordered = [...upcoming, ...past.reverse()];
+    const ordered = [
+      ...upcoming.map((eventItem) => ({ ...eventItem, __isPast: false })),
+      ...past.slice().reverse().map((eventItem) => ({ ...eventItem, __isPast: true }))
+    ];
 
     if (mount) {
       mount.innerHTML = `

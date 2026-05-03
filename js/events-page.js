@@ -13,10 +13,10 @@ function localizedEventStatus(eventItem) {
   if (raw === "completed" || raw === "past" || raw === "voorbij" || raw === "voorbije") {
     return t("events.filter.past");
   }
+  if (eventItem?.__isPast) return t("events.filter.past");
   if (raw === "upcoming" || raw === "komend") {
     return t("events.filter.upcoming");
   }
-  if (eventItem?.__isPast) return t("events.filter.past");
   return eventItem?.status ? String(eventItem.status) : t("events.filter.upcoming");
 }
 

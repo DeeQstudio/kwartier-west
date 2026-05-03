@@ -24,6 +24,39 @@ function quickRoutes(sideKey) {
   return [];
 }
 
+function canonicalPathname(pathname = "/") {
+  const withLeadingSlash = String(pathname || "/").startsWith("/")
+    ? String(pathname || "/")
+    : `/${String(pathname || "/")}`;
+  const withoutIndex = withLeadingSlash.replace(/\/index\.html$/i, "/");
+  const compacted = withoutIndex.replace(/\/{2,}/g, "/");
+  if (compacted !== "/" && compacted.endsWith("/")) return compacted.slice(0, -1).toLowerCase();
+  return compacted.toLowerCase();
+}
+
+function filterCurrentRouteLinks(routes) {
+  if (typeof window === "undefined") return routes;
+
+  let currentUrl;
+  try {
+    currentUrl = new URL(window.location.href);
+  } catch {
+    return routes;
+  }
+
+  const currentPath = canonicalPathname(currentUrl.pathname);
+
+  return routes.filter((route) => {
+    try {
+      const targetUrl = new URL(route?.href || "", currentUrl.href);
+      const targetPath = canonicalPathname(targetUrl.pathname);
+      return targetPath !== currentPath;
+    } catch {
+      return true;
+    }
+  });
+}
+
 function eventsHubHref(sideKey) {
   if (sideKey === "tekno" || sideKey === "hiphop") {
     return `../events/index.html?side=${encodeURIComponent(sideKey)}&scope=upcoming`;
@@ -65,7 +98,7 @@ export function mountPageRail({ sideKey = "global" } = {}) {
     shell.append(rail);
   }
 
-  const quick = quickRoutes(sideKey);
+  const quick = filterCurrentRouteLinks(quickRoutes(sideKey));
   const quickHTML = quick.length
     ? `
       <section class="page-rail__panel" aria-label="${t("rail.quick.aria")}">
