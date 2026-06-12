@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-02-27T17:28:00Z",
+    "updatedAt":  "2026-06-12T00:00:00Z",
     "hiphop":  [
                    {
                        "slug":  "de-kweker",
@@ -126,6 +126,54 @@
                                      }
                                  ]
                     },
+                   {
+                       "slug":  "krank",
+                       "name":  "Krank",
+                       "role":  "Rapper",
+                       "city":  "Knokke, BE",
+                       "lang":  "NL",
+                       "photo":  "/assets/img/artists/hiphop/krank.jpg",
+                       "bio":  "Krank is een West-Vlaamse rapper uit Knokke die sinds 2008 nummers maakt.",
+                       "headline":  "No nonsense bars die je een spiegel voorhouden, met een kritische invalshoek.",
+                       "story":  "Krank begon in de tijd bij De Feiten en bouwde daarna verder aan zijn eigen pad. Tot nu toe bracht hij twee underground solo releases uit, met een stijl die rechtuit blijft en niet rond de kern draait.\n\nZijn muzikale identiteit zit in bars die tegelijk nuchter en scherp zijn: no nonsense, jezelf durven bekijken en de realiteit niet zachter maken dan ze is.",
+                       "live":  "Live brengt Krank diezelfde directe energie naar voren: teksten met gewicht, kritische accenten en een West-Vlaamse gronding die dicht bij zichzelf blijft.",
+                       "focus":  [
+                                     "No nonsense bars",
+                                     "Kritische invalshoeken",
+                                     "West-Vlaamse underground"
+                                 ],
+                       "tags":  [
+                                    "Knokke",
+                                    "Underground",
+                                    "NL"
+                                ],
+                       "priority":  72,
+                       "collective":  "hiphop",
+                       "booking":  {
+                                       "available":  true,
+                                       "types":  [
+                                                     "solo",
+                                                     "multiple"
+                                                 ]
+                                   },
+                       "links":  [
+                                     {
+                                         "platform":  "spotify",
+                                         "label":  "Krank",
+                                         "url":  "https://open.spotify.com/artist/6UdtoDuyUapSM5w0zTpi9R?si=XJKheAXETGqEgFbgXUCeVQ"
+                                     },
+                                     {
+                                         "platform":  "youtube",
+                                         "label":  "@Krankkkkkk",
+                                         "url":  "https://www.youtube.com/@Krankkkkkk"
+                                     },
+                                     {
+                                         "platform":  "instagram",
+                                         "label":  "@krankkkkkk_",
+                                         "url":  "https://www.instagram.com/krankkkkkk_/"
+                                     }
+                                 ]
+                   },
                    {
                        "slug":  "mc-tubbie",
                        "name":  "MC Tubbie",

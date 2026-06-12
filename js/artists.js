@@ -89,6 +89,45 @@ function applyArtistCardSocialGrid(mount) {
   });
 }
 
+function usesMobileEntry() {
+  return !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    || window.matchMedia("(max-width: 820px)").matches;
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function initArtistCardEntry(mount) {
+  if (!mount || mount.dataset.artistEntryReady === "true") return;
+  mount.dataset.artistEntryReady = "true";
+
+  let isNavigating = false;
+
+  mount.addEventListener("click", (event) => {
+    if (!usesMobileEntry() || isNavigating) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    const hit = event.target instanceof Element ? event.target.closest(".artist-card__hit") : null;
+    if (!hit || hit.target === "_blank") return;
+
+    const card = hit.closest(".artist-card");
+    const grid = card?.closest(".artist-grid");
+    const href = hit.getAttribute("href");
+    if (!card || !grid || !href) return;
+
+    event.preventDefault();
+    isNavigating = true;
+
+    grid.classList.add("is-entering");
+    card.classList.add("is-selected");
+
+    window.setTimeout(() => {
+      window.location.href = hit.href;
+    }, prefersReducedMotion() ? 40 : 260);
+  });
+}
+
 export async function renderArtists(sideKey, { baseDepth = 0 } = {}) {
   const mount = document.querySelector("[data-artists]");
   if (!mount) return;
@@ -106,6 +145,7 @@ export async function renderArtists(sideKey, { baseDepth = 0 } = {}) {
 
     mount.innerHTML = `<div class="artist-grid">${list.map((artist) => artistCard(artist, sideKey)).join("")}</div>`;
     applyArtistCardSocialGrid(mount);
+    initArtistCardEntry(mount);
     window.addEventListener("resize", () => applyArtistCardSocialGrid(mount), { passive: true });
   } catch (error) {
     console.error(error);

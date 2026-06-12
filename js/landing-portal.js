@@ -9,6 +9,10 @@ function canUseHoverPointer() {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 }
 
+function usesMobileEntry() {
+  return !canUseHoverPointer() || window.matchMedia("(max-width: 820px)").matches;
+}
+
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
@@ -112,12 +116,32 @@ function navigateToSide(side, routes) {
   return true;
 }
 
+function enterSide(side, routes, root, panelCards, state) {
+  if (state.isNavigating) return false;
+  const target = routes[side];
+  if (!target) return false;
+
+  state.isNavigating = true;
+  root.classList.add("is-entering", `is-entering-${side}`);
+
+  panelCards.forEach((panel) => {
+    const panelSide = (panel.getAttribute("data-rift-side") || "").toLowerCase();
+    panel.classList.toggle("is-selected", panelSide === side);
+  });
+
+  window.setTimeout(() => {
+    window.location.href = target;
+  }, state.reducedMotion ? 40 : 280);
+
+  return true;
+}
+
 function touchInstructionLabel() {
   const lang = (document.documentElement.lang || "nl").toLowerCase();
   if (lang.startsWith("en")) {
-    return "Tap left or right in the rift. Tap again to open.";
+    return "Tap a side to enter.";
   }
-  return "Tik links of rechts in de rift. Tik opnieuw om te openen.";
+  return "Tik een kant om binnen te gaan.";
 }
 
 export function initLandingPortal() {
@@ -136,7 +160,9 @@ export function initLandingPortal() {
   const state = {
     reducedMotion: prefersReducedMotion(),
     hoverPointer: canUseHoverPointer(),
-    activeSide: "none"
+    activeSide: "none",
+    isMobileEntry: usesMobileEntry(),
+    isNavigating: false
   };
 
   const routes = {
@@ -153,7 +179,7 @@ export function initLandingPortal() {
   setSide("none");
   resetPointerMood(hero);
 
-  if (!state.hoverPointer) {
+  if (state.isMobileEntry) {
     const instruction = document.getElementById("portal-instruction");
     if (instruction) {
       instruction.textContent = touchInstructionLabel();
@@ -183,18 +209,8 @@ export function initLandingPortal() {
       ? sideFromClientX(hero, x)
       : sideFromClientXLoose(hero, x);
 
-    if (!state.hoverPointer) {
-      if (side === "none") {
-        setSide("none");
-        return;
-      }
-
-      if (state.activeSide === side) {
-        navigateToSide(side, routes);
-        return;
-      }
-
-      setSide(side);
+    if (state.isMobileEntry) {
+      enterSide(side, routes, root, panelCards, state);
       return;
     }
 
@@ -214,6 +230,11 @@ export function initLandingPortal() {
       if (interactive) return;
       const side = (panel.getAttribute("data-rift-side") || "").toLowerCase();
       if (side === "tekno" || side === "hiphop") {
+        event.stopPropagation();
+        if (state.isMobileEntry) {
+          enterSide(side, routes, root, panelCards, state);
+          return;
+        }
         navigateToSide(side, routes);
       }
     });
