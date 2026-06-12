@@ -104,6 +104,19 @@ function initArtistCardEntry(mount) {
 
   let isNavigating = false;
 
+  const resetEntryState = () => {
+    isNavigating = false;
+    mount.querySelectorAll(".artist-grid.is-entering").forEach((grid) => {
+      grid.classList.remove("is-entering");
+    });
+    mount.querySelectorAll(".artist-card.is-selected").forEach((card) => {
+      card.classList.remove("is-selected");
+    });
+  };
+
+  window.addEventListener("pageshow", resetEntryState);
+  resetEntryState();
+
   mount.addEventListener("click", (event) => {
     if (!usesMobileEntry() || isNavigating) return;
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;

@@ -136,6 +136,14 @@ function enterSide(side, routes, root, panelCards, state) {
   return true;
 }
 
+function resetEntryState(root, panelCards, state) {
+  state.isNavigating = false;
+  root.classList.remove("is-entering", "is-entering-tekno", "is-entering-hiphop");
+  panelCards.forEach((panel) => {
+    panel.classList.remove("is-selected");
+  });
+}
+
 function touchInstructionLabel() {
   const lang = (document.documentElement.lang || "nl").toLowerCase();
   if (lang.startsWith("en")) {
@@ -178,6 +186,7 @@ export function initLandingPortal() {
 
   setSide("none");
   resetPointerMood(hero);
+  resetEntryState(root, panelCards, state);
 
   if (state.isMobileEntry) {
     const instruction = document.getElementById("portal-instruction");
@@ -283,5 +292,11 @@ export function initLandingPortal() {
     if (state.activeSide !== "none") {
       trapTabBetweenCTAs(event, hero, allCtas, state.activeSide);
     }
+  });
+
+  window.addEventListener("pageshow", () => {
+    resetEntryState(root, panelCards, state);
+    setSide("none");
+    resetPointerMood(hero);
   });
 }
