@@ -34,13 +34,13 @@ export function renderFooter({ baseDepth = 0 } = {}) {
           <a class="kw-footer__link" href="${prefix}pages/manifest/index.html">${t("nav.manifest")}</a>
           <a class="kw-footer__link" href="${prefix}pages/partners/index.html">${t("nav.partners")}</a>
           <a class="kw-footer__link" href="${prefix}pages/contact/index.html">${t("nav.contact")}</a>
-          <span class="kw-footer__note">${t("footer.note.appSoon")}</span>
+          <span class="kw-footer__note">${t("footer.note.appFlow")}</span>
         </section>
 
         <section class="kw-footer__col" aria-label="${t("footer.title.info")}">
           <p class="kw-footer__title">${t("footer.title.info")}</p>
-          <span class="kw-footer__note">${t("footer.note.privacySoon")}</span>
-          <span class="kw-footer__note">${t("footer.note.termsSoon")}</span>
+          <a class="kw-footer__link" href="${prefix}pages/privacy/index.html">${t("footer.link.privacy")}</a>
+          <a class="kw-footer__link" href="${prefix}pages/voorwaarden/index.html">${t("footer.link.terms")}</a>
           <a class="kw-footer__link" href="mailto:info@kwartierwest.be">info@kwartierwest.be</a>
           <a class="kw-footer__powered" href="https://www.deeqstudio.com" target="_blank" rel="noopener noreferrer" aria-label="${t("landing.footer.powered")}">
             <span class="kw-footer__powered-prefix">${t("landing.footer.poweredPrefix")}</span>

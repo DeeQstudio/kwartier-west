@@ -25,7 +25,7 @@ function setPanelLinksFocusable(links, side) {
 }
 
 function setPanelsAria(panels, visible) {
-  panels.setAttribute("aria-hidden", visible ? "false" : "true");
+  panels.setAttribute("aria-hidden", "false");
 }
 
 function updatePointerMood(hero, event) {
@@ -48,7 +48,7 @@ function sideFromClientX(hero, clientX) {
   const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
   if (ratio < LEFT_THRESHOLD) return "tekno";
   if (ratio > RIGHT_THRESHOLD) return "hiphop";
-  return "none";
+  return "villa";
 }
 
 function sideFromClientXLoose(hero, clientX) {
@@ -105,6 +105,7 @@ function applySideState(root, panels, links, side) {
   root.classList.toggle("has-side", side === "tekno" || side === "hiphop");
   root.classList.toggle("is-hover-tekno", side === "tekno");
   root.classList.toggle("is-hover-hiphop", side === "hiphop");
+  root.classList.toggle("is-hover-villa", side === "villa");
   setPanelsAria(panels, side === "tekno" || side === "hiphop");
   setPanelLinksFocusable(links, side);
 }
@@ -147,9 +148,9 @@ function resetEntryState(root, panelCards, state) {
 function touchInstructionLabel() {
   const lang = (document.documentElement.lang || "nl").toLowerCase();
   if (lang.startsWith("en")) {
-    return "Tap a side to enter.";
+    return "Tekno / Villa West / Hip hop";
   }
-  return "Tik een kant om binnen te gaan.";
+  return "Tekno / Villa West / Hiphop";
 }
 
 export function initLandingPortal() {
@@ -158,6 +159,7 @@ export function initLandingPortal() {
   const panels = document.querySelector("[data-rift-panels]");
   const allCtas = Array.from(document.querySelectorAll("[data-rift-cta]"));
   const panelCards = Array.from(document.querySelectorAll("[data-rift-panel]"));
+  const villaSignal = document.querySelector("[data-rift-villa]");
 
   if (!root || !hero || !panels || !allCtas.length) return;
 
@@ -175,11 +177,12 @@ export function initLandingPortal() {
 
   const routes = {
     tekno: openTekno.href,
-    hiphop: openHiphop.href
+    hiphop: openHiphop.href,
+    villa: villaSignal instanceof HTMLAnchorElement ? villaSignal.href : ""
   };
 
   const setSide = (side) => {
-    const safe = side === "tekno" || side === "hiphop" ? side : "none";
+    const safe = side === "tekno" || side === "hiphop" || side === "villa" ? side : "none";
     state.activeSide = safe;
     applySideState(root, panels, allCtas, safe);
   };
@@ -281,11 +284,15 @@ export function initLandingPortal() {
       return;
     }
 
+    if (event.key === "3" || event.key === "ArrowDown") {
+      event.preventDefault();
+      navigateToSide("villa", routes);
+      return;
+    }
+
     if (event.key === "Enter" || event.key === " " || event.key === "Spacebar") {
-      if (state.activeSide !== "none") {
-        event.preventDefault();
-        navigateToSide(state.activeSide, routes);
-      }
+      event.preventDefault();
+      navigateToSide(state.activeSide === "none" ? "villa" : state.activeSide, routes);
       return;
     }
 

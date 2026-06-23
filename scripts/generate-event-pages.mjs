@@ -1,58 +1,25 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  CSS_ASSET_VERSION,
+  DEFAULT_OG_IMAGE,
+  SIDE_OG_IMAGES,
+  SITE_ORIGIN,
+  escapeHtml,
+  normalizeSlug,
+  renderHtmlDocument,
+  renderSeoHead,
+  sideLabel,
+  toAbsoluteUrl,
+  trimText
+} from "./lib/site-meta.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
 const eventsFile = path.join(projectRoot, "data", "events.json");
 const artistsFile = path.join(projectRoot, "data", "artists.json");
 const outputRoot = path.join(projectRoot, "pages", "events", "detail");
-
-const SITE_ORIGIN = "https://kwartierwest.be";
-const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og/og-cover.png`;
-const SIDE_OG = {
-  tekno: `${SITE_ORIGIN}/assets/landing-tekno.jpg`,
-  hiphop: `${SITE_ORIGIN}/assets/landing-hiphop.jpg`
-};
-const CSS_ASSET_VERSION = "20260305u";
-
-function normalizeSlug(value = "") {
-  return String(value || "")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9\-_.\s]/g, "")
-    .replace(/[\s_]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-function escapeHtml(value = "") {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function toAbsolute(pathOrUrl = "") {
-  const value = String(pathOrUrl || "").trim().replaceAll("\\", "/");
-  if (!value) return "";
-  if (/^https?:\/\//i.test(value)) return value;
-  if (value.startsWith("/")) return `${SITE_ORIGIN}${value}`;
-  return `${SITE_ORIGIN}/${value}`;
-}
-
-function sideLabel(sideKey) {
-  return sideKey === "tekno" ? "Tekno" : "Hip hop";
-}
-
-function trimText(value = "", maxLength = 240) {
-  const compact = String(value || "").replace(/\s+/g, " ").trim();
-  if (!compact) return "";
-  if (compact.length <= maxLength) return compact;
-  return `${compact.slice(0, maxLength - 3).trim()}...`;
-}
 
 function eventSlug(eventItem, fallback = "event") {
   const idSlug = normalizeSlug(eventItem?.id || "");
@@ -82,6 +49,35 @@ function formatDate(dateValue = "", timeValue = "") {
 
   if (!time) return humanDate;
   return `${humanDate} - ${time}`;
+}
+
+function formatDateTimeRange(eventItem) {
+  const start = formatDate(eventItem?.date, eventItem?.time);
+  const endTime = String(eventItem?.endTime || "").trim();
+  return endTime ? `${start}-${endTime}` : start;
+}
+
+function eventDateTimeISO(dateValue = "", timeValue = "") {
+  const date = String(dateValue || "").trim();
+  const time = String(timeValue || "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return "";
+  if (!/^\d{2}:\d{2}$/.test(time)) return date;
+  return `${date}T${time}:00`;
+}
+
+function eventEndDateTimeISO(eventItem) {
+  const startDate = String(eventItem?.date || "").trim();
+  const startTime = String(eventItem?.time || "").trim();
+  const endTime = String(eventItem?.endTime || "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{2}:\d{2}$/.test(endTime)) return "";
+
+  const [year, month, day] = startDate.split("-").map(Number);
+  const endDate = new Date(Date.UTC(year, month - 1, day));
+  if (/^\d{2}:\d{2}$/.test(startTime) && endTime <= startTime) {
+    endDate.setUTCDate(endDate.getUTCDate() + 1);
+  }
+
+  return `${endDate.toISOString().slice(0, 10)}T${endTime}:00`;
 }
 
 function parseEventDay(dateValue = "") {
@@ -163,6 +159,14 @@ function ticketMarkup(eventItem) {
   return '<span class="muted">Tickets volgen.</span>';
 }
 
+function bookingMarkup(sideKey) {
+  if (sideKey === "global") {
+    return '<a class="chip-link" href="/pages/contact/index.html">Contact productie</a>';
+  }
+
+  return `<a class="chip-link" href="/pages/${escapeHtml(sideKey)}/booking.html?type=collective_side">Boek ${escapeHtml(sideLabel(sideKey))}</a>`;
+}
+
 function sourceMarkup(eventItem) {
   const url = String(eventItem?.source?.url || "").trim();
   if (!url) return '<span class="muted">Bron volgt.</span>';
@@ -184,9 +188,8 @@ function eventDescription(eventItem, sideKey) {
 
 function toJsonLd(eventItem, sideKey, canonical, imageUrl, artistMap, { isPastByDate = false } = {}) {
   const locationName = [eventItem?.region, eventItem?.venue].filter(Boolean).join(" - ");
-  const startDate = String(eventItem?.date || "").trim();
-  const startTime = String(eventItem?.time || "").trim();
-  const isoStart = startDate ? `${startDate}T${startTime || "20:00"}:00` : "";
+  const isoStart = eventDateTimeISO(eventItem?.date, eventItem?.time);
+  const isoEnd = eventEndDateTimeISO(eventItem);
 
   const performers = (Array.isArray(eventItem?.lineup) ? eventItem.lineup : [])
     .map((entry) => {
@@ -215,7 +218,9 @@ function toJsonLd(eventItem, sideKey, canonical, imageUrl, artistMap, { isPastBy
     name: String(eventItem?.title || "Kwartier West Event"),
     url: canonical,
     startDate: isoStart || undefined,
+    endDate: isoEnd || undefined,
     eventStatus: isPastByDate ? "https://schema.org/EventCompleted" : "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     image: imageUrl || DEFAULT_OG_IMAGE,
     description: eventDescription(eventItem, sideKey),
     location: locationName
@@ -226,6 +231,7 @@ function toJsonLd(eventItem, sideKey, canonical, imageUrl, artistMap, { isPastBy
         }
       : undefined,
     performer: performers.length ? performers : undefined,
+    sameAs: eventItem?.source?.url ? String(eventItem.source.url) : undefined,
     organizer: {
       "@type": "Organization",
       name: "Kwartier West",
@@ -240,64 +246,67 @@ function renderEventPage(eventItem, sideKey, artistMap) {
   const slug = eventSlug(eventItem, `${sideKey}-event`);
   const title = String(eventItem?.title || "Kwartier West Event").trim();
   const canonical = `${SITE_ORIGIN}/pages/events/detail/${encodeURIComponent(slug)}`;
-  const ogImage = SIDE_OG[sideKey] || DEFAULT_OG_IMAGE;
+  const poster = String(eventItem?.poster || "").trim();
+  const posterUrl = poster ? toAbsoluteUrl(poster) : "";
+  const posterType = String(eventItem?.posterType || "").trim();
+  const posterWidth = Number(eventItem?.posterWidth || 0);
+  const posterHeight = Number(eventItem?.posterHeight || 0);
+  const ogImage = posterUrl || SIDE_OG_IMAGES[sideKey] || DEFAULT_OG_IMAGE;
   const description = eventDescription(eventItem, sideKey);
-  const eventDate = formatDate(eventItem?.date, eventItem?.time);
+  const metaDescription = trimText(description, 170);
+  const eventDate = formatDateTimeRange(eventItem);
   const location = [eventItem?.region, eventItem?.venue].filter(Boolean).join(" - ");
   const isPastByDate = isPastEvent(eventItem);
   const status = normalizedStatusLabel(eventItem, isPastByDate);
   const notes = String(eventItem?.notes || "").trim();
+  const schedule = String(eventItem?.schedule || "").trim();
 
-  const headline = notes || description;
+  const headline = schedule || notes || description;
   const lineup = lineupMarkup(eventItem, artistMap, sideKey);
   const ticket = ticketMarkup(eventItem);
   const source = sourceMarkup(eventItem);
+  const booking = bookingMarkup(sideKey);
   const jsonLd = toJsonLd(eventItem, sideKey, canonical, ogImage, artistMap, { isPastByDate });
+  const sideClass = sideKey === "global" ? "global" : sideKey;
+  const head = renderSeoHead({
+    title: `${title} | Kwartier West`,
+    description: metaDescription,
+    canonical,
+    ogImage,
+    ogAlt: `${title} - ${sideLabel(sideKey)}`,
+    imageType: posterType,
+    imageWidth: posterWidth > 0 ? String(posterWidth) : "",
+    imageHeight: posterHeight > 0 ? String(posterHeight) : "",
+    extra: `<script type="application/ld+json">${jsonLd}</script>`
+  });
+  const posterMarkup = poster
+    ? `
+        <figure class="event-detail-poster">
+          <img src="${escapeHtml(poster)}" alt="${escapeHtml(title)} affiche">
+        </figure>
+      `
+    : "";
 
-  return `<!doctype html>
-<html lang="nl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(title)} | Kwartier West</title>
-  <meta name="description" content="${escapeHtml(description)}">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Kwartier West">
-  <meta property="og:title" content="${escapeHtml(title)} | Kwartier West">
-  <meta property="og:description" content="${escapeHtml(description)}">
-  <meta property="og:url" content="${escapeHtml(canonical)}">
-  <meta property="og:image" content="${escapeHtml(ogImage)}">
-  <meta property="og:image:secure_url" content="${escapeHtml(ogImage)}">
-  <meta property="og:image:alt" content="${escapeHtml(title)} - ${escapeHtml(sideLabel(sideKey))}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${escapeHtml(title)} | Kwartier West">
-  <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="${escapeHtml(ogImage)}">
-  <link rel="canonical" href="${escapeHtml(canonical)}">
-  <script type="application/ld+json">${jsonLd}</script>
-  <link rel="stylesheet" href="/css/base.css?v=${CSS_ASSET_VERSION}">
-  <link rel="stylesheet" href="/css/events.css?v=${CSS_ASSET_VERSION}">
-</head>
-<body class="kw-page events-page kw-side-${escapeHtml(sideKey)}">
-  <div data-nav></div>
-
+  const main = `
   <main id="main-content" class="page-shell">
-    <header class="hero-surface hero-surface--lane hero-surface--lane-${escapeHtml(sideKey)} hero-surface--events">
+    <header class="hero-surface hero-surface--lane hero-surface--lane-${escapeHtml(sideClass)} hero-surface--events${poster ? " hero-surface--event-poster" : ""}"${poster ? ` style="--event-poster: url('${escapeHtml(poster)}')"` : ""}>
       <p class="eyebrow">${escapeHtml(sideLabel(sideKey))} / Eventdetail</p>
       <h1>${escapeHtml(title)}</h1>
       <p class="lead">${escapeHtml(headline)}</p>
       <div class="inline-actions">
-        <a class="chip-link" href="/pages/events/index.html?side=${escapeHtml(sideKey)}&scope=all">Alle ${escapeHtml(sideLabel(sideKey))}-events</a>
-        <a class="chip-link" href="/pages/${escapeHtml(sideKey)}/booking.html?type=collective_side">Boek ${escapeHtml(sideLabel(sideKey))}</a>
+        <a class="chip-link" href="/pages/events/index.html#${slug === "villa-west-radio-2026" ? "villa-west" : ""}">Alle events</a>
+        ${booking}
       </div>
     </header>
 
     <section class="surface surface--event-detail">
-      <div class="event-detail-grid">
+      <div class="event-detail-grid${poster ? " event-detail-grid--poster" : ""}">
+        ${posterMarkup}
         <article class="event-detail-card">
           <h2>Event info</h2>
           <dl class="event-detail-list">
-            <div><dt>Datum</dt><dd>${escapeHtml(eventDate)}</dd></div>
+            ${schedule ? `<div><dt>Reeks</dt><dd>${escapeHtml(schedule)}</dd></div>` : ""}
+            <div><dt>${schedule ? "Start" : "Datum"}</dt><dd>${escapeHtml(eventDate)}</dd></div>
             <div><dt>Locatie</dt><dd>${escapeHtml(location || "Wordt bevestigd")}</dd></div>
             <div><dt>Status</dt><dd>${escapeHtml(status)}</dd></div>
             <div><dt>Tickets</dt><dd>${ticket}</dd></div>
@@ -312,11 +321,9 @@ function renderEventPage(eventItem, sideKey, artistMap) {
         </article>
       </div>
     </section>
-  </main>
+  </main>`;
 
-  <div data-footer></div>
-
-  <script type="module">
+  const moduleScript = `
     import { initI18nPage } from "/js/core/i18n.js";
     import { renderNav } from "/partials/nav.js";
     import { renderFooter } from "/partials/footer.js";
@@ -326,12 +333,17 @@ function renderEventPage(eventItem, sideKey, artistMap) {
     const baseDepth = isIndexFileRoute ? 4 : 3;
 
     initI18nPage();
-    renderNav({ sideKey: "${escapeHtml(sideKey)}", baseDepth });
+    renderNav({ sideKey: "${escapeHtml(sideClass)}", baseDepth });
     renderFooter({ baseDepth });
-  </script>
-</body>
-</html>
-`;
+  `;
+
+  return renderHtmlDocument({
+    head,
+    stylesheets: [`/css/base.css?v=${CSS_ASSET_VERSION}`, `/css/events.css?v=${CSS_ASSET_VERSION}`],
+    bodyClass: `kw-page events-page kw-side-${escapeHtml(sideClass)}`,
+    main,
+    moduleScript
+  });
 }
 
 async function main() {
@@ -345,7 +357,7 @@ async function main() {
   const artistMap = buildArtistMap(artistsData);
 
   const entries = [];
-  for (const sideKey of ["tekno", "hiphop"]) {
+  for (const sideKey of ["global", "tekno", "hiphop"]) {
     const sideEvents = Array.isArray(eventsData?.[sideKey]) ? eventsData[sideKey] : [];
     for (const eventItem of sideEvents) {
       entries.push({ sideKey, eventItem });

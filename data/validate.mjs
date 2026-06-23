@@ -126,7 +126,7 @@ function validateEvents(events, artistLookup) {
     if (!isObject(events.sources)) {
       err("events.json.sources moet een object zijn.");
     } else {
-      for (const side of ["tekno", "hiphop"]) {
+      for (const side of ["global", "tekno", "hiphop"]) {
         const sourceList = events.sources[side];
         if (sourceList && !Array.isArray(sourceList)) {
           err(`events.json.sources.${side} moet een array zijn.`);
@@ -145,8 +145,16 @@ function validateEvents(events, artistLookup) {
     }
   }
 
-  for (const side of ["tekno", "hiphop"]) {
+  const globalIds = new Set();
+  const validSides = new Set(["tekno", "hiphop"]);
+
+  for (const side of ["global", "tekno", "hiphop"]) {
     const list = events[side];
+    if (side !== "global" && !Array.isArray(list)) {
+      err(`events.json: '${side}' moet een array zijn.`);
+      continue;
+    }
+    if (side === "global" && list == null) continue;
     if (!Array.isArray(list)) {
       err(`events.json: '${side}' moet een array zijn.`);
       continue;
@@ -164,10 +172,31 @@ function validateEvents(events, artistLookup) {
       if (typeof event.id !== "string" || !event.id.trim()) err(`${where}.id ontbreekt.`);
       if (event.id && ids.has(event.id)) err(`${where}.id '${event.id}' is dubbel binnen ${side}.`);
       if (event.id) ids.add(event.id);
+      if (event.id && globalIds.has(event.id)) err(`${where}.id '${event.id}' bestaat dubbel over meerdere eventlijsten.`);
+      if (event.id) globalIds.add(event.id);
 
       if (typeof event.title !== "string" || !event.title.trim()) err(`${where}.title ontbreekt.`);
       if (!isISODate(event.date)) err(`${where}.date moet YYYY-MM-DD zijn.`);
       if (event.time && !isTime(event.time)) warn(`${where}.time lijkt niet op HH:MM.`);
+      if (event.endTime && !isTime(event.endTime)) warn(`${where}.endTime lijkt niet op HH:MM.`);
+
+      if (event.sides != null) {
+        if (!Array.isArray(event.sides)) {
+          err(`${where}.sides moet een array zijn.`);
+        } else {
+          for (const eventSide of event.sides) {
+            if (!validSides.has(eventSide)) err(`${where}.sides bevat ongeldige kant '${eventSide}'.`);
+          }
+        }
+      }
+
+      if (event.poster && !isUrlOrEmpty(event.poster)) warn(`${where}.poster lijkt ongeldig.`);
+      if (event.posterWidth != null && (!Number.isFinite(Number(event.posterWidth)) || Number(event.posterWidth) <= 0)) {
+        warn(`${where}.posterWidth moet een positief getal zijn.`);
+      }
+      if (event.posterHeight != null && (!Number.isFinite(Number(event.posterHeight)) || Number(event.posterHeight) <= 0)) {
+        warn(`${where}.posterHeight moet een positief getal zijn.`);
+      }
 
       const mode = event?.tickets?.mode || "tba";
       if (!validModes.has(mode)) err(`${where}.tickets.mode moet external, internal of tba zijn.`);
@@ -315,18 +344,183 @@ function validateIntegrations(integrations) {
   }
 }
 
+function validateRoutes(routes) {
+  if (!isObject(routes)) {
+    err("routes.json moet een object zijn.");
+    return;
+  }
+
+  if (routes.updatedAt && !isISODateTime(routes.updatedAt)) warn("routes.json.updatedAt is geen geldige datetime.");
+  if (routes.origin && !/^https:\/\/kwartierwest\.be$/i.test(String(routes.origin))) {
+    warn("routes.json.origin wijkt af van https://kwartierwest.be.");
+  }
+
+  const list = routes.static;
+  if (!Array.isArray(list)) {
+    err("routes.json.static moet een array zijn.");
+    return;
+  }
+
+  const seenPaths = new Set();
+  const validChangefreq = new Set(["always", "hourly", "daily", "weekly", "monthly", "yearly", "never"]);
+
+  for (const [index, route] of list.entries()) {
+    const where = `routes.json:static[${index}]`;
+    if (!isObject(route)) {
+      err(`${where} moet een object zijn.`);
+      continue;
+    }
+
+    const routePath = String(route.path || "").trim();
+    const file = String(route.file || "").trim();
+
+    if (!routePath.startsWith("/")) err(`${where}.path moet met / starten.`);
+    if (routePath && seenPaths.has(routePath)) err(`${where}.path '${routePath}' bestaat dubbel.`);
+    if (routePath) seenPaths.add(routePath);
+
+    if (!file) {
+      err(`${where}.file ontbreekt.`);
+    } else if (!fs.existsSync(path.join(ROOT, file))) {
+      err(`${where}.file bestaat niet: ${file}`);
+    }
+
+    const priority = Number(route.priority);
+    if (!Number.isFinite(priority) || priority < 0 || priority > 1) {
+      err(`${where}.priority moet tussen 0 en 1 liggen.`);
+    }
+
+    if (!validChangefreq.has(String(route.changefreq || ""))) {
+      err(`${where}.changefreq is ongeldig.`);
+    }
+  }
+}
+
+function validateStaticPages(staticPages) {
+  if (!isObject(staticPages)) {
+    err("static-pages.json moet een object zijn.");
+    return;
+  }
+
+  if (staticPages.updatedAt && !isISODateTime(staticPages.updatedAt)) {
+    warn("static-pages.json.updatedAt is geen geldige datetime.");
+  }
+
+  const pages = staticPages.pages;
+  if (!Array.isArray(pages)) {
+    err("static-pages.json.pages moet een array zijn.");
+    return;
+  }
+
+  const ids = new Set();
+  const outputs = new Set();
+
+  for (const [index, page] of pages.entries()) {
+    const where = `static-pages.json:pages[${index}]`;
+    if (!isObject(page)) {
+      err(`${where} moet een object zijn.`);
+      continue;
+    }
+
+    for (const key of ["id", "output", "canonical", "title", "description", "heroTitle", "lead"]) {
+      if (typeof page[key] !== "string" || !page[key].trim()) err(`${where}.${key} ontbreekt.`);
+    }
+
+    if (page.id) {
+      if (ids.has(page.id)) err(`${where}.id '${page.id}' bestaat dubbel.`);
+      ids.add(page.id);
+    }
+
+    if (page.output) {
+      if (outputs.has(page.output)) err(`${where}.output '${page.output}' bestaat dubbel.`);
+      outputs.add(page.output);
+      if (path.isAbsolute(page.output) || page.output.includes("..")) err(`${where}.output moet een veilige relatieve path zijn.`);
+    }
+
+    if (page.canonical && !String(page.canonical).startsWith("/")) err(`${where}.canonical moet met / starten.`);
+    if (page.extraModules != null) {
+      const allowedModules = new Set(["contact-socials", "partners-page"]);
+      if (!Array.isArray(page.extraModules)) {
+        err(`${where}.extraModules moet een array zijn.`);
+      } else {
+        for (const moduleName of page.extraModules) {
+          if (!allowedModules.has(moduleName)) err(`${where}.extraModules bevat onbekende module '${moduleName}'.`);
+        }
+      }
+    }
+
+    if (!Array.isArray(page.sections) || !page.sections.length) {
+      err(`${where}.sections moet een gevulde array zijn.`);
+      continue;
+    }
+
+    for (const [sectionIndex, section] of page.sections.entries()) {
+      const sw = `${where}.sections[${sectionIndex}]`;
+      if (!isObject(section)) {
+        err(`${sw} moet een object zijn.`);
+        continue;
+      }
+      if (section.variant === "contact-grid") {
+        if (!Array.isArray(section.cards) || !section.cards.length) {
+          err(`${sw}.cards moet een gevulde array zijn.`);
+          continue;
+        }
+        for (const [cardIndex, card] of section.cards.entries()) {
+          const cw = `${sw}.cards[${cardIndex}]`;
+          if (!isObject(card)) {
+            err(`${cw} moet een object zijn.`);
+            continue;
+          }
+          for (const key of ["title", "meta", "body"]) {
+            if (typeof card[key] !== "string" || !card[key].trim()) err(`${cw}.${key} ontbreekt.`);
+          }
+          if (card.actions != null && !Array.isArray(card.actions)) err(`${cw}.actions moet een array zijn.`);
+        }
+        continue;
+      }
+      if (section.variant === "mount") {
+        if (typeof section.mountAttr !== "string" || !section.mountAttr.trim()) err(`${sw}.mountAttr ontbreekt.`);
+        if (!/^[a-z][a-z0-9-]*(\s+[a-z][a-z0-9-]*)*$/i.test(String(section.mountAttr || ""))) {
+          err(`${sw}.mountAttr mag alleen eenvoudige data-attributen bevatten.`);
+        }
+        continue;
+      }
+      if (section.variant === "partner-protocol") {
+        if (typeof section.title !== "string" || !section.title.trim()) err(`${sw}.title ontbreekt.`);
+        const paragraphs = Array.isArray(section.paragraphs) ? section.paragraphs : [];
+        if (!paragraphs.length) err(`${sw}.paragraphs moet een gevulde array zijn.`);
+        if (section.actions != null && !Array.isArray(section.actions)) err(`${sw}.actions moet een array zijn.`);
+        continue;
+      }
+      if (typeof section.title !== "string" || !section.title.trim()) err(`${sw}.title ontbreekt.`);
+      const paragraphs = Array.isArray(section.paragraphs) ? section.paragraphs : [];
+      const list = Array.isArray(section.list) ? section.list : [];
+      if (!paragraphs.length && !list.length) {
+        err(`${sw} moet paragraphs of list bevatten.`);
+      }
+
+      if (section.actions != null && !Array.isArray(section.actions)) {
+        err(`${sw}.actions moet een array zijn.`);
+      }
+    }
+  }
+}
+
 try {
   const artists = readJSON("data/artists.json");
   const events = readJSON("data/events.json");
   const partners = readJSON("data/partners.json");
   const shop = readJSON("data/shop.json");
   const integrations = readJSON("data/integrations.json");
+  const routes = readJSON("data/routes.json");
+  const staticPages = readJSON("data/static-pages.json");
 
   const artistLookup = validateArtists(artists);
   validateEvents(events, artistLookup);
   validatePartners(partners);
   validateShop(shop, artistLookup);
   validateIntegrations(integrations);
+  validateRoutes(routes);
+  validateStaticPages(staticPages);
 } catch (error) {
   err(error.message);
 }

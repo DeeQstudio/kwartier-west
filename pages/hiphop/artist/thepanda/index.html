@@ -18,7 +18,8 @@
   <meta name="twitter:description" content="Knallende drums, soulful en jazzy old-school beats, en strakke bars recht uit hart en ziel. Indie hiphopartiest Vlaanderen, BE">
   <meta name="twitter:image" content="https://kwartierwest.be/assets/img/artists/hiphop/thepanda.jpg">
   <link rel="canonical" href="https://kwartierwest.be/pages/hiphop/artist/thepanda">
-  <link rel="stylesheet" href="/css/base.css?v=20260305u">
+  <script type="application/ld+json" data-artist-jsonld="true">{"@context":"https://schema.org","@type":"MusicGroup","@id":"https://kwartierwest.be/pages/hiphop/artist/thepanda#artist","name":"The P.A.N.D.A","url":"https://kwartierwest.be/pages/hiphop/artist/thepanda","description":"Knallende drums, soulful en jazzy old-school beats, en strakke bars recht uit hart en ziel. Indie hiphopartiest Vlaanderen, BE","genre":["Hip hop","EN","Indie hip hop","PandaShaolin"],"image":"https://kwartierwest.be/assets/img/artists/hiphop/thepanda.jpg","sameAs":["https://linktr.ee/TheP_A_N_D_A","https://instagram.com/thep_a_n_d_a","https://open.spotify.com/artist/5QYOZhN0BU8QOFrPAmnPG7?si=owRSOSnWRfuyTCqe5LHkMQ"],"memberOf":{"@type":"Organization","name":"Kwartier West","url":"https://kwartierwest.be/"},"knowsAbout":"Indie hiphopartiest","homeLocation":{"@type":"Place","name":"Vlaanderen, BE"}}</script>
+  <link rel="stylesheet" href="/css/base.css?v=20260623g">
 </head>
 <body class="kw-page kw-side-hiphop kw-page--artist">
   <div data-nav></div>
@@ -26,7 +27,7 @@
   <main id="main-content" class="page-shell">
     <header class="hero-surface hero-surface--lane hero-surface--lane-hiphop hero-surface--artist">
       <p class="eyebrow">Hip hop / Artiestprofiel</p>
-      <h1 data-artist-page-title>The P.A.N.D.A</h1>
+      <p class="artist-page-kicker" data-artist-page-title>The P.A.N.D.A</p>
       <p class="lead" data-artist-page-lead>Knallende drums, soulful en jazzy old-school beats, en strakke bars recht uit hart en ziel.</p>
       <div class="inline-actions">
         <a class="chip-link" href="/pages/hiphop/index.html#artists">Hip hop artiesten</a>
@@ -49,11 +50,11 @@
     import { renderFooter } from "/partials/footer.js";
     import { renderSideSwitch } from "/partials/side-switch.js";
     import { renderArtistDetail } from "/js/artist-detail.js?v=20260304e";
-
+    
     const pathname = String(window.location.pathname || "");
     const isIndexFileRoute = /\/pages\/(tekno|hiphop)\/artist\/[^/]+\/index\.html$/i.test(pathname);
     const baseDepth = isIndexFileRoute ? 4 : 3;
-
+    
     initI18nPage();
     renderNav({ sideKey: "hiphop", baseDepth });
     renderFooter({ baseDepth });

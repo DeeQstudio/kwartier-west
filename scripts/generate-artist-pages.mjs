@@ -2,44 +2,26 @@
 import fsSync from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  ARTIST_DETAIL_VERSION,
+  CSS_ASSET_VERSION,
+  DEFAULT_OG_IMAGE,
+  SITE_ORIGIN,
+  escapeHtml,
+  normalizePlainSlug,
+  renderHtmlDocument,
+  renderSeoHead,
+  toAbsoluteUrl,
+  trimText
+} from "./lib/site-meta.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
 const artistsFile = path.join(projectRoot, "data", "artists.json");
 const outputRoot = path.join(projectRoot, "pages");
 
-const SITE_ORIGIN = "https://kwartierwest.be";
-const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og/og-cover.png`;
-const BASE_CSS_VERSION = "20260305u";
-const ARTIST_DETAIL_VERSION = "20260304e";
-
 function normalizeSlug(value = "") {
-  return String(value || "").trim().toLowerCase();
-}
-
-function escapeHtml(value = "") {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
-function toAbsolute(pathOrUrl = "") {
-  const value = String(pathOrUrl || "").trim().replaceAll("\\", "/");
-  if (!value) return "";
-
-  if (/^https?:\/\//i.test(value)) return value;
-
-  if (value.startsWith("/")) return `${SITE_ORIGIN}${value}`;
-  return `${SITE_ORIGIN}/${value}`;
-}
-
-function trimText(value = "", maxLength = 230) {
-  const compact = String(value || "").replace(/\s+/g, " ").trim();
-  if (!compact) return "";
-  if (compact.length <= maxLength) return compact;
-  return `${compact.slice(0, maxLength - 3).trim()}...`;
+  return normalizePlainSlug(value);
 }
 
 function sideLabel(sideKey) {
@@ -77,7 +59,7 @@ function resolveOgImage(artist) {
 
     for (const candidate of candidates) {
       const fallbackFsPath = path.join(projectRoot, candidate);
-      if (fsSync.existsSync(fallbackFsPath)) return toAbsolute(`/${candidate.replaceAll("\\", "/")}`);
+      if (fsSync.existsSync(fallbackFsPath)) return toAbsoluteUrl(`/${candidate.replaceAll("\\", "/")}`);
     }
 
     if (fsSync.existsSync(path.join(projectRoot, relativeDir))) {
@@ -85,14 +67,63 @@ function resolveOgImage(artist) {
       const imageFallback = files.find((file) => /\.(png|jpe?g)$/i.test(file));
       if (imageFallback) {
         const candidate = path.join(relativeDir, imageFallback).replaceAll("\\", "/");
-        return toAbsolute(`/${candidate}`);
+        return toAbsoluteUrl(`/${candidate}`);
       }
     }
 
     return DEFAULT_OG_IMAGE;
   }
 
-  return toAbsolute(raw) || DEFAULT_OG_IMAGE;
+  return toAbsoluteUrl(raw) || DEFAULT_OG_IMAGE;
+}
+
+function safeJsonLd(data) {
+  return JSON.stringify(data)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026");
+}
+
+function socialUrls(artist) {
+  const links = Array.isArray(artist?.links) ? artist.links : [];
+  return links
+    .map((link) => String(link?.url || "").trim())
+    .filter((url) => /^https?:\/\//i.test(url));
+}
+
+function renderArtistJsonLd({ artist, sideKey, canonical, description, ogImage }) {
+  const name = String(artist?.name || "").trim();
+  if (!name || !canonical) return "";
+
+  const city = trimText(artist?.city || "");
+  const role = trimText(artist?.role || "");
+  const tags = Array.isArray(artist?.tags) ? artist.tags.map((tag) => String(tag || "").trim()).filter(Boolean) : [];
+  const genres = [...new Set([sideLabel(sideKey), ...tags].filter(Boolean))];
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "@id": `${canonical}#artist`,
+    name,
+    url: canonical,
+    description,
+    genre: genres,
+    image: ogImage || undefined,
+    sameAs: socialUrls(artist),
+    memberOf: {
+      "@type": "Organization",
+      name: "Kwartier West",
+      url: `${SITE_ORIGIN}/`
+    },
+    knowsAbout: role || undefined,
+    homeLocation: city
+      ? {
+          "@type": "Place",
+          name: city
+        }
+      : undefined
+  };
+
+  return `<script type="application/ld+json" data-artist-jsonld="true">${safeJsonLd(jsonLd)}</script>`;
 }
 
 function renderArtistPage(sideKey, artist) {
@@ -112,36 +143,21 @@ function renderArtistPage(sideKey, artist) {
   const canonical = `${SITE_ORIGIN}/pages/${sideKey}/artist/${slug}`;
   const ogImage = resolveOgImage(artist);
   const ogAlt = `${name} - ${sideLabel(sideKey)} bij Kwartier West`;
+  const artistJsonLd = renderArtistJsonLd({ artist, sideKey, canonical, description, ogImage });
+  const head = renderSeoHead({
+    title,
+    description,
+    canonical,
+    ogImage,
+    ogAlt,
+    extra: artistJsonLd
+  });
 
-  return `<!doctype html>
-<html lang="nl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(title)}</title>
-  <meta name="description" content="${escapeHtml(description)}">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Kwartier West">
-  <meta property="og:title" content="${escapeHtml(title)}">
-  <meta property="og:description" content="${escapeHtml(description)}">
-  <meta property="og:url" content="${escapeHtml(canonical)}">
-  <meta property="og:image" content="${escapeHtml(ogImage)}">
-  <meta property="og:image:secure_url" content="${escapeHtml(ogImage)}">
-  <meta property="og:image:alt" content="${escapeHtml(ogAlt)}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${escapeHtml(title)}">
-  <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="${escapeHtml(ogImage)}">
-  <link rel="canonical" href="${escapeHtml(canonical)}">
-  <link rel="stylesheet" href="/css/base.css?v=${BASE_CSS_VERSION}">
-</head>
-<body class="kw-page kw-side-${escapeHtml(sideKey)} kw-page--artist">
-  <div data-nav></div>
-
+  const main = `
   <main id="main-content" class="page-shell">
     <header class="hero-surface hero-surface--lane hero-surface--lane-${escapeHtml(sideKey)} hero-surface--artist">
       <p class="eyebrow">${escapeHtml(eyebrowLabel(sideKey))}</p>
-      <h1 data-artist-page-title>${escapeHtml(name)}</h1>
+      <p class="artist-page-kicker" data-artist-page-title>${escapeHtml(name)}</p>
       <p class="lead" data-artist-page-lead>${escapeHtml(headline || description)}</p>
       <div class="inline-actions">
         <a class="chip-link" href="/pages/${escapeHtml(sideKey)}/index.html#artists">${escapeHtml(sideArtistLabel(sideKey))}</a>
@@ -154,11 +170,9 @@ function renderArtistPage(sideKey, artist) {
     <section class="surface surface--artist-detail">
       <div data-artist-root></div>
     </section>
-  </main>
+  </main>`;
 
-  <div data-footer></div>
-
-  <script type="module">
+  const moduleScript = `
     import { initI18nPage } from "/js/core/i18n.js";
     import { renderNav } from "/partials/nav.js";
     import { renderFooter } from "/partials/footer.js";
@@ -174,10 +188,15 @@ function renderArtistPage(sideKey, artist) {
     renderFooter({ baseDepth });
     renderSideSwitch("${escapeHtml(sideKey)}");
     renderArtistDetail("${escapeHtml(sideKey)}", { baseDepth });
-  </script>
-</body>
-</html>
-`;
+  `;
+
+  return renderHtmlDocument({
+    head,
+    stylesheets: [`/css/base.css?v=${CSS_ASSET_VERSION}`],
+    bodyClass: `kw-page kw-side-${escapeHtml(sideKey)} kw-page--artist`,
+    main,
+    moduleScript
+  });
 }
 
 async function writeArtistPagesForSide(artistsData, sideKey) {

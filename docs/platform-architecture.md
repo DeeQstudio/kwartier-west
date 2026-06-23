@@ -5,7 +5,8 @@ One frontend platform for:
 - Tekno and Hip hop collectives.
 - Booking intake (single, multiple, side collective, full takeover).
 - Event feed with source provenance.
-- Label and artist merch storefront.
+- Villa West and launch events as first-class public routes.
+- Parked merch/storefront contracts for a later phase.
 - Future app integration on the same contracts.
 
 ## Core Boundaries

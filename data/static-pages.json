@@ -1,0 +1,362 @@
+{
+  "updatedAt": "2026-06-22T00:00:00Z",
+  "pages": [
+    {
+      "id": "privacy",
+      "output": "pages/privacy/index.html",
+      "canonical": "/pages/privacy/index.html",
+      "title": "Privacy | Kwartier West",
+      "description": "Privacy-informatie voor Kwartier West: contact, boekingen, events en basisgegevens die via deze website verwerkt worden.",
+      "bodyClass": "kw-page kw-side-global",
+      "eyebrow": "Kwartier West / Info",
+      "heroTitle": "Privacy",
+      "lead": "Hoe we omgaan met contact-, boekings- en eventgegevens via kwartierwest.be.",
+      "sections": [
+        {
+          "title": "Gegevens",
+          "paragraphs": [
+            "Kwartier West verwerkt enkel gegevens die nodig zijn om de website, boekingen, contactaanvragen, eventcommunicatie en praktische opvolging te laten werken.",
+            "Wanneer je een formulier gebruikt, kunnen naam, e-mailadres, telefoonnummer, organisatie, berichtinhoud, gekozen collectief, artiesten of eventcontext verwerkt worden. Bij technisch gebruik kunnen serverlogs zoals IP-adres, browserinformatie en tijdstip tijdelijk bewaard worden voor beveiliging en foutopvolging."
+          ]
+        },
+        {
+          "title": "Gebruik",
+          "paragraphs": [
+            "We gebruiken gegevens om aanvragen te beantwoorden, boekingen op te volgen, misbruik te beperken, de site stabiel te houden en communicatie rond Kwartier West correct te organiseren.",
+            "Gegevens worden niet verkocht. Externe links, zoals Villa Bota of social platforms, vallen onder het privacybeleid van die externe partijen."
+          ]
+        },
+        {
+          "title": "Contact",
+          "paragraphs": [
+            "Voor inzage, correctie of verwijdering van gegevens kan je mailen naar [info@kwartierwest.be](mailto:info@kwartierwest.be)."
+          ],
+          "muted": "Laatst bijgewerkt: 20 juni 2026."
+        }
+      ]
+    },
+    {
+      "id": "voorwaarden",
+      "output": "pages/voorwaarden/index.html",
+      "canonical": "/pages/voorwaarden/index.html",
+      "title": "Voorwaarden | Kwartier West",
+      "description": "Gebruiksvoorwaarden voor Kwartier West: websitegebruik, boekingen, eventinformatie, externe links en rechten op content.",
+      "bodyClass": "kw-page kw-side-global",
+      "eyebrow": "Kwartier West / Info",
+      "heroTitle": "Voorwaarden",
+      "lead": "Praktische afspraken voor websitegebruik, boekingen, eventinformatie en externe links.",
+      "sections": [
+        {
+          "title": "Website",
+          "paragraphs": [
+            "Deze website bundelt informatie over Kwartier West, Tekno, Hip hop, artiesten, boekingen, events, partners en contactmogelijkheden.",
+            "We houden informatie zo correct mogelijk, maar praktische details zoals tijden, locaties, line-ups en externe ticketinformatie kunnen wijzigen. Bij externe events blijft de organisator of externe bron leidend."
+          ]
+        },
+        {
+          "title": "Boekingen",
+          "paragraphs": [
+            "Een aanvraag via de boekingsdesk is geen automatische bevestiging. Kwartier West of de betrokken artiest bevestigt beschikbaarheid, voorwaarden en praktische afspraken apart.",
+            "Misbruik, spam of foutieve gegevens kunnen geweigerd of verwijderd worden."
+          ]
+        },
+        {
+          "title": "Content",
+          "paragraphs": [
+            "Teksten, beelden, logo's, artiestprofielen en eventmateriaal op deze site horen bij Kwartier West, de betrokken artiesten, partners of externe organisatoren. Hergebruik vraagt toestemming van de rechthebbende.",
+            "Vragen over inhoud of correcties kunnen naar [info@kwartierwest.be](mailto:info@kwartierwest.be)."
+          ],
+          "muted": "Laatst bijgewerkt: 20 juni 2026."
+        }
+      ]
+    },
+    {
+      "id": "manifest",
+      "output": "pages/manifest/index.html",
+      "canonical": "/pages/manifest/index.html",
+      "title": "Kwartier West - Manifest",
+      "titleKey": "meta.manifest.title",
+      "description": "Manifest van Kwartier West: waarom Tekno en Hip hop onder een label bewegen, met heldere productie, bookings en events.",
+      "descriptionKey": "meta.manifest.description",
+      "bodyClass": "kw-page",
+      "eyebrow": "Dit is Kwartier West",
+      "eyebrowKey": "manifest.hero.eyebrow",
+      "heroTitle": "Manifest",
+      "heroTitleKey": "manifest.hero.title",
+      "lead": "Twee scenes, een label, een werkbare standaard.",
+      "leadKey": "manifest.hero.lead",
+      "sections": [
+        {
+          "variant": "prose",
+          "title": "Waarom twee kanten",
+          "titleKey": "manifest.why.title",
+          "paragraphs": [
+            {
+              "text": "Tekno en Hip hop bewegen anders, maar delen dezelfde nood: betrouwbare mensen, scherpe programmatie en productie die op tijd klopt.",
+              "key": "manifest.why.body"
+            }
+          ]
+        },
+        {
+          "variant": "prose",
+          "title": "Onze regels",
+          "titleKey": "manifest.rules.title",
+          "list": [
+            {
+              "text": "Artiesten blijven eigenaar van hun eigen identiteit en verhaal.",
+              "key": "manifest.rules.one"
+            },
+            {
+              "text": "Events worden gebouwd op kwaliteit, veiligheid en context, niet op snelle hype.",
+              "key": "manifest.rules.two"
+            },
+            {
+              "text": "Communicatie met organisatoren, venues en artiesten blijft concreet, snel en controleerbaar.",
+              "key": "manifest.rules.three"
+            },
+            {
+              "text": "Alles wat online komt moet vandaag werken en morgen zonder chaos kunnen groeien.",
+              "key": "manifest.rules.four"
+            }
+          ],
+          "actions": [
+            {
+              "href": "../booking/index.html",
+              "className": "cta-btn",
+              "text": "Start boeking",
+              "key": "manifest.cta.booking"
+            },
+            {
+              "href": "../events/index.html",
+              "className": "chip-link",
+              "text": "Bekijk evenementen",
+              "key": "manifest.cta.events"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tickets",
+      "output": "pages/tickets/index.html",
+      "canonical": "/pages/tickets/index.html",
+      "title": "Kwartier West - Tickets",
+      "titleKey": "meta.tickets.title",
+      "description": "Ticket- en toegangsinfo voor Kwartier West-events, externe bronnen en toekomstige toegangsstromen.",
+      "descriptionKey": "meta.tickets.description",
+      "bodyClass": "kw-page",
+      "eyebrow": "Tickets / Toegang",
+      "eyebrowKey": "tickets.hero.eyebrow",
+      "heroTitle": "Tickets",
+      "heroTitleKey": "tickets.hero.title",
+      "lead": "Toegang loopt per event via de juiste bron: extern platform, Kwartier West-flow of duidelijke update zodra details vastliggen.",
+      "leadKey": "tickets.hero.lead",
+      "actions": [
+        {
+          "href": "../events/index.html",
+          "className": "cta-btn",
+          "text": "Ga naar evenementenhub",
+          "key": "tickets.hero.events"
+        },
+        {
+          "href": "../contact/index.html",
+          "className": "chip-link",
+          "text": "Ticketondersteuning",
+          "key": "tickets.hero.support"
+        }
+      ],
+      "sections": [
+        {
+          "variant": "prose",
+          "title": "Ticketstatus",
+          "titleKey": "tickets.status.title",
+          "list": [
+            {
+              "label": "Extern:",
+              "labelKey": "tickets.status.external.label",
+              "body": "Koop op het platform van de organisator.",
+              "bodyKey": "tickets.status.external.body"
+            },
+            {
+              "label": "Intern:",
+              "labelKey": "tickets.status.internal.label",
+              "body": "Toegang via de Kwartier West-flow.",
+              "bodyKey": "tickets.status.internal.body"
+            },
+            {
+              "label": "N.t.b.:",
+              "labelKey": "tickets.status.tba.label",
+              "body": "Details volgen zodra locatie, capaciteit en productie vastliggen.",
+              "bodyKey": "tickets.status.tba.body"
+            }
+          ]
+        },
+        {
+          "variant": "prose",
+          "title": "Toegangsbeleid",
+          "titleKey": "tickets.policy.title",
+          "list": [
+            {
+              "text": "Breng je bevestiging of ticket mee.",
+              "key": "tickets.policy.one"
+            },
+            {
+              "text": "Respecteer de regels van de locatie en de briefing van de crew.",
+              "key": "tickets.policy.two"
+            },
+            {
+              "text": "Deurbeleid blijft een beslissing van de organisatie.",
+              "key": "tickets.policy.three"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "output": "pages/contact/index.html",
+      "canonical": "/pages/contact/index.html",
+      "title": "Kwartier West - Contact",
+      "titleKey": "meta.contact.title",
+      "description": "Contacteer Kwartier West voor artist bookings, radio-overnames, productievragen, samenwerkingen en partnercontact.",
+      "descriptionKey": "meta.contact.description",
+      "bodyClass": "kw-page",
+      "eyebrow": "Contact / Productiedesk",
+      "eyebrowKey": "contact.hero.eyebrow",
+      "heroTitle": "Contact Kwartier West",
+      "heroTitleKey": "contact.hero.title",
+      "lead": "Voor artist bookings, radio-overnames, productievragen, samenwerkingen en alles wat rechtstreeks bij het team moet landen.",
+      "leadKey": "contact.hero.lead",
+      "actions": [
+        {
+          "href": "../booking/index.html",
+          "className": "cta-btn",
+          "text": "Open boekingsdesk",
+          "key": "contact.hero.booking"
+        },
+        {
+          "href": "../events/index.html",
+          "className": "chip-link",
+          "text": "Open evenementenhub",
+          "key": "contact.hero.events"
+        }
+      ],
+      "extraModules": [
+        "contact-socials"
+      ],
+      "sections": [
+        {
+          "variant": "contact-grid",
+          "cards": [
+            {
+              "title": "Boekingen",
+              "titleKey": "contact.tile.bookings.title",
+              "meta": "Artiesten en collectieven",
+              "metaKey": "contact.tile.bookings.meta",
+              "body": "Stuur concrete artiest-, collectief-, radio- of overnamevragen via de boekingsdesk.",
+              "bodyKey": "contact.tile.bookings.body",
+              "actions": [
+                {
+                  "href": "../booking/index.html",
+                  "className": "chip-link",
+                  "text": "Centrale boekingsdesk",
+                  "key": "contact.tile.bookings.main"
+                },
+                {
+                  "href": "../tekno/booking.html",
+                  "className": "chip-link",
+                  "text": "Tekno boeking",
+                  "key": "contact.tile.bookings.tekno"
+                },
+                {
+                  "href": "../hiphop/booking.html",
+                  "className": "chip-link",
+                  "text": "Hip hop boeking",
+                  "key": "contact.tile.bookings.hiphop"
+                }
+              ]
+            },
+            {
+              "title": "Algemene kanalen",
+              "titleKey": "contact.tile.channels.title",
+              "meta": "Teamcontact",
+              "metaKey": "contact.tile.channels.meta",
+              "body": "Voor algemene vragen, samenwerkingen, pers of partnercontact.",
+              "bodyKey": "contact.tile.channels.body",
+              "socialsMount": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "partners",
+      "output": "pages/partners/index.html",
+      "canonical": "/pages/partners/index.html",
+      "title": "Kwartier West - Partners",
+      "titleKey": "meta.partners.title",
+      "description": "Partners van Kwartier West voor sound, productie, visuals, community en organisatie.",
+      "descriptionKey": "meta.partners.description",
+      "bodyClass": "kw-page",
+      "eyebrow": "Netwerk / Vertrouwde partners",
+      "eyebrowKey": "partners.hero.eyebrow",
+      "heroTitle": "Partners",
+      "heroTitleKey": "partners.hero.title",
+      "lead": "Soundsystems, studio's, crews en operators die het labelnetwerk mee dragen.",
+      "leadKey": "partners.hero.lead",
+      "actions": [
+        {
+          "href": "../events/index.html",
+          "className": "chip-link",
+          "text": "Evenementenhub",
+          "key": "partners.hero.events"
+        },
+        {
+          "href": "../contact/index.html",
+          "className": "chip-link",
+          "text": "Word partner",
+          "key": "partners.hero.become"
+        }
+      ],
+      "extraModules": [
+        "partners-page"
+      ],
+      "sections": [
+        {
+          "variant": "mount",
+          "className": "surface",
+          "mountAttr": "data-partners",
+          "loading": "Partners laden...",
+          "loadingKey": "partners.loading"
+        },
+        {
+          "variant": "partner-protocol",
+          "title": "Hoe we samenwerken",
+          "titleKey": "partners.protocol.title",
+          "paragraphs": [
+            {
+              "text": "Eerst heldere afspraken over productie, timing, rollen en bereik.",
+              "key": "partners.protocol.one"
+            },
+            {
+              "text": "Een duidelijke contactlijn, snelle opvolging en geen ruis tussen briefing en uitvoering.",
+              "key": "partners.protocol.two"
+            },
+            {
+              "text": "Samenwerkingen moeten inhoudelijk kloppen, technisch haalbaar zijn en blijven werken na de eerste drop.",
+              "key": "partners.protocol.three"
+            }
+          ],
+          "actions": [
+            {
+              "href": "../contact/index.html",
+              "className": "chip-link partner-protocol__cta",
+              "text": "Ga naar contactdesk",
+              "key": "partners.protocol.cta"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

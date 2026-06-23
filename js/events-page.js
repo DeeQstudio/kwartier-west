@@ -1,4 +1,6 @@
 import {
+  eventMatchesSide,
+  eventSideKeys,
   flattenEvents,
   loadArtists,
   loadEvents,
@@ -55,29 +57,72 @@ function sourceMarkup(eventItem) {
   return `<a class="chip-link" href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${t("events.source")}: ${escapeHTML(platform)}</a>`;
 }
 
+function eventTimeLabel(eventItem) {
+  const start = formatDateTime(eventItem?.date, eventItem?.time);
+  const endTime = String(eventItem?.endTime || "").trim();
+  return endTime ? `${start}-${escapeHTML(endTime)}` : start;
+}
+
+function eventAnchorId(eventItem) {
+  const id = String(eventItem?.id || "").trim();
+  return id === "villa-west-radio-2026" ? "villa-west" : "";
+}
+
+function eventBookingCTA(eventItem) {
+  if (eventItem?.sideKey === "global") {
+    return `<a class="chip-link" href="../contact/index.html">${t("events.cta.production")}</a>`;
+  }
+
+  return `<a class="chip-link" href="../${escapeHTML(eventItem.sideKey)}/booking.html?type=collective_side">${t("events.bookSide", {
+    side: escapeHTML(sideLabel(eventItem.sideKey))
+  })}</a>`;
+}
+
+function eventSideBadgeLabel(eventItem) {
+  const sides = eventSideKeys(eventItem);
+  if (sides.includes("tekno") && sides.includes("hiphop")) return "TEK / HIP HOP";
+  return sideShortLabel(eventItem?.sideKey);
+}
+
+function posterMarkup(eventItem, className = "event-poster") {
+  const poster = String(eventItem?.poster || "").trim();
+  if (!poster) return "";
+  return `
+    <a class="${className}" href="${escapeHTML(eventPath(eventItem?.id || ""))}" aria-label="${escapeHTML(eventItem?.title || t("events.untitled"))}">
+      <img src="${escapeHTML(poster)}" alt="${escapeHTML(eventItem?.title || t("events.untitled"))} affiche" loading="lazy">
+    </a>
+  `;
+}
+
 function featuredCard(eventItem, artistsData) {
   const title = escapeHTML(eventItem?.title || t("events.untitled"));
   const detailHref = escapeHTML(eventPath(eventItem?.id || ""));
-  const meta = escapeHTML(formatDateTime(eventItem?.date, eventItem?.time));
+  const meta = escapeHTML(eventTimeLabel(eventItem));
   const location = [eventItem?.region, eventItem?.venue].filter(Boolean).map(escapeHTML).join(" - ");
+  const schedule = eventItem?.schedule ? `<p class="feature-card__schedule">${escapeHTML(eventItem.schedule)}</p>` : "";
+  const poster = posterMarkup(eventItem, "feature-card__poster");
 
   return `
-    <article class="feature-card">
-      <div class="feature-card__top">
-        <span class="status-pill">${escapeHTML(sideShortLabel(eventItem?.sideKey))}</span>
-        <span class="status-pill">${escapeHTML(localizedEventStatus(eventItem))}</span>
-      </div>
+    <article class="feature-card${poster ? " feature-card--poster" : ""}"${eventAnchorId(eventItem) ? ` id="${eventAnchorId(eventItem)}"` : ""}>
+      ${poster}
+      <div class="feature-card__content">
+        <div class="feature-card__top">
+          <span class="status-pill">${escapeHTML(eventSideBadgeLabel(eventItem))}</span>
+          <span class="status-pill">${escapeHTML(localizedEventStatus(eventItem))}</span>
+        </div>
 
-      <h3><a class="inline-link" href="${detailHref}">${title}</a></h3>
-      <p class="feature-card__meta">${meta}${location ? ` <span class="dot-sep"></span> ${location}` : ""}</p>
+        <h3><a class="inline-link" href="${detailHref}">${title}</a></h3>
+        ${schedule}
+        <p class="feature-card__meta">${meta}${location ? ` <span class="dot-sep"></span> ${location}` : ""}</p>
 
-      <p class="feature-card__lineup"><span class="muted">${t("events.lineup")}:</span> ${listLineup(eventItem, artistsData)}</p>
+        <p class="feature-card__lineup"><span class="muted">${t("events.lineup")}:</span> ${listLineup(eventItem, artistsData)}</p>
 
-      <div class="inline-actions">
-        <a class="chip-link" href="${detailHref}">Bekijk event</a>
-        ${ticketCTA(eventItem)}
-        <a class="chip-link" href="../${escapeHTML(eventItem.sideKey)}/booking.html?type=collective_side">${t("events.bookSide", { side: escapeHTML(sideLabel(eventItem.sideKey)) })}</a>
-        ${sourceMarkup(eventItem)}
+        <div class="inline-actions">
+          <a class="chip-link" href="${detailHref}">${t("events.viewEvent")}</a>
+          ${ticketCTA(eventItem)}
+          ${eventBookingCTA(eventItem)}
+          ${sourceMarkup(eventItem)}
+        </div>
       </div>
     </article>
   `;
@@ -85,16 +130,20 @@ function featuredCard(eventItem, artistsData) {
 
 function listItem(eventItem, artistsData) {
   const detailHref = escapeHTML(eventPath(eventItem?.id || ""));
-  const dateLabel = escapeHTML(formatDateTime(eventItem?.date, eventItem?.time));
+  const dateLabel = escapeHTML(eventTimeLabel(eventItem));
   const location = [eventItem?.region, eventItem?.venue].filter(Boolean).map(escapeHTML).join(" - ");
-  const sideChip = `<span class="status-pill">${escapeHTML(sideShortLabel(eventItem.sideKey))}</span>`;
+  const sideChip = `<span class="status-pill">${escapeHTML(eventSideBadgeLabel(eventItem))}</span>`;
   const statusChip = `<span class="status-pill">${escapeHTML(localizedEventStatus(eventItem))}</span>`;
   const source = sourceMarkup(eventItem);
+  const schedule = eventItem?.schedule ? `<p class="event-card__schedule">${escapeHTML(eventItem.schedule)}</p>` : "";
+  const poster = posterMarkup(eventItem);
 
   return `
-    <article class="event-card" data-side="${escapeHTML(eventItem.sideKey)}" data-scope="${eventItem.__isPast ? "past" : "upcoming"}">
+    <article class="event-card${poster ? " event-card--poster" : ""}" data-side="${escapeHTML(eventItem.sideKey)}" data-scope="${eventItem.__isPast ? "past" : "upcoming"}">
+      ${poster}
       <div class="event-card__main">
         <h3 class="event-card__title"><a class="inline-link" href="${detailHref}">${escapeHTML(eventItem?.title || t("events.untitled"))}</a></h3>
+        ${schedule}
         <p class="event-card__meta">${dateLabel}${location ? ` <span class="dot-sep"></span> ${location}` : ""}</p>
         <p class="event-card__lineup"><span class="event-card__label">${t("events.lineup")}:</span> ${listLineup(eventItem, artistsData)}</p>
         ${source ? `<p class="event-card__source">${source}</p>` : ""}
@@ -104,13 +153,11 @@ function listItem(eventItem, artistsData) {
         <div class="event-card__badges">${sideChip}${statusChip}</div>
         <div class="event-card__cta-group">
           <div class="event-card__cta">
-            <a class="chip-link" href="${detailHref}">Bekijk event</a>
+            <a class="chip-link" href="${detailHref}">${t("events.viewEvent")}</a>
           </div>
           <div class="event-card__cta">${ticketCTA(eventItem)}</div>
           <div class="event-card__cta">
-            <a class="chip-link" href="../${escapeHTML(eventItem.sideKey)}/booking.html?type=collective_side">${t("events.bookSide", {
-              side: escapeHTML(sideLabel(eventItem.sideKey))
-            })}</a>
+            ${eventBookingCTA(eventItem)}
           </div>
         </div>
       </div>
@@ -120,7 +167,7 @@ function listItem(eventItem, artistsData) {
 
 function filterEvents(events, { side = "all", scope = "upcoming" } = {}) {
   return events.filter((eventItem) => {
-    const sideMatch = side === "all" || eventItem.sideKey === side;
+    const sideMatch = eventMatchesSide(eventItem, side);
     const scopeKey = eventItem.__isPast ? "past" : "upcoming";
     const scopeMatch = scope === "all" || scope === scopeKey;
     return sideMatch && scopeMatch;
@@ -288,6 +335,10 @@ export async function mountEventsPage({ baseDepth = 0 } = {}) {
       }
 
       syncFilterQuery({ side, scope });
+
+      if (window.location.hash === "#villa-west") {
+        document.getElementById("villa-west")?.scrollIntoView({ block: "start" });
+      }
     };
 
     setupFilterButtons({

@@ -47,8 +47,15 @@ function toArray(value) {
   return Array.isArray(value) ? value : [];
 }
 
+function cleanEnvValue(value) {
+  return String(value ?? "")
+    .replace(/^(?:\\r|\\n|\r|\n)+/g, "")
+    .replace(/(?:\\r|\\n|\r|\n)+$/g, "")
+    .trim();
+}
+
 function envString(name, fallback = "") {
-  return String(process.env[name] ?? fallback).trim();
+  return cleanEnvValue(process.env[name] ?? fallback);
 }
 
 function envBool(name, fallback = false) {
@@ -90,11 +97,39 @@ function resendApiKey() {
   return envString("RESEND_API_KEY") || envString("RESEND_KEY") || envString("RESEND_TOKEN");
 }
 
-function parseBody(req) {
+async function readRequestBody(req) {
+  if (!req || typeof req !== "object") return "";
+  if (typeof req[Symbol.asyncIterator] !== "function") {
+    if (typeof req.on !== "function") return "";
+    return await new Promise((resolve, reject) => {
+      const chunks = [];
+      req.on("data", (chunk) => {
+        chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
+      });
+      req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+      req.on("error", reject);
+    });
+  }
+  const chunks = [];
+  for await (const chunk of req) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
+  }
+  return Buffer.concat(chunks).toString("utf8");
+}
+
+async function parseBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
   if (typeof req.body === "string" && req.body.trim()) {
     try {
       return JSON.parse(req.body);
+    } catch {
+      return null;
+    }
+  }
+  const raw = (await readRequestBody(req)).replace(/^\uFEFF/, "").trim();
+  if (raw) {
+    try {
+      return JSON.parse(raw);
     } catch {
       return null;
     }
@@ -329,7 +364,9 @@ function normalizeBookingPayload(rawPayload) {
       date: asRawText(rawPayload?.event?.date, ""),
       time: asRawText(rawPayload?.event?.time, ""),
       city: asRawText(rawPayload?.event?.city, ""),
-      venue: asRawText(rawPayload?.event?.venue, "")
+      venue: asRawText(rawPayload?.event?.venue, ""),
+      attendance: rawPayload?.event?.attendance == null ? null : Number(rawPayload.event.attendance) || null,
+      setLength: rawPayload?.event?.setLength == null ? null : Number(rawPayload.event.setLength) || null
     },
     budget: {
       amount: rawPayload?.budget?.amount == null ? null : Number(rawPayload.budget.amount) || null,
@@ -340,7 +377,8 @@ function normalizeBookingPayload(rawPayload) {
       email: asRawText(rawPayload?.contact?.email, ""),
       phone: asRawText(rawPayload?.contact?.phone, ""),
       organisation: asRawText(rawPayload?.contact?.organisation, "")
-    }
+    },
+    productionNotes: asRawText(rawPayload?.productionNotes || rawPayload?.notes, "")
   };
 }
 
@@ -408,6 +446,8 @@ function buildEmailBody(payload) {
     `Tijd: ${asText(event?.time)}`,
     `Stad: ${asText(event?.city)}`,
     `Locatie: ${asText(event?.venue)}`,
+    `Verwachte opkomst: ${event?.attendance == null ? "-" : String(event.attendance)}`,
+    `Setduur: ${event?.setLength == null ? "-" : `${String(event.setLength)} min`}`,
     "",
     "CONTACT",
     `Naam: ${asText(contact?.name)}`,
@@ -417,7 +457,10 @@ function buildEmailBody(payload) {
     "",
     "BUDGET",
     `Bedrag: ${budget?.amount == null ? "-" : String(budget.amount)}`,
-    `Munt: ${asText(budget?.currency, "EUR")}`
+    `Munt: ${asText(budget?.currency, "EUR")}`,
+    "",
+    "PRODUCTIE / NOTES",
+    asText(payload?.productionNotes)
   ];
 
   return lines.join("\n");
@@ -448,7 +491,9 @@ function buildEmailHtml(payload) {
       <p style="margin:0 0 4px;"><strong>Datum:</strong> ${escapeHTML(asText(event?.date))}</p>
       <p style="margin:0 0 4px;"><strong>Tijd:</strong> ${escapeHTML(asText(event?.time))}</p>
       <p style="margin:0 0 4px;"><strong>Stad:</strong> ${escapeHTML(asText(event?.city))}</p>
-      <p style="margin:0 0 12px;"><strong>Locatie:</strong> ${escapeHTML(asText(event?.venue))}</p>
+      <p style="margin:0 0 4px;"><strong>Locatie:</strong> ${escapeHTML(asText(event?.venue))}</p>
+      <p style="margin:0 0 4px;"><strong>Verwachte opkomst:</strong> ${event?.attendance == null ? "-" : escapeHTML(String(event.attendance))}</p>
+      <p style="margin:0 0 12px;"><strong>Setduur:</strong> ${event?.setLength == null ? "-" : `${escapeHTML(String(event.setLength))} min`}</p>
 
       <h3 style="margin:16px 0 8px;">Contact</h3>
       <p style="margin:0 0 4px;"><strong>Naam:</strong> ${escapeHTML(asText(contact?.name))}</p>
@@ -459,6 +504,9 @@ function buildEmailHtml(payload) {
       <h3 style="margin:16px 0 8px;">Budget</h3>
       <p style="margin:0 0 4px;"><strong>Bedrag:</strong> ${budget?.amount == null ? "-" : escapeHTML(String(budget.amount))}</p>
       <p style="margin:0;"><strong>Munt:</strong> ${escapeHTML(asText(budget?.currency, "EUR"))}</p>
+
+      <h3 style="margin:16px 0 8px;">Productie / notes</h3>
+      <p style="margin:0;white-space:pre-wrap;">${escapeHTML(asText(payload?.productionNotes))}</p>
     </div>
   `;
 }
@@ -889,7 +937,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, message: "Method not allowed" });
   }
 
-  const payload = parseBody(req);
+  const payload = await parseBody(req);
   if (!payload || typeof payload !== "object") {
     return res.status(400).json({ ok: false, message: "Ongeldige payload." });
   }

@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title data-i18n-title="meta.partners.title">Kwartier West - Partners</title>
-  <meta name="description" content="Vertrouwde partners van Kwartier West voor productie, visuals, sound en werking." data-i18n-content="meta.partners.description">
+  <meta name="description" content="Partners van Kwartier West voor sound, productie, visuals, community en organisatie." data-i18n-content="meta.partners.description">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kwartier West">
   <meta property="og:title" content="Kwartier West - Partners">
-  <meta property="og:description" content="Vertrouwde partners van Kwartier West voor productie, visuals, sound en werking.">
+  <meta property="og:description" content="Partners van Kwartier West voor sound, productie, visuals, community en organisatie.">
   <meta property="og:url" content="https://kwartierwest.be/pages/partners/index.html">
   <meta property="og:image" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
   <meta property="og:image:secure_url" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
@@ -18,10 +18,10 @@
   <meta property="og:image:alt" content="Kwartier West - Tekno- en Hip hop-evenementenplatform">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kwartier West - Partners">
-  <meta name="twitter:description" content="Vertrouwde partners van Kwartier West voor productie, visuals, sound en werking.">
+  <meta name="twitter:description" content="Partners van Kwartier West voor sound, productie, visuals, community en organisatie.">
   <meta name="twitter:image" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
   <link rel="canonical" href="https://kwartierwest.be/pages/partners/index.html">
-  <link rel="stylesheet" href="../../css/base.css?v=20260305u">
+  <link rel="stylesheet" href="../../css/base.css?v=20260623g">
 </head>
 <body class="kw-page">
   <div data-nav></div>
@@ -30,7 +30,7 @@
     <header class="hero-surface hero-surface--lane hero-surface--lane-global">
       <p class="eyebrow" data-i18n="partners.hero.eyebrow">Netwerk / Vertrouwde partners</p>
       <h1 data-i18n="partners.hero.title">Partners</h1>
-      <p class="lead" data-i18n="partners.hero.lead">Geen willekeurige sponsorwand. Dit is het netwerk dat actief meedraait in evenementen, visuals, logistiek en studiowerk.</p>
+      <p class="lead" data-i18n="partners.hero.lead">Soundsystems, studio&#39;s, crews en operators die het labelnetwerk mee dragen.</p>
       <div class="inline-actions">
         <a class="chip-link" href="../events/index.html" data-i18n="partners.hero.events">Evenementenhub</a>
         <a class="chip-link" href="../contact/index.html" data-i18n="partners.hero.become">Word partner</a>
@@ -38,7 +38,7 @@
     </header>
 
     <section class="surface">
-      <div data-partners></div>
+      <div data-partners><p class="muted" data-i18n="partners.loading">Partners laden...</p></div>
     </section>
 
     <section class="surface surface--partner-protocol">
@@ -46,9 +46,9 @@
         <h2 data-i18n="partners.protocol.title">Hoe we samenwerken</h2>
       </div>
       <div class="partner-protocol">
-        <p class="partner-protocol__line" data-i18n="partners.protocol.one">Eerst duidelijke afspraken over productie, timing en rollen.</p>
-        <p class="partner-protocol__line" data-i18n="partners.protocol.two">Heldere communicatiekanalen en snelle opvolging.</p>
-        <p class="partner-protocol__line" data-i18n="partners.protocol.three">Samenwerkingen die inhoudelijk kloppen en lang meegaan.</p>
+        <p class="partner-protocol__line" data-i18n="partners.protocol.one">Eerst heldere afspraken over productie, timing, rollen en bereik.</p>
+        <p class="partner-protocol__line" data-i18n="partners.protocol.two">Een duidelijke contactlijn, snelle opvolging en geen ruis tussen briefing en uitvoering.</p>
+        <p class="partner-protocol__line" data-i18n="partners.protocol.three">Samenwerkingen moeten inhoudelijk kloppen, technisch haalbaar zijn en blijven werken na de eerste drop.</p>
         <a class="chip-link partner-protocol__cta" href="../contact/index.html" data-i18n="partners.protocol.cta">Ga naar contactdesk</a>
       </div>
     </section>
@@ -60,11 +60,14 @@
     import { initI18nPage } from "../../js/core/i18n.js";
     import { renderNav } from "../../partials/nav.js";
     import { renderFooter } from "../../partials/footer.js";
-    import { renderPartners } from "../../js/partners.js?v=20260305u";
-
+    
+    import { renderPartners } from "../../js/partners.js?v=20260623g";
+    
+    
     initI18nPage();
     renderNav({ sideKey: "global", baseDepth: 2 });
     renderFooter({ baseDepth: 2 });
+    
     renderPartners({ baseDepth: 2 });
   </script>
 </body>

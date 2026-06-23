@@ -1,7 +1,10 @@
 _screens/
 _chrome-profile/
+_backups/
 .github/
 docs/
 .git/
 .gitignore
 .vercel/
+.env
+.env.*

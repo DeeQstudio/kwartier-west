@@ -99,6 +99,7 @@ export function mountPageRail({ sideKey = "global" } = {}) {
   }
 
   const quick = filterCurrentRouteLinks(quickRoutes(sideKey));
+  const villaHref = "../events/detail/villa-west-radio-2026/";
   const quickHTML = quick.length
     ? `
       <section class="page-rail__panel" aria-label="${t("rail.quick.aria")}">
@@ -119,6 +120,16 @@ export function mountPageRail({ sideKey = "global" } = {}) {
       </section>
 
       ${quickHTML}
+
+      <section class="page-rail__panel page-rail__panel--villa" aria-label="Villa West">
+        <a class="page-rail__villa" href="${villaHref}">
+          <span class="page-rail__villa-media" aria-hidden="true"></span>
+          <span class="page-rail__villa-kicker">Villa Bota / zomer 2026</span>
+          <span class="page-rail__villa-title">Villa West</span>
+          <span class="page-rail__villa-meta">Elke vrijdag / 22:00-00:00</span>
+          <span class="page-rail__villa-line">Hiphop & acid tekno op de radio</span>
+        </a>
+      </section>
 
       <section class="page-rail__panel page-rail__panel--events" aria-label="${t("nav.events")}">
         <p class="eyebrow">${t("nav.events")}</p>

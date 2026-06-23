@@ -1,4 +1,12 @@
-import { loadArtists, loadEvents, normalizeLineup, pickSideCollection, splitEventsByDate } from "./core/content-api.js";
+import {
+  eventMatchesSide,
+  eventSideKeys,
+  flattenEvents,
+  loadArtists,
+  loadEvents,
+  normalizeLineup,
+  splitEventsByDate
+} from "./core/content-api.js";
 import { artistPath, escapeHTML, eventPath, formatDateTime, sideShortLabel } from "./core/format.js";
 import { t } from "./core/i18n.js";
 
@@ -33,6 +41,18 @@ function ticketCTA(eventItem) {
   return `<span class="muted">${t("events.ticketsTba")}</span>`;
 }
 
+function eventTimeLabel(eventItem) {
+  const start = formatDateTime(eventItem?.date, eventItem?.time);
+  const endTime = String(eventItem?.endTime || "").trim();
+  return endTime ? `${start}-${endTime}` : start;
+}
+
+function eventSideBadgeLabel(eventItem, fallbackSideKey) {
+  const sides = eventSideKeys(eventItem);
+  if (sides.includes("tekno") && sides.includes("hiphop")) return "TEK / HIP HOP";
+  return sideShortLabel(eventItem?.sideKey || fallbackSideKey);
+}
+
 function lineupHTML(eventItem, artistsData, sideKey) {
   const lineup = normalizeLineup(eventItem?.lineup, artistsData, sideKey);
   if (!lineup.length) return `<span class="muted">${t("events.lineupPending")}</span>`;
@@ -50,7 +70,7 @@ function lineupHTML(eventItem, artistsData, sideKey) {
 
 function eventCard(eventItem, artistsData, sideKey) {
   const detailHref = escapeHTML(eventPath(eventItem?.id || ""));
-  const dateLabel = formatDateTime(eventItem?.date, eventItem?.time);
+  const dateLabel = eventTimeLabel(eventItem);
   const location = [eventItem?.region, eventItem?.venue].filter(Boolean).map(escapeHTML).join(" - ");
   const sourceLink = eventItem?.source?.url
     ? `<a class="inline-link" href="${escapeHTML(eventItem.source.url)}" target="_blank" rel="noopener noreferrer">${t("events.source")}: ${escapeHTML(eventItem?.source?.platform || t("events.sourceDefault"))}</a>`
@@ -70,9 +90,11 @@ function eventCard(eventItem, artistsData, sideKey) {
       </div>
 
       <div class="event-card__actions">
-        <a class="chip-link" href="${detailHref}">Bekijk event</a>
+        <a class="chip-link" href="${detailHref}">${t("events.viewEvent")}</a>
         ${ticketCTA(eventItem)}
-        <a class="chip-link" href="./booking.html?type=collective_side">${t("events.bookSide", { side: escapeHTML(sideShortLabel(sideKey)) })}</a>
+        ${eventItem?.sideKey === "global"
+          ? `<a class="chip-link" href="../contact/index.html">${t("events.cta.production")}</a>`
+          : `<a class="chip-link" href="./booking.html?type=collective_side">${t("events.bookSide", { side: escapeHTML(sideShortLabel(sideKey)) })}</a>`}
       </div>
     </article>
   `;
@@ -97,18 +119,20 @@ function renderRailEvents(sideEvents, sideKey) {
     <div class="page-rail__event-list">
       ${limited
         .map((eventItem) => {
-          const dateLabel = formatDateTime(eventItem?.date, eventItem?.time);
+          const dateLabel = eventTimeLabel(eventItem);
           const location = [eventItem?.region, eventItem?.venue].filter(Boolean).map(escapeHTML).join(" - ");
           const status = escapeHTML(localizedEventStatus(eventItem));
+          const sideLabel = escapeHTML(eventSideBadgeLabel(eventItem, sideKey));
           const title = escapeHTML(eventItem?.title || t("events.untitled"));
           const href = escapeHTML(eventPath(eventItem?.id || ""));
-          const label = "Bekijk event";
+          const label = t("events.viewEvent");
 
           return `
             <article class="page-rail__event">
               <a class="page-rail__event-main" href="${href}">
                 <div class="page-rail__event-top">
                   <p class="page-rail__event-status">${status}</p>
+                  <p class="page-rail__event-side">${sideLabel}</p>
                 </div>
                 <h4>${title}</h4>
                 <p class="page-rail__event-meta">${escapeHTML(dateLabel)}${location ? ` <span class="dot-sep"></span> ${location}` : ""}</p>
@@ -134,7 +158,7 @@ export async function renderEvents(sideKey, { baseDepth = 0 } = {}) {
       loadArtists({ baseDepth })
     ]);
 
-    const sideEvents = pickSideCollection(eventsData, sideKey).slice();
+    const sideEvents = flattenEvents(eventsData).filter((eventItem) => eventMatchesSide(eventItem, sideKey));
     sideEvents.sort((a, b) => String(a?.date || "").localeCompare(String(b?.date || "")));
 
     renderRailEvents(sideEvents, sideKey);

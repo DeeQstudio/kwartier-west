@@ -3,6 +3,7 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const failures = [];
+const IGNORED_DIRS = new Set([".git", "node_modules", "_backups", "_screens", "_chrome-profile"]);
 
 function walk(dir, filter) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -11,6 +12,7 @@ function walk(dir, filter) {
   for (const entry of entries) {
     const absolute = path.join(dir, entry.name);
     if (entry.isDirectory()) {
+      if (IGNORED_DIRS.has(entry.name)) continue;
       out.push(...walk(absolute, filter));
       continue;
     }

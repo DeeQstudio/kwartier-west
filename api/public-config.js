@@ -1,5 +1,12 @@
+function cleanEnvValue(value) {
+  return String(value ?? "")
+    .replace(/^(?:\\r|\\n|\r|\n)+/g, "")
+    .replace(/(?:\\r|\\n|\r|\n)+$/g, "")
+    .trim();
+}
+
 function envString(name, fallback = "") {
-  return String(process.env[name] ?? fallback).trim();
+  return cleanEnvValue(process.env[name] ?? fallback);
 }
 
 function envBool(name, fallback = false) {

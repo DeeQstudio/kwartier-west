@@ -90,8 +90,7 @@ function applyArtistCardSocialGrid(mount) {
 }
 
 function usesMobileEntry() {
-  return !window.matchMedia("(hover: hover) and (pointer: fine)").matches
-    || window.matchMedia("(max-width: 820px)").matches;
+  return true;
 }
 
 function prefersReducedMotion() {

@@ -1,27 +1,11 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE_ORIGIN, normalizeSlug } from "./lib/site-meta.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
-const siteUrl = "https://kwartierwest.be";
-
-const staticRoutes = [
-  "/",
-  "/pages/events/index.html",
-  "/pages/archive/index.html",
-  "/pages/tekno/index.html",
-  "/pages/hiphop/index.html",
-  "/pages/booking/index.html",
-  "/pages/tekno/booking.html",
-  "/pages/hiphop/booking.html",
-  "/pages/tickets/index.html",
-  "/pages/partners/index.html",
-  "/pages/contact/index.html",
-  "/pages/manifest/index.html"
-];
-
 function xmlEscape(value) {
   return String(value || "")
     .replace(/&/g, "&amp;")
@@ -76,16 +60,26 @@ function buildChangefreq(route) {
 }
 
 async function buildRoutes() {
-  const [artistDataRaw, eventsDataRaw] = await Promise.all([
+  const [routeDataRaw, artistDataRaw, eventsDataRaw] = await Promise.all([
+    fs.readFile(path.join(rootDir, "data", "routes.json"), "utf8"),
     fs.readFile(path.join(rootDir, "data", "artists.json"), "utf8"),
     fs.readFile(path.join(rootDir, "data", "events.json"), "utf8")
   ]);
+  const routeData = JSON.parse(String(routeDataRaw || "").replace(/^\uFEFF/, ""));
   const artistData = JSON.parse(String(artistDataRaw || "").replace(/^\uFEFF/, ""));
   const eventsData = JSON.parse(String(eventsDataRaw || "").replace(/^\uFEFF/, ""));
-  const updatedAt = normalizeDate(artistData?.updatedAt || new Date().toISOString());
-  const routes = new Set(staticRoutes);
+  const updatedAt = normalizeDate(routeData?.updatedAt || artistData?.updatedAt || new Date().toISOString());
+  const routeMeta = new Map();
+  const routes = new Set();
 
-  for (const sideKey of ["tekno", "hiphop"]) {
+  for (const route of Array.isArray(routeData?.static) ? routeData.static : []) {
+    const routePath = String(route?.path || "").trim();
+    if (!routePath) continue;
+    routes.add(routePath);
+    routeMeta.set(routePath, route);
+  }
+
+  for (const sideKey of ["global", "tekno", "hiphop"]) {
     const artists = Array.isArray(artistData?.[sideKey]) ? artistData[sideKey] : [];
     for (const artist of artists) {
       const slug = String(artist?.slug || "").trim().toLowerCase();
@@ -94,19 +88,10 @@ async function buildRoutes() {
     }
   }
 
-  const normalizeEventSlug = (value = "") =>
-    String(value || "")
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z0-9\-_.\s]/g, "")
-      .replace(/[\s_]+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/^-+|-+$/g, "");
-
-  for (const sideKey of ["tekno", "hiphop"]) {
+  for (const sideKey of ["global", "tekno", "hiphop"]) {
     const events = Array.isArray(eventsData?.[sideKey]) ? eventsData[sideKey] : [];
     for (const eventItem of events) {
-      const slug = normalizeEventSlug(eventItem?.id || eventItem?.title || "");
+      const slug = normalizeSlug(eventItem?.id || eventItem?.title || "");
       if (!slug) continue;
       routes.add(`/pages/events/detail/${encodeURIComponent(slug)}`);
     }
@@ -116,10 +101,10 @@ async function buildRoutes() {
   const items = [];
 
   for (const route of sortedRoutes) {
-    const loc = `${siteUrl}${route}`;
+    const loc = `${SITE_ORIGIN}${route}`;
     const lastmod = await getLastmod(route, updatedAt);
-    const changefreq = buildChangefreq(route);
-    const priority = buildPriority(route);
+    const changefreq = routeMeta.get(route)?.changefreq || buildChangefreq(route);
+    const priority = routeMeta.get(route)?.priority || buildPriority(route);
 
     items.push(`
   <url>

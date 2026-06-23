@@ -1,0 +1,90 @@
+{
+  "updatedAt": "2026-06-22T00:00:00Z",
+  "origin": "https://kwartierwest.be",
+  "static": [
+    {
+      "path": "/",
+      "file": "index.html",
+      "priority": "1.0",
+      "changefreq": "weekly"
+    },
+    {
+      "path": "/pages/events/index.html",
+      "file": "pages/events/index.html",
+      "priority": "0.9",
+      "changefreq": "daily"
+    },
+    {
+      "path": "/pages/archive/index.html",
+      "file": "pages/archive/index.html",
+      "priority": "0.6",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/pages/tekno/index.html",
+      "file": "pages/tekno/index.html",
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    {
+      "path": "/pages/hiphop/index.html",
+      "file": "pages/hiphop/index.html",
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    {
+      "path": "/pages/booking/index.html",
+      "file": "pages/booking/index.html",
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    {
+      "path": "/pages/tekno/booking.html",
+      "file": "pages/tekno/booking.html",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/pages/hiphop/booking.html",
+      "file": "pages/hiphop/booking.html",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/pages/tickets/index.html",
+      "file": "pages/tickets/index.html",
+      "priority": "0.6",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/pages/partners/index.html",
+      "file": "pages/partners/index.html",
+      "priority": "0.6",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/pages/contact/index.html",
+      "file": "pages/contact/index.html",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/pages/manifest/index.html",
+      "file": "pages/manifest/index.html",
+      "priority": "0.6",
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/pages/privacy/index.html",
+      "file": "pages/privacy/index.html",
+      "priority": "0.4",
+      "changefreq": "yearly"
+    },
+    {
+      "path": "/pages/voorwaarden/index.html",
+      "file": "pages/voorwaarden/index.html",
+      "priority": "0.4",
+      "changefreq": "yearly"
+    }
+  ]
+}

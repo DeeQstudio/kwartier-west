@@ -7,6 +7,7 @@ import { loadPublicConfig } from "./core/public-config.js";
 const STORAGE_KEY = "kw.booking.last";
 const TURNSTILE_SCRIPT_ID = "kw-turnstile-script";
 const TURNSTILE_SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+const BOOKING_FALLBACK_EMAIL = "info@kwartierwest.be";
 
 let turnstileScriptPromise = null;
 
@@ -163,8 +164,18 @@ function formTemplate({ sideKey, prefilledType }) {
           </label>
 
           <label>
+            <span>${t("booking.form.attendance")}</span>
+            <input name="attendance" type="number" min="0" step="10" placeholder="${t("booking.form.placeholder.attendance")}" inputmode="numeric">
+          </label>
+
+          <label>
             <span>${t("booking.form.budget")}</span>
             <input name="budget" type="number" min="0" step="50" placeholder="${t("booking.form.placeholder.budget")}" inputmode="decimal">
+          </label>
+
+          <label>
+            <span>${t("booking.form.setLength")}</span>
+            <input name="setLength" type="number" min="0" step="5" placeholder="${t("booking.form.placeholder.setLength")}" inputmode="numeric">
           </label>
         </div>
       </section>
@@ -193,6 +204,15 @@ function formTemplate({ sideKey, prefilledType }) {
             <input name="organisation" type="text" placeholder="${t("booking.form.placeholder.organisation")}" autocomplete="organization">
           </label>
         </div>
+      </section>
+
+      <section class="booking-section">
+        <h3 class="booking-section__title">${t("booking.form.production")}</h3>
+
+        <label class="form-field--wide">
+          <span>${t("booking.form.notes")}</span>
+          <textarea name="notes" rows="5" placeholder="${t("booking.form.placeholder.notes")}"></textarea>
+        </label>
       </section>
 
       <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" data-honeypot>
@@ -243,11 +263,14 @@ function prefillFromLastPayload(form, payload) {
   setField(form, "eventTime", payload?.event?.time || "");
   setField(form, "eventCity", payload?.event?.city || "");
   setField(form, "eventVenue", payload?.event?.venue || "");
+  setField(form, "attendance", payload?.event?.attendance || "");
+  setField(form, "setLength", payload?.event?.setLength || "");
   setField(form, "budget", payload?.budget?.amount || "");
   setField(form, "contactName", payload?.contact?.name || "");
   setField(form, "contactEmail", payload?.contact?.email || "");
   setField(form, "contactPhone", payload?.contact?.phone || "");
   setField(form, "organisation", payload?.contact?.organisation || "");
+  setField(form, "notes", payload?.productionNotes || payload?.notes || "");
 }
 
 function turnstileGlobal() {
@@ -419,6 +442,73 @@ function renderNetworkError(result, serverResult) {
   result.innerHTML = `<p class="error-text" role="alert">${t("booking.result.webhookFail")}: ${detail}</p>`;
 }
 
+function bookingEmailBody(payload) {
+  const artists = asArray(payload?.artists).filter(Boolean).join(", ") || "-";
+  const event = payload?.event || {};
+  const contact = payload?.contact || {};
+  const budget = payload?.budget || {};
+
+  return [
+    "Nieuwe bookingaanvraag via Kwartier West",
+    "",
+    `Referentie: ${payload?.reference || "-"}`,
+    `Boekingstype: ${payload?.bookingType || "-"}`,
+    `Collectief: ${payload?.side || "-"}`,
+    `Artiesten: ${artists}`,
+    "",
+    "Evenement",
+    `Naam: ${event.name || "-"}`,
+    `Datum: ${event.date || "-"}`,
+    `Startuur: ${event.time || "-"}`,
+    `Stad/regio: ${event.city || "-"}`,
+    `Locatie: ${event.venue || "-"}`,
+    `Verwachte opkomst: ${event.attendance || "-"}`,
+    `Setduur: ${event.setLength ? `${event.setLength} min` : "-"}`,
+    "",
+    "Budget",
+    `Bedrag: ${budget.amount ? `${budget.amount} ${budget.currency || "EUR"}` : "-"}`,
+    "",
+    "Contact",
+    `Naam: ${contact.name || "-"}`,
+    `E-mail: ${contact.email || "-"}`,
+    `Telefoon: ${contact.phone || "-"}`,
+    `Organisatie: ${contact.organisation || "-"}`,
+    "",
+    "Productie / notes",
+    payload?.productionNotes || "-"
+  ].join("\n");
+}
+
+function bookingMailto(payload) {
+  const subject = `[Booking ${payload?.reference || "zonder-ref"}] ${payload?.event?.city || "Kwartier West"}`;
+  const body = bookingEmailBody(payload);
+  return `mailto:${BOOKING_FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function renderManualMailFallback(result, payload, serverResult = {}) {
+  const message = String(serverResult?.message || "").trim();
+  const statusLine = serverResult?.status ? t("booking.result.webhookHttp", { status: serverResult.status }) : "";
+  const detail = [statusLine, message].filter(Boolean).join(" - ");
+
+  result.innerHTML = `
+    <div class="surface success-panel booking-fallback-panel" role="alert">
+      <h3 tabindex="-1" data-booking-result-title>${t("booking.result.manualTitle")}</h3>
+      <p class="muted">${t("booking.result.reference")}: <strong>${escapeHTML(payload.reference)}</strong></p>
+      <p>${t("booking.result.manualBody")}</p>
+      ${detail ? `<p class="muted">${escapeHTML(detail)}</p>` : ""}
+      <div class="inline-actions">
+        <a class="cta-btn" href="${escapeHTML(bookingMailto(payload))}">${t("booking.result.manualOpenMail")}</a>
+        <a class="chip-link" href="mailto:${BOOKING_FALLBACK_EMAIL}">${escapeHTML(BOOKING_FALLBACK_EMAIL)}</a>
+      </div>
+    </div>
+  `;
+
+  const resultTitle = result.querySelector("[data-booking-result-title]");
+  if (resultTitle instanceof HTMLElement) {
+    resultTitle.focus();
+  }
+}
+
 function renderVerificationSent(result, payload, responseBody) {
   const expiresInMinutes = Number(responseBody?.expiresInMinutes || 0);
   const hasExpiry = Number.isFinite(expiresInMinutes) && expiresInMinutes > 0;
@@ -464,6 +554,11 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
   const humanCheck = mount.querySelector("[data-human-check]");
 
   if (!form || !typeSelect || !artistList || !hint || !submitButton || !honeypot || !humanCheck) return;
+
+  const eventDateField = form.querySelector("[name='eventDate']");
+  if (eventDateField instanceof HTMLInputElement) {
+    eventDateField.min = new Date().toISOString().slice(0, 10);
+  }
 
   const publicConfig = await loadPublicConfig({ baseDepth });
   const verificationEnabled = publicConfig?.bookingVerificationEnabled !== false;
@@ -679,7 +774,9 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
         date: String(formData.get("eventDate") || "").trim(),
         time: String(formData.get("eventTime") || "").trim(),
         city: String(formData.get("eventCity") || "").trim(),
-        venue: String(formData.get("eventVenue") || "").trim()
+        venue: String(formData.get("eventVenue") || "").trim(),
+        attendance: Number(formData.get("attendance") || 0) || null,
+        setLength: Number(formData.get("setLength") || 0) || null
       },
       budget: {
         amount: Number(formData.get("budget") || 0) || null,
@@ -690,7 +787,8 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
         email: String(formData.get("contactEmail") || "").trim(),
         phone: String(formData.get("contactPhone") || "").trim(),
         organisation: String(formData.get("organisation") || "").trim()
-      }
+      },
+      productionNotes: String(formData.get("notes") || "").trim()
     };
 
     try {
@@ -724,12 +822,12 @@ export async function mountBookingDesk({ sideKey = "all", baseDepth = 0 } = {}) 
     }
 
     if (!webhookResult.attempted) {
-      result.innerHTML = `<p class="error-text" role="alert">${t("booking.result.webhookDisabled")}</p>`;
+      renderManualMailFallback(result, payload, webhookResult);
       return;
     }
 
     if (!webhookResult.ok) {
-      renderNetworkError(result, webhookResult);
+      renderManualMailFallback(result, payload, webhookResult);
       return;
     }
 

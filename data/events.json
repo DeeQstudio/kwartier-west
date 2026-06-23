@@ -1,5 +1,5 @@
 ﻿{
-    "updatedAt":  "2026-03-03T11:56:41Z",
+    "updatedAt":  "2026-06-20T00:00:00Z",
     "sources":  {
                     "tekno":  [
                                   {
@@ -61,6 +61,52 @@
                       "notes":  "Teknorelics-nacht met multi-artiest line-up in Het Entrepot, Brugge."
                   }
               ],
+    "global":  [
+                   {
+                       "id":  "villa-west-radio-2026",
+                       "title":  "Villa West",
+                       "date":  "2026-07-03",
+                       "time":  "22:00",
+                       "endTime":  "00:00",
+                       "region":  "Brugge",
+                       "venue":  "Villa Bota",
+                       "status":  "Komend",
+                       "sides":  [
+                                     "tekno",
+                                     "hiphop"
+                                 ],
+                       "poster":  "/assets/img/events/villa-west.jpg",
+                       "posterType":  "image/jpeg",
+                       "posterWidth":  1254,
+                       "posterHeight":  1254,
+                       "schedule":  "Elke vrijdag in juli en augustus, 22:00-00:00",
+                       "lineup":  [
+                                      {
+                                          "name":  "Hip hop"
+                                      },
+                                      {
+                                          "name":  "Acid tekno"
+                                      },
+                                      {
+                                          "name":  "Live sets"
+                                      },
+                                      {
+                                          "name":  "Cyphers"
+                                      }
+                                  ],
+                       "tickets":  {
+                                       "mode":  "external",
+                                       "label":  "Meer info",
+                                       "url":  "https://www.villabota.be"
+                                   },
+                       "source":  {
+                                      "platform":  "Villa Bota",
+                                      "url":  "https://www.villabota.be",
+                                      "syncedAt":  "2026-06-20T00:00:00Z"
+                                  },
+                       "notes":  "Villa West is de zomerresidentie van Kwartier West op Villa Bota in Brugge: elke vrijdag van 22:00 tot 00:00 twee uur radio vanuit beide kanten van het label. Verwacht hip hop, acid tekno, live sets, cyphers en gesprekken uit de scene."
+                   }
+               ],
     "hiphop":  [
 
                ]

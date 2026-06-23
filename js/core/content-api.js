@@ -66,6 +66,27 @@ export function pickSideCollection(data, sideKey) {
   return [];
 }
 
+export function eventSideKeys(eventItem) {
+  const directSides = asArray(eventItem?.sides)
+    .map((side) => normalizeSlug(side))
+    .filter((side) => side === "tekno" || side === "hiphop");
+  const allSides = new Set(directSides);
+  const ownerSide = normalizeSlug(eventItem?.sideKey);
+
+  if (ownerSide === "tekno" || ownerSide === "hiphop") {
+    allSides.add(ownerSide);
+  }
+
+  return [...allSides];
+}
+
+export function eventMatchesSide(eventItem, sideKey = "all") {
+  const side = normalizeSlug(sideKey);
+  if (!side || side === "all") return true;
+  if (eventItem?.sideKey === side) return true;
+  return eventSideKeys(eventItem).includes(side);
+}
+
 export async function loadArtists(options = {}) {
   return loadDataset("data/artists.json", options);
 }
@@ -177,7 +198,7 @@ function eventTimestamp(eventItem) {
 export function flattenEvents(eventsData) {
   const merged = [];
 
-  for (const sideKey of ["tekno", "hiphop"]) {
+  for (const sideKey of ["global", "tekno", "hiphop"]) {
     for (const eventItem of asArray(eventsData?.[sideKey])) {
       merged.push({ ...eventItem, sideKey });
     }

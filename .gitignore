@@ -19,3 +19,8 @@ public/
 _screens/
 _chrome-profile/
 .vercel/
+_backups/
+
+.env
+.env.*
+!.env.example

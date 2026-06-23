@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title data-i18n-title="meta.tickets.title">Kwartier West - Tickets</title>
-  <meta name="description" content="Ticketing- en toegangsinfo voor Kwartier West-evenementen." data-i18n-content="meta.tickets.description">
+  <meta name="description" content="Ticket- en toegangsinfo voor Kwartier West-events, externe bronnen en toekomstige toegangsstromen." data-i18n-content="meta.tickets.description">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kwartier West">
   <meta property="og:title" content="Kwartier West - Tickets">
-  <meta property="og:description" content="Ticketing- en toegangsinfo voor Kwartier West-evenementen.">
+  <meta property="og:description" content="Ticket- en toegangsinfo voor Kwartier West-events, externe bronnen en toekomstige toegangsstromen.">
   <meta property="og:url" content="https://kwartierwest.be/pages/tickets/index.html">
   <meta property="og:image" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
   <meta property="og:image:secure_url" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
@@ -18,10 +18,10 @@
   <meta property="og:image:alt" content="Kwartier West - Tekno- en Hip hop-evenementenplatform">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kwartier West - Tickets">
-  <meta name="twitter:description" content="Ticketing- en toegangsinfo voor Kwartier West-evenementen.">
+  <meta name="twitter:description" content="Ticket- en toegangsinfo voor Kwartier West-events, externe bronnen en toekomstige toegangsstromen.">
   <meta name="twitter:image" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
   <link rel="canonical" href="https://kwartierwest.be/pages/tickets/index.html">
-  <link rel="stylesheet" href="../../css/base.css?v=20260305u">
+  <link rel="stylesheet" href="../../css/base.css?v=20260623g">
 </head>
 <body class="kw-page">
   <div data-nav></div>
@@ -30,9 +30,9 @@
     <header class="hero-surface hero-surface--lane hero-surface--lane-global">
       <p class="eyebrow" data-i18n="tickets.hero.eyebrow">Tickets / Toegang</p>
       <h1 data-i18n="tickets.hero.title">Tickets</h1>
-      <p class="lead" data-i18n="tickets.hero.lead">Tickets worden per evenement gepubliceerd. Sommige evenementen lopen via externe partners, andere via gastenlijst of interne flow. De evenementenhub blijft de enige bron van waarheid.</p>
+      <p class="lead" data-i18n="tickets.hero.lead">Toegang loopt per event via de juiste bron: extern platform, Kwartier West-flow of duidelijke update zodra details vastliggen.</p>
       <div class="inline-actions">
-        <a class="cta-btn" href="../events/index.html" data-i18n="tickets.hero.events">Open evenementenhub</a>
+        <a class="cta-btn" href="../events/index.html" data-i18n="tickets.hero.events">Ga naar evenementenhub</a>
         <a class="chip-link" href="../contact/index.html" data-i18n="tickets.hero.support">Ticketondersteuning</a>
       </div>
     </header>
@@ -41,8 +41,17 @@
       <h2 data-i18n="tickets.status.title">Ticketstatus</h2>
       <ul>
         <li><strong data-i18n="tickets.status.external.label">Extern:</strong> <span data-i18n="tickets.status.external.body">Koop op het platform van de organisator.</span></li>
-        <li><strong data-i18n="tickets.status.internal.label">Intern:</strong> <span data-i18n="tickets.status.internal.body">Kwartier West-flow (later gelinkt aan app en QR-check-in).</span></li>
-        <li><strong data-i18n="tickets.status.tba.label">N.t.b.:</strong> <span data-i18n="tickets.status.tba.body">Details volgen zodra locatie, capaciteit en productielock vastligt.</span></li>
+        <li><strong data-i18n="tickets.status.internal.label">Intern:</strong> <span data-i18n="tickets.status.internal.body">Toegang via de Kwartier West-flow.</span></li>
+        <li><strong data-i18n="tickets.status.tba.label">N.t.b.:</strong> <span data-i18n="tickets.status.tba.body">Details volgen zodra locatie, capaciteit en productie vastliggen.</span></li>
+      </ul>
+    </section>
+
+    <section class="surface prose-block">
+      <h2 data-i18n="tickets.policy.title">Toegangsbeleid</h2>
+      <ul>
+        <li data-i18n="tickets.policy.one">Breng je bevestiging of ticket mee.</li>
+        <li data-i18n="tickets.policy.two">Respecteer de regels van de locatie en de briefing van de crew.</li>
+        <li data-i18n="tickets.policy.three">Deurbeleid blijft een beslissing van de organisatie.</li>
       </ul>
     </section>
   </main>
@@ -53,6 +62,8 @@
     import { initI18nPage } from "../../js/core/i18n.js";
     import { renderNav } from "../../partials/nav.js";
     import { renderFooter } from "../../partials/footer.js";
+    
+    
     initI18nPage();
     renderNav({ sideKey: "global", baseDepth: 2 });
     renderFooter({ baseDepth: 2 });

@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title data-i18n-title="meta.contact.title">Kwartier West - Contact</title>
-  <meta name="description" content="Contacteer Kwartier West voor boekingen, partnerschappen en productievragen." data-i18n-content="meta.contact.description">
+  <meta name="description" content="Contacteer Kwartier West voor artist bookings, radio-overnames, productievragen, samenwerkingen en partnercontact." data-i18n-content="meta.contact.description">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kwartier West">
   <meta property="og:title" content="Kwartier West - Contact">
-  <meta property="og:description" content="Contacteer Kwartier West voor boekingen, partnerschappen en productievragen.">
+  <meta property="og:description" content="Contacteer Kwartier West voor artist bookings, radio-overnames, productievragen, samenwerkingen en partnercontact.">
   <meta property="og:url" content="https://kwartierwest.be/pages/contact/index.html">
   <meta property="og:image" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
   <meta property="og:image:secure_url" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
@@ -18,10 +18,10 @@
   <meta property="og:image:alt" content="Kwartier West - Tekno- en Hip hop-evenementenplatform">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kwartier West - Contact">
-  <meta name="twitter:description" content="Contacteer Kwartier West voor boekingen, partnerschappen en productievragen.">
+  <meta name="twitter:description" content="Contacteer Kwartier West voor artist bookings, radio-overnames, productievragen, samenwerkingen en partnercontact.">
   <meta name="twitter:image" content="https://kwartierwest.be/assets/og/og-cover.png?v=20260226a">
   <link rel="canonical" href="https://kwartierwest.be/pages/contact/index.html">
-  <link rel="stylesheet" href="../../css/base.css?v=20260305u">
+  <link rel="stylesheet" href="../../css/base.css?v=20260623g">
 </head>
 <body class="kw-page">
   <div data-nav></div>
@@ -30,7 +30,7 @@
     <header class="hero-surface hero-surface--lane hero-surface--lane-global">
       <p class="eyebrow" data-i18n="contact.hero.eyebrow">Contact / Productiedesk</p>
       <h1 data-i18n="contact.hero.title">Contact Kwartier West</h1>
-      <p class="lead" data-i18n="contact.hero.lead">Voor boekingen, evenementen, partnerschappen of technische productievragen. Gebruik de boekingsdesk voor concrete aanvragen.</p>
+      <p class="lead" data-i18n="contact.hero.lead">Voor artist bookings, radio-overnames, productievragen, samenwerkingen en alles wat rechtstreeks bij het team moet landen.</p>
       <div class="inline-actions">
         <a class="cta-btn" href="../booking/index.html" data-i18n="contact.hero.booking">Open boekingsdesk</a>
         <a class="chip-link" href="../events/index.html" data-i18n="contact.hero.events">Open evenementenhub</a>
@@ -39,17 +39,18 @@
 
     <section class="surface surface--contact">
       <div class="tile-grid tile-grid--contact">
+
         <article class="tile-card tile-card--contact">
           <div class="tile-card__head">
             <h3 data-i18n="contact.tile.bookings.title">Boekingen</h3>
             <span class="muted" data-i18n="contact.tile.bookings.meta">Artiesten en collectieven</span>
           </div>
-          <p class="tile-card__body" data-i18n="contact.tile.bookings.body">Verstuur solo-, multiple- of collectiefaanvragen rechtstreeks via de centrale intake.</p>
+          <p class="tile-card__body" data-i18n="contact.tile.bookings.body">Stuur concrete artiest-, collectief-, radio- of overnamevragen via de boekingsdesk.</p>
           <div class="inline-actions">
-            <a class="chip-link" href="../booking/index.html" data-i18n="contact.tile.bookings.main">Centrale boekingsdesk</a>
-            <a class="chip-link" href="../tekno/booking.html" data-i18n="contact.tile.bookings.tekno">Tekno boeking</a>
-            <a class="chip-link" href="../hiphop/booking.html" data-i18n="contact.tile.bookings.hiphop">Hip hop boeking</a>
-          </div>
+        <a class="chip-link" href="../booking/index.html" data-i18n="contact.tile.bookings.main">Centrale boekingsdesk</a>
+        <a class="chip-link" href="../tekno/booking.html" data-i18n="contact.tile.bookings.tekno">Tekno boeking</a>
+        <a class="chip-link" href="../hiphop/booking.html" data-i18n="contact.tile.bookings.hiphop">Hip hop boeking</a>
+      </div>
         </article>
 
         <article class="tile-card tile-card--contact">
@@ -57,7 +58,8 @@
             <h3 data-i18n="contact.tile.channels.title">Algemene kanalen</h3>
             <span class="muted" data-i18n="contact.tile.channels.meta">Teamcontact</span>
           </div>
-          <p class="tile-card__body" data-i18n="contact.tile.channels.body">Algemene vragen, samenwerkingen en partnerschappen.</p>
+          <p class="tile-card__body" data-i18n="contact.tile.channels.body">Voor algemene vragen, samenwerkingen, pers of partnercontact.</p>
+          
           <div data-contact-socials></div>
         </article>
       </div>
@@ -70,13 +72,15 @@
     import { initI18nPage } from "../../js/core/i18n.js";
     import { renderNav } from "../../partials/nav.js";
     import { renderFooter } from "../../partials/footer.js";
+    
     import { loadPartners } from "../../js/core/content-api.js";
     import { renderSocialRail } from "../../js/core/social-links.js";
-
+    
+    
     initI18nPage();
     renderNav({ sideKey: "global", baseDepth: 2 });
     renderFooter({ baseDepth: 2 });
-
+    
     const socialMount = document.querySelector("[data-contact-socials]");
     if (socialMount) {
       const fallbackLinks = [
@@ -85,13 +89,13 @@
         { platform: "facebook", label: "Kwartier West", url: "https://www.facebook.com/profile.php?id=61557994985369" },
         { platform: "soundcloud", label: "Kwartier West", url: "https://soundcloud.com/kwartier-west" }
       ];
-
+    
       const mountSocials = (links) => {
         socialMount.innerHTML = renderSocialRail(links, { variant: "full" });
       };
-
+    
       mountSocials(fallbackLinks);
-
+    
       loadPartners({ baseDepth: 2 })
         .then((partnersData) => {
           const partners = Array.isArray(partnersData?.partners) ? partnersData.partners : [];

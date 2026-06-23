@@ -5,15 +5,24 @@
   "scripts": {
     "dev": "npx --yes http-server -c-1 -p 5173 .",
     "validate": "node data/validate.mjs",
+    "static-pages": "node scripts/generate-static-pages.mjs",
     "artist-pages": "node scripts/generate-artist-pages.mjs",
     "event-pages": "node scripts/generate-event-pages.mjs",
     "i18n-check": "node scripts/i18n-check.mjs",
+    "seo-check": "node scripts/seo-check.mjs",
     "sitemap": "node scripts/generate-sitemap.mjs",
-    "seo-build": "npm run artist-pages && npm run event-pages && npm run sitemap",
+    "seo-build": "npm run static-pages && npm run artist-pages && npm run event-pages && npm run sitemap",
+    "booking-mail-test": "node scripts/test-booking-mail.mjs",
+    "booking-flow-test": "node scripts/test-booking-flow.mjs",
+    "newsletter-flow-test": "node scripts/test-newsletter-flow.mjs",
+    "visual-audit": "node scripts/visual-audit.mjs",
     "site-check": "node scripts/site-check.mjs",
-    "check": "npm run validate && npm run i18n-check && npm run site-check"
+    "check": "npm run validate && npm run i18n-check && npm run site-check && npm run seo-check"
   },
   "dependencies": {
-    "nodemailer": "^6.10.1"
+    "nodemailer": "^9.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.0"
   }
 }

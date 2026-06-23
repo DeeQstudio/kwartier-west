@@ -14,9 +14,9 @@ export function renderSideSwitch(sideKey) {
 
   mount.innerHTML = `
     <div class="side-switch" role="navigation" aria-label="${t("nav.sideSwitchAria")}">
-      <span class="side-switch__label">${thisLabel}</span>
+      <span class="side-switch__label" aria-current="page">${thisLabel}</span>
       <a class="side-switch__link" href="${otherHref}">${otherLabel}</a>
-      <a class="side-switch__link" href="${bookingHref}">${t("nav.bookingDesk")}</a>
+      <a class="side-switch__link side-switch__link--booking" href="${bookingHref}">${t("nav.bookingDesk")}</a>
     </div>
   `;
 }
