@@ -1,7 +1,9 @@
 import { createHmac } from "node:crypto";
+import { get, list, put } from "@vercel/blob";
 
 const memorySubscribers = globalThis.__kwNewsletterSubscribers || new Map();
 globalThis.__kwNewsletterSubscribers = memorySubscribers;
+const BLOB_SUBSCRIBER_PREFIX = "newsletter/subscribers/";
 
 function cleanEnvValue(value) {
   return String(value ?? "")
@@ -26,6 +28,13 @@ function upstashConfig() {
   };
 }
 
+function hasBlobStorage() {
+  return Boolean(
+    storageSecret() &&
+      (envString("BLOB_READ_WRITE_TOKEN") || (envString("BLOB_STORE_ID") && envString("VERCEL_OIDC_TOKEN")))
+  );
+}
+
 function storageSecret() {
   return envString("NEWSLETTER_SECRET", envString("BOOKING_VERIFY_SECRET"));
 }
@@ -36,6 +45,10 @@ function normalizeEmail(email = "") {
 
 function subscriberKey(email = "") {
   return `newsletter:subscriber:${normalizeEmail(email)}`;
+}
+
+function blobSubscriberPath(email = "") {
+  return `${BLOB_SUBSCRIBER_PREFIX}${encodeURIComponent(normalizeEmail(email))}.json`;
 }
 
 function tokenForEmail(email = "") {
@@ -100,13 +113,51 @@ async function upstashRequest(command, args = []) {
   return data?.result ?? null;
 }
 
+function isBlobNotFound(error) {
+  const name = String(error?.name || "");
+  const message = String(error?.message || "");
+  return name.includes("NotFound") || message.includes("not found") || message.includes("404");
+}
+
+async function streamToText(stream) {
+  if (!stream) return "";
+  return await new Response(stream).text();
+}
+
+async function readBlobPath(pathname) {
+  try {
+    const result = await get(pathname, { access: "private", useCache: false });
+    if (!result || result.statusCode !== 200) return null;
+    const text = await streamToText(result.stream);
+    return JSON.parse(text);
+  } catch (error) {
+    if (isBlobNotFound(error)) return null;
+    throw error;
+  }
+}
+
+async function readBlobSubscriber(email) {
+  return readBlobPath(blobSubscriberPath(email));
+}
+
+async function writeBlobSubscriber(subscriber) {
+  await put(blobSubscriberPath(subscriber.email), JSON.stringify(subscriber, null, 2), {
+    access: "private",
+    allowOverwrite: true,
+    contentType: "application/json",
+    cacheControlMaxAge: 60
+  });
+}
+
 export function hasPersistentNewsletterStorage() {
   const cfg = upstashConfig();
-  return Boolean(cfg.url && cfg.token && storageSecret());
+  return hasBlobStorage() || Boolean(cfg.url && cfg.token && storageSecret());
 }
 
 export function newsletterStorageMode() {
-  return hasPersistentNewsletterStorage() ? "upstash" : "memory";
+  if (hasBlobStorage()) return "blob";
+  const cfg = upstashConfig();
+  return cfg.url && cfg.token && storageSecret() ? "upstash" : "memory";
 }
 
 export function newsletterStorageRequired() {
@@ -129,7 +180,11 @@ export async function getNewsletterSubscriber(email) {
   const normalized = normalizeEmail(email);
   if (!normalized) return null;
 
-  if (!hasPersistentNewsletterStorage()) {
+  if (hasBlobStorage()) {
+    return readBlobSubscriber(normalized);
+  }
+
+  if (newsletterStorageMode() === "memory") {
     return memorySubscribers.get(normalized) || null;
   }
 
@@ -147,7 +202,7 @@ export async function saveNewsletterSubscriber(input = {}) {
     return {
       ok: false,
       status: 503,
-      message: "Nieuwsbriefopslag ontbreekt. Configureer Upstash Redis en NEWSLETTER_SECRET."
+      message: "Nieuwsbriefopslag ontbreekt. Configureer Vercel Blob of Upstash Redis en NEWSLETTER_SECRET."
     };
   }
 
@@ -161,7 +216,12 @@ export async function saveNewsletterSubscriber(input = {}) {
   });
   const isDuplicate = existing?.status === "subscribed";
 
-  if (!hasPersistentNewsletterStorage()) {
+  if (hasBlobStorage()) {
+    await writeBlobSubscriber(subscriber);
+    return { ok: true, subscriber, duplicate: isDuplicate, storage: "blob" };
+  }
+
+  if (newsletterStorageMode() === "memory") {
     memorySubscribers.set(normalized, subscriber);
     return { ok: true, subscriber, duplicate: isDuplicate, storage: "memory" };
   }
@@ -197,7 +257,12 @@ export async function unsubscribeNewsletterSubscriber(email, token) {
     updatedAt: nowIso()
   });
 
-  if (!hasPersistentNewsletterStorage()) {
+  if (hasBlobStorage()) {
+    await writeBlobSubscriber(subscriber);
+    return { ok: true, status: 200, message: "Je bent uitgeschreven van Uit Het Westen." };
+  }
+
+  if (newsletterStorageMode() === "memory") {
     memorySubscribers.set(normalized, subscriber);
     return { ok: true, status: 200, message: "Je bent uitgeschreven van Uit Het Westen." };
   }
@@ -209,7 +274,31 @@ export async function unsubscribeNewsletterSubscriber(email, token) {
 }
 
 export async function exportNewsletterSubscribers({ includeUnsubscribed = false } = {}) {
-  if (!hasPersistentNewsletterStorage()) {
+  if (hasBlobStorage()) {
+    let cursor;
+    let hasMore = true;
+    const blobs = [];
+
+    while (hasMore) {
+      const result = await list({ prefix: BLOB_SUBSCRIBER_PREFIX, limit: 1000, cursor });
+      blobs.push(...(result.blobs || []));
+      cursor = result.cursor;
+      hasMore = Boolean(result.hasMore && cursor);
+    }
+
+    const subscribers = [];
+
+    for (const blob of blobs) {
+      const subscriber = await readBlobPath(blob.pathname);
+      if (subscriber && (includeUnsubscribed || subscriber.status === "subscribed")) {
+        subscribers.push(subscriber);
+      }
+    }
+
+    return { ok: true, storage: "blob", subscribers };
+  }
+
+  if (newsletterStorageMode() === "memory") {
     const values = Array.from(memorySubscribers.values());
     return {
       ok: true,

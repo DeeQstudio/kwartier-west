@@ -95,7 +95,7 @@ The project includes `/api/newsletter` for Uit Het Westen subscriptions.
 What it does:
 - validates email, consent, honeypot and minimum fill time
 - rate-limits by IP and email
-- stores subscribers when Upstash Redis is configured
+- stores subscribers persistently when Vercel Blob or Upstash Redis is configured
 - detects duplicate active subscriptions and updates the subscriber record
 - sends an internal signup notification
 - optionally sends a welcome mail with unsubscribe link
@@ -113,6 +113,8 @@ Mail delivery reuses booking SMTP by default. Optional newsletter-specific overr
 - `NEWSLETTER_RESEND_API_KEY`
 
 Persistent subscriber storage:
+- Vercel Blob is the preferred storage for this project.
+- `BLOB_READ_WRITE_TOKEN` is provided automatically when the Vercel Blob store is connected to the project.
 - `NEWSLETTER_UPSTASH_REDIS_REST_URL` or `UPSTASH_REDIS_REST_URL`
 - `NEWSLETTER_UPSTASH_REDIS_REST_TOKEN` or `UPSTASH_REDIS_REST_TOKEN`
 - `NEWSLETTER_SECRET` (falls back to `BOOKING_VERIFY_SECRET` for unsubscribe tokens)
