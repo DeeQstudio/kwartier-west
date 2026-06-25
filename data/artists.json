@@ -426,6 +426,11 @@
                                         "platform":  "soundcloud",
                                         "label":  "Onschuldig",
                                         "url":  "https://soundcloud.com/onschuldig"
+                                    },
+                                    {
+                                        "platform":  "instagram",
+                                        "label":  "@0nschuldig",
+                                        "url":  "https://www.instagram.com/0nschuldig/"
                                     }
                                 ]
                   },
