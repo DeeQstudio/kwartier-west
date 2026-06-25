@@ -2520,6 +2520,10 @@ button.chip-link:hover {
   object-position: center 20%;
 }
 
+.artist-card[data-artist="thorre"] .artist-card__media img {
+  object-position: center 17%;
+}
+
 .artist-card__media::after {
   content: "";
   position: absolute;
@@ -2784,6 +2788,10 @@ button.chip-link:hover {
 
 .artist-hero[data-artist="de-kweker"] .artist-hero__media img {
   object-position: center 18%;
+}
+
+.artist-hero[data-artist="thorre"] .artist-hero__media img {
+  object-position: center 15%;
 }
 
 .artist-hero__body {

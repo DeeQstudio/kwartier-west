@@ -75,10 +75,10 @@
                    {
                        "slug":  "thorre",
                        "name":  "Thorre",
-                       "role":  "Rapper / Veteraan",
-                       "city":  "Zwevegem, BE",
+                       "role":  "Rapper",
+                       "city":  "Wevelgem, BE",
                        "lang":  "NL",
-                       "photo":  "/assets/img/artists/hiphop/thorre.png",
+                       "photo":  "/assets/img/artists/hiphop/thorre.jpg",
                          "bio":  "Sinds zijn zestiende schrijft Thorre teksten. Wat ooit simpele en vluchtige teksten waren, groeide na meer dan vijftien jaar uit tot diepzinnige, emotioneel gedreven verhalen.",
                          "headline":  "Maatschappijkritische bars met relativering en humor, van euforie tot diepbedroefdheid.",
                          "story":  "Hij houdt zichzelf en de wereld een spiegel voor via maatschappijkritische teksten met een relativerende, humoristische toets. Doorheen de jaren ontwikkelde hij een technische stijl gekenmerkt door multi-rijm, trouw aan de fundamenten van hiphop: bars.",
@@ -90,8 +90,7 @@
                                   ],
                        "tags":  [
                                     "West-Vlaams",
-                                    "NTrek",
-                                    "Veteraan"
+                                    "Concepttracks"
                                 ],
                        "priority":  74,
                        "collective":  "hiphop",
@@ -123,6 +122,16 @@
                                          "platform":  "youtube",
                                          "label":  "Thorre",
                                          "url":  "https://www.youtube.com/channel/UCfWQnA8aHN498DUd8Q1i4qQ"
+                                     },
+                                     {
+                                         "platform":  "instagram",
+                                         "label":  "@_thorregineel_",
+                                         "url":  "https://www.instagram.com/_thorregineel_/"
+                                     },
+                                     {
+                                         "platform":  "tiktok",
+                                         "label":  "@thorre8560",
+                                         "url":  "https://www.tiktok.com/@thorre8560"
                                      }
                                  ]
                     },
