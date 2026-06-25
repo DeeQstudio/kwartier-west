@@ -848,21 +848,39 @@ textarea {
 }
 
 .hero-surface--lane-tekno {
-  --lane-focus: 48%;
-  min-height: clamp(240px, 34vw, 420px);
+  --lane-focus: 58%;
+  min-height: clamp(280px, 36vw, 460px);
   background-image:
-    linear-gradient(95deg, rgba(5, 5, 5, 0.74), rgba(5, 5, 5, 0.6) 48%, rgba(5, 5, 5, 0.78)),
-    radial-gradient(760px 300px at 18% 0%, rgba(217, 9, 9, 0.17), rgba(217, 9, 9, 0) 74%),
-    url("../assets/landing-tekno.jpg");
+    linear-gradient(95deg, rgba(5, 5, 5, 0.58), rgba(5, 5, 5, 0.24) 48%, rgba(5, 5, 5, 0.54)),
+    radial-gradient(760px 300px at 18% 0%, rgba(217, 9, 9, 0.1), rgba(217, 9, 9, 0) 74%),
+    url("../assets/img/brand/kwartier-tekno-banner.png");
 }
 
 .hero-surface--lane-hiphop {
-  --lane-focus: 46%;
-  min-height: clamp(240px, 34vw, 420px);
+  --lane-focus: 58%;
+  min-height: clamp(280px, 36vw, 460px);
   background-image:
-    linear-gradient(95deg, rgba(5, 5, 5, 0.74), rgba(5, 5, 5, 0.6) 48%, rgba(5, 5, 5, 0.78)),
-    radial-gradient(760px 300px at 82% 0%, rgba(255, 45, 45, 0.17), rgba(255, 45, 45, 0) 74%),
-    url("../assets/landing-hiphop.jpg");
+    linear-gradient(95deg, rgba(5, 5, 5, 0.58), rgba(5, 5, 5, 0.26) 48%, rgba(5, 5, 5, 0.54)),
+    radial-gradient(760px 300px at 82% 0%, rgba(255, 45, 45, 0.1), rgba(255, 45, 45, 0) 74%),
+    url("../assets/img/brand/kwartier-hiphop-banner.png");
+}
+
+.kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events),
+.kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) {
+  align-content: start;
+  min-height: clamp(300px, 36vw, 460px);
+  padding-top: clamp(1.05rem, 2.4vw, 1.72rem);
+}
+
+.kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events) h1,
+.kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) h1 {
+  max-width: min(42vw, 560px);
+  font-size: clamp(2.15rem, 3.9vw, 3.9rem);
+}
+
+.kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events) .lead,
+.kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) .lead {
+  max-width: min(37vw, 520px);
 }
 
 .hero-surface--lane-global {
@@ -4474,6 +4492,48 @@ input[disabled] {
     min-height: clamp(170px, 46vw, 280px);
   }
 
+  .kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events),
+  .kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) {
+    --lane-focus: 58%;
+    align-content: start;
+    min-height: clamp(255px, 74vw, 330px);
+    margin-bottom: 2.6rem;
+    padding-top: 1rem;
+    overflow: visible;
+    background-image:
+      linear-gradient(180deg, rgba(5, 5, 5, 0.5), rgba(5, 5, 5, 0.18) 44%, rgba(5, 5, 5, 0.48)),
+      var(--mobile-lane-banner);
+  }
+
+  .kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events) {
+    --mobile-lane-banner: url("../assets/img/brand/kwartier-tekno-banner.png");
+  }
+
+  .kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) {
+    --mobile-lane-banner: url("../assets/img/brand/kwartier-hiphop-banner.png");
+  }
+
+  .kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events) > h1,
+  .kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) > h1 {
+    max-width: 11rem;
+    font-size: clamp(1.55rem, 7vw, 2rem);
+    line-height: 0.96;
+  }
+
+  .kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events) > .lead,
+  .kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) > .lead {
+    display: none;
+  }
+
+  .kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events) > .inline-actions,
+  .kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) > .inline-actions {
+    position: absolute;
+    left: 1rem;
+    bottom: -2.7rem;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
   h1 {
     font-size: clamp(1.9rem, 10.6vw, 3.1rem);
   }
@@ -4968,6 +5028,17 @@ input[disabled] {
   .hero-surface > .lead {
     max-width: 44rem;
     color: rgba(245, 245, 245, 0.92);
+  }
+
+  .kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events) > h1,
+  .kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) > h1 {
+    max-width: min(42vw, 560px);
+    font-size: clamp(2.15rem, 3.9vw, 3.9rem);
+  }
+
+  .kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events) > .lead,
+  .kw-side-hiphop .page-main > .hero-surface--lane-hiphop:not(.hero-surface--events) > .lead {
+    max-width: min(37vw, 520px);
   }
 
   .surface {
