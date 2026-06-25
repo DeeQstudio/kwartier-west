@@ -1,13 +1,34 @@
 export const SITE_ORIGIN = "https://kwartierwest.be";
 export const CSS_ASSET_VERSION = "20260625b";
 export const ARTIST_DETAIL_VERSION = "20260625b";
-export const OG_ASSET_VERSION = "20260226a";
+export const OG_ASSET_VERSION = "20260625a";
 export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og/og-cover.png?v=${OG_ASSET_VERSION}`;
+export const DEFAULT_OG_IMAGE_TYPE = "image/png";
+export const DEFAULT_OG_IMAGE_WIDTH = "1358";
+export const DEFAULT_OG_IMAGE_HEIGHT = "1159";
 
 export const SIDE_OG_IMAGES = {
   global: DEFAULT_OG_IMAGE,
-  tekno: `${SITE_ORIGIN}/assets/landing-tekno.jpg`,
-  hiphop: `${SITE_ORIGIN}/assets/landing-hiphop.jpg`
+  tekno: `${SITE_ORIGIN}/assets/og/og-tekno.jpg`,
+  hiphop: `${SITE_ORIGIN}/assets/og/og-hiphop.png`
+};
+
+export const SIDE_OG_META = {
+  global: {
+    type: DEFAULT_OG_IMAGE_TYPE,
+    width: DEFAULT_OG_IMAGE_WIDTH,
+    height: DEFAULT_OG_IMAGE_HEIGHT
+  },
+  tekno: {
+    type: "image/jpeg",
+    width: "1200",
+    height: "630"
+  },
+  hiphop: {
+    type: "image/png",
+    width: "1200",
+    height: "630"
+  }
 };
 
 export function escapeHtml(value = "") {
@@ -79,10 +100,14 @@ export function renderSeoHead({
   const safeDescription = trimText(description || "Kwartier West: Tekno- en Hip hop-collectieven, evenementen en bookings.", 180);
   const safeCanonical = canonicalUrl(canonical || "/");
   const safeImage = toAbsoluteUrl(ogImage || DEFAULT_OG_IMAGE) || DEFAULT_OG_IMAGE;
+  const isDefaultImage = safeImage === DEFAULT_OG_IMAGE;
+  const resolvedImageType = imageType || (isDefaultImage ? DEFAULT_OG_IMAGE_TYPE : "");
+  const resolvedImageWidth = imageWidth || (isDefaultImage ? DEFAULT_OG_IMAGE_WIDTH : "");
+  const resolvedImageHeight = imageHeight || (isDefaultImage ? DEFAULT_OG_IMAGE_HEIGHT : "");
   const imageMeta = [
-    imageType ? `<meta property="og:image:type" content="${escapeHtml(imageType)}">` : "",
-    imageWidth ? `<meta property="og:image:width" content="${escapeHtml(imageWidth)}">` : "",
-    imageHeight ? `<meta property="og:image:height" content="${escapeHtml(imageHeight)}">` : ""
+    resolvedImageType ? `<meta property="og:image:type" content="${escapeHtml(resolvedImageType)}">` : "",
+    resolvedImageWidth ? `<meta property="og:image:width" content="${escapeHtml(resolvedImageWidth)}">` : "",
+    resolvedImageHeight ? `<meta property="og:image:height" content="${escapeHtml(resolvedImageHeight)}">` : ""
   ].filter(Boolean).join("\n  ");
 
   return [

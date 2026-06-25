@@ -228,9 +228,8 @@ function renderPage(page = {}) {
     description: page.description,
     descriptionKey: page.descriptionKey,
     canonical: page.canonical,
-    imageType: "image/png",
-    imageWidth: "1200",
-    imageHeight: "630"
+    ogImage: page.ogImage,
+    ogAlt: page.ogAlt
   });
 
   const heroActions = renderActions(page.actions);

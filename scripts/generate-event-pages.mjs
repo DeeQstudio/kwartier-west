@@ -5,6 +5,7 @@ import {
   CSS_ASSET_VERSION,
   DEFAULT_OG_IMAGE,
   SIDE_OG_IMAGES,
+  SIDE_OG_META,
   SITE_ORIGIN,
   escapeHtml,
   normalizeSlug,
@@ -252,6 +253,7 @@ function renderEventPage(eventItem, sideKey, artistMap) {
   const posterWidth = Number(eventItem?.posterWidth || 0);
   const posterHeight = Number(eventItem?.posterHeight || 0);
   const ogImage = posterUrl || SIDE_OG_IMAGES[sideKey] || DEFAULT_OG_IMAGE;
+  const sideOgMeta = SIDE_OG_META[sideKey] || {};
   const description = eventDescription(eventItem, sideKey);
   const metaDescription = trimText(description, 170);
   const eventDate = formatDateTimeRange(eventItem);
@@ -274,9 +276,9 @@ function renderEventPage(eventItem, sideKey, artistMap) {
     canonical,
     ogImage,
     ogAlt: `${title} - ${sideLabel(sideKey)}`,
-    imageType: posterType,
-    imageWidth: posterWidth > 0 ? String(posterWidth) : "",
-    imageHeight: posterHeight > 0 ? String(posterHeight) : "",
+    imageType: posterUrl ? posterType : sideOgMeta.type,
+    imageWidth: posterUrl && posterWidth > 0 ? String(posterWidth) : sideOgMeta.width,
+    imageHeight: posterUrl && posterHeight > 0 ? String(posterHeight) : sideOgMeta.height,
     extra: `<script type="application/ld+json">${jsonLd}</script>`
   });
   const posterMarkup = poster
