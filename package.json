@@ -9,6 +9,7 @@
     "artist-pages": "node scripts/generate-artist-pages.mjs",
     "event-pages": "node scripts/generate-event-pages.mjs",
     "i18n-check": "node scripts/i18n-check.mjs",
+    "social-link-check": "node scripts/social-link-check.mjs",
     "seo-check": "node scripts/seo-check.mjs",
     "sitemap": "node scripts/generate-sitemap.mjs",
     "seo-build": "npm run static-pages && npm run artist-pages && npm run event-pages && npm run sitemap",
@@ -17,7 +18,7 @@
     "newsletter-flow-test": "node scripts/test-newsletter-flow.mjs",
     "visual-audit": "node scripts/visual-audit.mjs",
     "site-check": "node scripts/site-check.mjs",
-    "check": "npm run validate && npm run i18n-check && npm run site-check && npm run seo-check"
+    "check": "npm run validate && npm run i18n-check && npm run social-link-check && npm run site-check && npm run seo-check"
   },
   "dependencies": {
     "@vercel/blob": "^2.4.1",

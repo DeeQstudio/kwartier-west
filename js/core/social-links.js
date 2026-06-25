@@ -99,6 +99,9 @@ function inferHandle(url = "", platform = "website") {
       if (first.toLowerCase() === "profile.php") return "";
     }
 
+    if (platform === "spotify" && first.toLowerCase() === "artist") return "";
+    if (platform === "youtube" && ["channel", "watch", "playlist"].includes(first.toLowerCase())) return "";
+
     if (["instagram", "tiktok"].includes(platform)) return `@${first}`;
     if (platform === "youtube") return first.startsWith("@") ? first : `@${first}`;
     if (platform === "linktree") return `@${first}`;
@@ -119,7 +122,8 @@ export function normalizeSocialLinks(rawLinks) {
 
     const platform = pickPlatform(link);
     const label = String(link?.label || "").trim() || PLATFORM_META[platform]?.label || "Link";
-    const handle = String(link?.handle || "").trim() || inferHandle(url, platform);
+    const explicitHandle = String(link?.handle || "").trim();
+    const handle = explicitHandle || (String(link?.label || "").trim() ? "" : inferHandle(url, platform));
     const key = `${platform}|${url.toLowerCase()}`;
     if (dedupe.has(key)) continue;
     dedupe.add(key);
