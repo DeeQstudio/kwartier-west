@@ -86,6 +86,11 @@ function bookingPath(sideKey, type, slug) {
   return `/pages/${safeSide}/booking.html?${params.toString()}`;
 }
 
+function artistsIndexPath(sideKey) {
+  const safeSide = ["tekno", "hiphop"].includes(sideKey) ? sideKey : "hiphop";
+  return `/pages/${safeSide}/index.html#artists`;
+}
+
 function cleanText(value = "") {
   return decodeHTMLEntities(String(value || "").trim());
 }
@@ -350,6 +355,7 @@ export async function renderArtistDetail(sideKey, { baseDepth = 0 } = {}) {
 
         <div class="artist-hero__body">
           <div class="artist-hero__intro">
+            <a class="chip-link artist-hero__back" href="${escapeHTML(artistsIndexPath(currentSide))}">&larr; ${escapeHTML(t("artist.backToArtists", { side: sideLabel(currentSide) }))}</a>
             <p class="eyebrow">${escapeHTML(sideLabel(currentSide))} ${escapeHTML(t("artist.collectiveSuffix"))}</p>
             <h1>${name}</h1>
             <p class="artist-hero__meta">${role}${city ? ` <span class="dot-sep"></span> ${city}` : ""}${lang ? ` <span class="dot-sep"></span> ${lang}` : ""}</p>

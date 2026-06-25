@@ -2815,6 +2815,12 @@ button.chip-link:hover {
   margin-bottom: 0.14rem;
 }
 
+.artist-hero__back {
+  width: fit-content;
+  margin-bottom: 0.16rem;
+  color: color-mix(in srgb, var(--accent) 56%, #f1f1f1);
+}
+
 .artist-hero h1 {
   color: #f1f1f1;
   font-size: clamp(3.2rem, 7.2vw, 5.45rem);
