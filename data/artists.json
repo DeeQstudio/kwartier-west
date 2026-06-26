@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-06-12T00:00:00Z",
+    "updatedAt":  "2026-06-26T00:00:00Z",
     "hiphop":  [
                    {
                        "slug":  "de-kweker",
@@ -510,6 +510,49 @@
                                         "platform":  "instagram",
                                         "label":  "@_woebn_",
                                         "url":  "https://www.instagram.com/_woebn_/"
+                                    }
+                                ]
+                  },
+                  {
+                      "slug":  "wildcrd",
+                      "name":  "W!LD.CRD",
+                      "role":  "DJ",
+                      "city":  "Belgium",
+                      "lang":  "NL",
+                      "photo":  "/assets/img/artists/tekno/wildcrd.png",
+                      "bio":  "W!LD.CRD staat voor pure energie, opbouwende spanning en een compromisloze drive achter de decks.",
+                      "headline":  "Hardgroove Techno, Acidcore en Tekno met pure energie en compromisloze drive.",
+                      "story":  "W!LD.CRD staat voor pure energie, opbouwende spanning en een compromisloze drive achter de decks. Met een sound die varieert van Hardgroove Techno en Acidcore tot Tekno, weet hij elke dansvloer mee te sleuren in een intense muzikale ervaring.\n\nAl meer dan vijftien jaar actief als DJ en de laatste drie jaar steeds zichtbaarder binnen de scene, combineert W!LD.CRD technische ervaring met een scherp gevoel voor publieksdynamiek. Zijn sets bouwen op vanuit groove en ritme, om uiteindelijk te ontploffen in een storm van harde kicks en opzwepende tracks.",
+                      "live":  "Naast zijn passie voor de underground scene is W!LD.CRD ook een veelzijdige all-round DJ. Die brede muzikale achtergrond geeft hem de flexibiliteit om elk publiek aan te voelen en zijn sets naar een onvergetelijk hoogtepunt te sturen.",
+                      "focus":  [
+                                    "Opbouwende spanning",
+                                    "Hardgroove- en acidcore-druk",
+                                    "Publieksdynamiek en piekmomenten"
+                                ],
+                      "tags":  [
+                                   "Hardgroove Techno",
+                                   "Acidcore",
+                                   "Tekno"
+                               ],
+                      "priority":  66,
+                      "collective":  "tekno",
+                      "booking":  {
+                                      "available":  true,
+                                      "types":  [
+                                                    "solo",
+                                                    "multiple"
+                                                ]
+                                  },
+                      "links":  [
+                                    {
+                                        "platform":  "soundcloud",
+                                        "label":  "W!LD.CRD",
+                                        "url":  "https://soundcloud.com/karimdevlaeminck"
+                                    },
+                                    {
+                                        "platform":  "instagram",
+                                        "label":  "@wild.crd_kdv",
+                                        "url":  "https://www.instagram.com/wild.crd_kdv/"
                                     }
                                 ]
                   },

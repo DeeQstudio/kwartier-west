@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>W!LD.CRD | Kwartier West</title>
+  <meta name="description" content="Hardgroove Techno, Acidcore en Tekno met pure energie en compromisloze drive. DJ Belgium">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kwartier West">
+  <meta property="og:title" content="W!LD.CRD | Kwartier West">
+  <meta property="og:description" content="Hardgroove Techno, Acidcore en Tekno met pure energie en compromisloze drive. DJ Belgium">
+  <meta property="og:url" content="https://kwartierwest.be/pages/tekno/artist/wildcrd">
+  <meta property="og:image" content="https://kwartierwest.be/assets/img/artists/tekno/wildcrd.png">
+  <meta property="og:image:secure_url" content="https://kwartierwest.be/assets/img/artists/tekno/wildcrd.png">
+  <meta property="og:image:alt" content="W!LD.CRD - Tekno bij Kwartier West">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="W!LD.CRD | Kwartier West">
+  <meta name="twitter:description" content="Hardgroove Techno, Acidcore en Tekno met pure energie en compromisloze drive. DJ Belgium">
+  <meta name="twitter:image" content="https://kwartierwest.be/assets/img/artists/tekno/wildcrd.png">
+  <link rel="canonical" href="https://kwartierwest.be/pages/tekno/artist/wildcrd">
+  <script type="application/ld+json" data-artist-jsonld="true">{"@context":"https://schema.org","@type":"MusicGroup","@id":"https://kwartierwest.be/pages/tekno/artist/wildcrd#artist","name":"W!LD.CRD","url":"https://kwartierwest.be/pages/tekno/artist/wildcrd","description":"Hardgroove Techno, Acidcore en Tekno met pure energie en compromisloze drive. DJ Belgium","genre":["Tekno","Hardgroove Techno","Acidcore"],"image":"https://kwartierwest.be/assets/img/artists/tekno/wildcrd.png","sameAs":["https://soundcloud.com/karimdevlaeminck","https://www.instagram.com/wild.crd_kdv/"],"memberOf":{"@type":"Organization","name":"Kwartier West","url":"https://kwartierwest.be/"},"knowsAbout":"DJ","homeLocation":{"@type":"Place","name":"Belgium"}}</script>
+  <link rel="stylesheet" href="/css/base.css?v=20260625d">
+</head>
+<body class="kw-page kw-side-tekno kw-page--artist">
+  <div data-nav></div>
+
+  <main id="main-content" class="page-shell">
+    <header class="hero-surface hero-surface--lane hero-surface--lane-tekno hero-surface--artist">
+      <p class="eyebrow">Tekno / Artiestprofiel</p>
+      <p class="artist-page-kicker" data-artist-page-title>W!LD.CRD</p>
+      <p class="lead" data-artist-page-lead>Hardgroove Techno, Acidcore en Tekno met pure energie en compromisloze drive.</p>
+      <div class="inline-actions">
+        <a class="chip-link" href="/pages/tekno/index.html#artists">Tekno artiesten</a>
+        <a class="chip-link" href="/pages/tekno/booking.html">Boek Tekno</a>
+      </div>
+    </header>
+
+    <div data-sideswitch></div>
+
+    <section class="surface surface--artist-detail">
+      <div data-artist-root></div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+
+  <script type="module">
+    import { initI18nPage } from "/js/core/i18n.js";
+    import { renderNav } from "/partials/nav.js";
+    import { renderFooter } from "/partials/footer.js";
+    import { renderSideSwitch } from "/partials/side-switch.js";
+    import { renderArtistDetail } from "/js/artist-detail.js?v=20260625b";
+    
+    const pathname = String(window.location.pathname || "");
+    const isIndexFileRoute = /\/pages\/(tekno|hiphop)\/artist\/[^/]+\/index\.html$/i.test(pathname);
+    const baseDepth = isIndexFileRoute ? 4 : 3;
+    
+    initI18nPage();
+    renderNav({ sideKey: "tekno", baseDepth });
+    renderFooter({ baseDepth });
+    renderSideSwitch("tekno");
+    renderArtistDetail("tekno", { baseDepth });
+  </script>
+</body>
+</html>
