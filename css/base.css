@@ -1221,6 +1221,86 @@ textarea {
   transform: scale(1.055);
 }
 
+.page-rail__stream {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  gap: 0.54rem;
+  align-items: center;
+  margin: 0.5rem 0.62rem 0.64rem;
+  padding: 0.48rem;
+  color: #f4f4f4;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left-color: rgba(227, 13, 13, 0.74);
+  background:
+    linear-gradient(96deg, rgba(227, 13, 13, 0.16), rgba(255, 255, 255, 0.025) 58%),
+    rgba(5, 5, 5, 0.82);
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.page-rail__stream-preview {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    radial-gradient(90% 120% at 28% 35%, rgba(227, 13, 13, 0.56), transparent 54%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 42%),
+    #080808;
+}
+
+.page-rail__stream-preview::before {
+  content: "";
+  position: absolute;
+  inset: 34% 40%;
+  clip-path: polygon(18% 0, 18% 100%, 100% 50%);
+  background: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.34));
+}
+
+.page-rail__stream-preview span {
+  position: absolute;
+  left: 0.28rem;
+  top: 0.28rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: #ff2b2b;
+  box-shadow: 0 0 10px rgba(255, 43, 43, 0.72);
+}
+
+.page-rail__stream-copy {
+  display: grid;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.page-rail__stream-kicker {
+  font-family: "Space Mono", monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent) 58%, #f2f2f2);
+}
+
+.page-rail__stream-title {
+  font-family: "Bebas Neue", "Archivo", sans-serif;
+  font-size: 1.35rem;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.page-rail__stream:hover,
+.page-rail__stream:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 72%, #ffffff);
+  background:
+    linear-gradient(96deg, rgba(227, 13, 13, 0.24), rgba(255, 255, 255, 0.04) 62%),
+    rgba(5, 5, 5, 0.9);
+  transform: translateY(-1px);
+}
+
 .page-rail__toc {
   margin: 0;
   padding: 0;

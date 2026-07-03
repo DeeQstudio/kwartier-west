@@ -314,6 +314,105 @@ body.events-page {
   line-height: 1.62;
 }
 
+.surface--event-stream {
+  border-left-color: rgba(227, 13, 13, 0.72);
+  background:
+    radial-gradient(820px 300px at 86% 0%, rgba(227, 13, 13, 0.2), transparent 72%),
+    linear-gradient(116deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 42%),
+    rgba(4, 4, 4, 0.72);
+}
+
+.event-stream {
+  display: grid;
+  gap: clamp(0.86rem, 1.7vw, 1.18rem);
+}
+
+.event-stream__head {
+  display: grid;
+  gap: 0.32rem;
+  max-width: 68rem;
+}
+
+.event-stream__head h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4.6rem);
+  line-height: 0.88;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.event-stream__lead {
+  margin: 0;
+  max-width: 70ch;
+  color: #d9d9d9;
+  line-height: 1.58;
+}
+
+.event-stream__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-left-color: color-mix(in srgb, var(--accent) 70%, #fff);
+  background:
+    radial-gradient(70% 90% at 50% 50%, rgba(227, 13, 13, 0.18), transparent 72%),
+    #050505;
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.42),
+    0 0 42px rgba(227, 13, 13, 0.08);
+}
+
+.event-stream__frame::before {
+  content: "LIVE";
+  position: absolute;
+  z-index: 1;
+  left: 0.72rem;
+  top: 0.72rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: #fff;
+  background: rgba(227, 13, 13, 0.72);
+  padding: 0.22rem 0.4rem;
+  pointer-events: none;
+}
+
+.event-stream__frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #050505;
+}
+
+.event-stream__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.72rem;
+  align-items: center;
+}
+
+.event-stream__audio-wrap {
+  display: grid;
+  gap: 0.32rem;
+  flex: 1 1 24rem;
+  min-width: min(100%, 18rem);
+}
+
+.event-stream__audio-label {
+  font-family: "Space Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #d7d7d7;
+}
+
+.event-stream__audio {
+  width: 100%;
+  min-height: 2.4rem;
+  filter: saturate(0.8) contrast(1.04);
+}
+
 @media (max-width: 980px) {
   .surface--event-detail .event-detail-grid {
     grid-template-columns: 1fr;
@@ -354,5 +453,9 @@ body.events-page {
   .feature-card__poster,
   .event-poster {
     width: min(100%, 22rem);
+  }
+
+  .event-stream__head h2 {
+    font-size: clamp(2.25rem, 15vw, 3.8rem);
   }
 }

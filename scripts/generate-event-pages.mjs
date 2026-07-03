@@ -175,6 +175,43 @@ function sourceMarkup(eventItem) {
   return `<a class="inline-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(platform)}</a>`;
 }
 
+function streamMarkup(eventItem) {
+  const stream = eventItem?.stream || {};
+  if (!stream.enabled) return "";
+
+  const videoUrl = String(stream.videoUrl || "").trim();
+  const audioUrl = String(stream.audioUrl || "").trim();
+  const sourceUrl = String(stream.sourceUrl || eventItem?.source?.url || "").trim();
+  const label = String(stream.label || "Livestream").trim();
+  if (!videoUrl && !audioUrl) return "";
+
+  return `
+    <section class="surface surface--event-stream" id="villa-west-stream" aria-labelledby="villa-west-stream-title">
+      <div class="event-stream">
+        <div class="event-stream__head">
+          <p class="eyebrow">Live vanuit Villa Bota</p>
+          <h2 id="villa-west-stream-title">Kijk live mee</h2>
+          <p class="event-stream__lead">Vanavond loopt Villa West van 22:00 tot 00:00. De stream speelt rechtstreeks via Villa Bota, met audio als fallback wanneer video niet beschikbaar is.</p>
+        </div>
+        ${videoUrl ? `
+          <div class="event-stream__frame">
+            <iframe src="${escapeHtml(videoUrl)}" title="${escapeHtml(label)}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        ` : ""}
+        <div class="event-stream__controls">
+          ${audioUrl ? `
+            <div class="event-stream__audio-wrap">
+              <span class="event-stream__audio-label">Audio fallback</span>
+              <audio class="event-stream__audio" controls preload="none" src="${escapeHtml(audioUrl)}"></audio>
+            </div>
+          ` : ""}
+          ${sourceUrl ? `<a class="chip-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Open bij Villa Bota</a>` : ""}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function eventDescription(eventItem, sideKey) {
   const title = String(eventItem?.title || "").trim();
   const region = String(eventItem?.region || "").trim();
@@ -268,6 +305,7 @@ function renderEventPage(eventItem, sideKey, artistMap) {
   const ticket = ticketMarkup(eventItem);
   const source = sourceMarkup(eventItem);
   const booking = bookingMarkup(sideKey);
+  const stream = streamMarkup(eventItem);
   const jsonLd = toJsonLd(eventItem, sideKey, canonical, ogImage, artistMap, { isPastByDate });
   const sideClass = sideKey === "global" ? "global" : sideKey;
   const head = renderSeoHead({
@@ -323,6 +361,7 @@ function renderEventPage(eventItem, sideKey, artistMap) {
         </article>
       </div>
     </section>
+    ${stream}
   </main>`;
 
   const moduleScript = `
