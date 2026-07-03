@@ -183,28 +183,30 @@ function streamMarkup(eventItem) {
   const audioUrl = String(stream.audioUrl || "").trim();
   const sourceUrl = String(stream.sourceUrl || eventItem?.source?.url || "").trim();
   const label = String(stream.label || "Livestream").trim();
+  const availability = stream.availability || {};
+  const timeZone = String(availability.timeZone || "Europe/Brussels").trim();
+  const weekday = Number(availability.weekday);
+  const startDate = String(availability.startDate || eventItem?.date || "").trim();
+  const endDate = String(availability.endDate || eventItem?.date || "").trim();
+  const startTime = String(availability.startTime || "21:55").trim();
+  const endTime = String(availability.endTime || "00:05").trim();
   if (!videoUrl && !audioUrl) return "";
 
   return `
-    <section class="surface surface--event-stream" id="villa-west-stream" aria-labelledby="villa-west-stream-title">
+    <section class="surface surface--event-stream" id="villa-west-stream" aria-labelledby="villa-west-stream-title" data-event-stream data-video-url="${escapeHtml(videoUrl)}" data-audio-url="${escapeHtml(audioUrl)}" data-source-url="${escapeHtml(sourceUrl)}" data-stream-label="${escapeHtml(label)}" data-time-zone="${escapeHtml(timeZone)}" data-weekday="${Number.isFinite(weekday) ? weekday : 5}" data-start-date="${escapeHtml(startDate)}" data-end-date="${escapeHtml(endDate)}" data-start-time="${escapeHtml(startTime)}" data-end-time="${escapeHtml(endTime)}">
       <div class="event-stream">
         <div class="event-stream__head">
           <p class="eyebrow">Live vanuit Villa Bota</p>
           <h2 id="villa-west-stream-title">Kijk live mee</h2>
-          <p class="event-stream__lead">Vanavond loopt Villa West van 22:00 tot 00:00. De stream speelt rechtstreeks via Villa Bota, met audio als fallback wanneer video niet beschikbaar is.</p>
+          <p class="event-stream__lead">Villa West loopt van 22:00 tot 00:00. De player komt automatisch online vanaf 21:55 en sluit om 00:05.</p>
         </div>
-        ${videoUrl ? `
-          <div class="event-stream__frame">
-            <iframe src="${escapeHtml(videoUrl)}" title="${escapeHtml(label)}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        ` : ""}
-        <div class="event-stream__controls">
-          ${audioUrl ? `
-            <div class="event-stream__audio-wrap">
-              <span class="event-stream__audio-label">Audio fallback</span>
-              <audio class="event-stream__audio" controls preload="none" src="${escapeHtml(audioUrl)}"></audio>
-            </div>
-          ` : ""}
+        <div class="event-stream__status" data-stream-status>
+          <span class="event-stream__status-kicker">Streamvenster</span>
+          <p>De livestream wordt hier automatisch beschikbaar tussen 21:55 en 00:05.</p>
+        </div>
+        <div class="event-stream__mount" data-stream-mount hidden></div>
+        <div class="event-stream__controls" data-stream-controls hidden>
+          <div class="event-stream__audio-wrap" data-audio-mount></div>
           ${sourceUrl ? `<a class="chip-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Open bij Villa Bota</a>` : ""}
         </div>
       </div>
@@ -366,6 +368,7 @@ function renderEventPage(eventItem, sideKey, artistMap) {
 
   const moduleScript = `
     import { initI18nPage } from "/js/core/i18n.js";
+    import { initEventStreamGate } from "/js/core/event-stream-gate.js";
     import { renderNav } from "/partials/nav.js";
     import { renderFooter } from "/partials/footer.js";
 
@@ -374,6 +377,7 @@ function renderEventPage(eventItem, sideKey, artistMap) {
     const baseDepth = isIndexFileRoute ? 4 : 3;
 
     initI18nPage();
+    initEventStreamGate();
     renderNav({ sideKey: "${escapeHtml(sideClass)}", baseDepth });
     renderFooter({ baseDepth });
   `;

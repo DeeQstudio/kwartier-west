@@ -22,8 +22,8 @@
   <meta name="twitter:image" content="https://kwartierwest.be/assets/img/events/villa-west.jpg">
   <link rel="canonical" href="https://kwartierwest.be/pages/events/detail/villa-west-radio-2026">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"MusicEvent","@id":"https://kwartierwest.be/pages/events/detail/villa-west-radio-2026#event","name":"Villa West","url":"https://kwartierwest.be/pages/events/detail/villa-west-radio-2026","startDate":"2026-07-03T22:00:00","endDate":"2026-07-04T00:00:00","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","image":"https://kwartierwest.be/assets/img/events/villa-west.jpg","description":"Villa West. Brugge - Villa Bota. Villa West is de zomerresidentie van Kwartier West op Villa Bota in Brugge: elke vrijdag van 22:00 tot 00:00 twee uur radio vanuit beide kanten van het label. Verwacht hip hop, acid tekno, live sets, cyph...","location":{"@type":"Place","name":"Brugge - Villa Bota","address":"Brugge"},"performer":[{"@type":"MusicGroup","name":"Hip hop"},{"@type":"MusicGroup","name":"Acid tekno"},{"@type":"MusicGroup","name":"Live sets"},{"@type":"MusicGroup","name":"Cyphers"}],"sameAs":"https://www.villabota.be","organizer":{"@type":"Organization","name":"Kwartier West","url":"https://kwartierwest.be/"}}</script>
-  <link rel="stylesheet" href="/css/base.css?v=20260703a">
-  <link rel="stylesheet" href="/css/events.css?v=20260703a">
+  <link rel="stylesheet" href="/css/base.css?v=20260703b">
+  <link rel="stylesheet" href="/css/events.css?v=20260703b">
 </head>
 <body class="kw-page events-page kw-side-global">
   <div data-nav></div>
@@ -66,25 +66,20 @@
       </div>
     </section>
     
-    <section class="surface surface--event-stream" id="villa-west-stream" aria-labelledby="villa-west-stream-title">
+    <section class="surface surface--event-stream" id="villa-west-stream" aria-labelledby="villa-west-stream-title" data-event-stream data-video-url="https://live.villabota.be/index-video-only.html" data-audio-url="https://caster04.streampakket.com/proxy/8186/stream" data-source-url="https://www.villabota.be" data-stream-label="Villa Bota livestream" data-time-zone="Europe/Brussels" data-weekday="5" data-start-date="2026-07-03" data-end-date="2026-08-28" data-start-time="21:55" data-end-time="00:05">
       <div class="event-stream">
         <div class="event-stream__head">
           <p class="eyebrow">Live vanuit Villa Bota</p>
           <h2 id="villa-west-stream-title">Kijk live mee</h2>
-          <p class="event-stream__lead">Vanavond loopt Villa West van 22:00 tot 00:00. De stream speelt rechtstreeks via Villa Bota, met audio als fallback wanneer video niet beschikbaar is.</p>
+          <p class="event-stream__lead">Villa West loopt van 22:00 tot 00:00. De player komt automatisch online vanaf 21:55 en sluit om 00:05.</p>
         </div>
-        
-          <div class="event-stream__frame">
-            <iframe src="https://live.villabota.be/index-video-only.html" title="Villa Bota livestream" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        
-        <div class="event-stream__controls">
-          
-            <div class="event-stream__audio-wrap">
-              <span class="event-stream__audio-label">Audio fallback</span>
-              <audio class="event-stream__audio" controls preload="none" src="https://caster04.streampakket.com/proxy/8186/stream"></audio>
-            </div>
-          
+        <div class="event-stream__status" data-stream-status>
+          <span class="event-stream__status-kicker">Streamvenster</span>
+          <p>De livestream wordt hier automatisch beschikbaar tussen 21:55 en 00:05.</p>
+        </div>
+        <div class="event-stream__mount" data-stream-mount hidden></div>
+        <div class="event-stream__controls" data-stream-controls hidden>
+          <div class="event-stream__audio-wrap" data-audio-mount></div>
           <a class="chip-link" href="https://www.villabota.be" target="_blank" rel="noopener noreferrer">Open bij Villa Bota</a>
         </div>
       </div>
@@ -96,6 +91,7 @@
 
   <script type="module">
     import { initI18nPage } from "/js/core/i18n.js";
+    import { initEventStreamGate } from "/js/core/event-stream-gate.js";
     import { renderNav } from "/partials/nav.js";
     import { renderFooter } from "/partials/footer.js";
     
@@ -104,6 +100,7 @@
     const baseDepth = isIndexFileRoute ? 4 : 3;
     
     initI18nPage();
+    initEventStreamGate();
     renderNav({ sideKey: "global", baseDepth });
     renderFooter({ baseDepth });
   </script>

@@ -135,7 +135,7 @@ export function mountPageRail({ sideKey = "global" } = {}) {
             <span></span>
           </span>
           <span class="page-rail__stream-copy">
-            <span class="page-rail__stream-kicker">Live vanavond</span>
+            <span class="page-rail__stream-kicker">21:55-00:05</span>
             <span class="page-rail__stream-title">Bekijk de stream</span>
           </span>
         </a>

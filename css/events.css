@@ -362,6 +362,37 @@ body.events-page {
     0 0 42px rgba(227, 13, 13, 0.08);
 }
 
+.event-stream__status {
+  display: grid;
+  gap: 0.24rem;
+  max-width: 42rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left-color: rgba(227, 13, 13, 0.62);
+  padding: 0.68rem 0.76rem;
+  background:
+    linear-gradient(96deg, rgba(227, 13, 13, 0.13), rgba(255, 255, 255, 0.025) 60%),
+    rgba(0, 0, 0, 0.34);
+}
+
+.event-stream__status p {
+  margin: 0;
+  color: #dcdcdc;
+  line-height: 1.52;
+}
+
+.event-stream__status-kicker {
+  font-family: "Space Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent) 62%, #f2f2f2);
+}
+
+.surface--event-stream.is-stream-live .event-stream__status {
+  border-left-color: rgba(255, 45, 45, 0.92);
+  box-shadow: 0 0 30px rgba(227, 13, 13, 0.08);
+}
+
 .event-stream__frame::before {
   content: "LIVE";
   position: absolute;

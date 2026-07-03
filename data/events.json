@@ -109,7 +109,15 @@
                                       "label":  "Villa Bota livestream",
                                       "videoUrl":  "https://live.villabota.be/index-video-only.html",
                                       "audioUrl":  "https://caster04.streampakket.com/proxy/8186/stream",
-                                      "sourceUrl":  "https://www.villabota.be"
+                                      "sourceUrl":  "https://www.villabota.be",
+                                      "availability":  {
+                                                           "timeZone":  "Europe/Brussels",
+                                                           "weekday":  5,
+                                                           "startDate":  "2026-07-03",
+                                                           "endDate":  "2026-08-28",
+                                                           "startTime":  "21:55",
+                                                           "endTime":  "00:05"
+                                                       }
                                   },
                        "notes":  "Villa West is de zomerresidentie van Kwartier West op Villa Bota in Brugge: elke vrijdag van 22:00 tot 00:00 twee uur radio vanuit beide kanten van het label. Verwacht hip hop, acid tekno, live sets, cyphers en gesprekken uit de scene."
                    }
