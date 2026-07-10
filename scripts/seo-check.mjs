@@ -4,8 +4,21 @@ import path from "node:path";
 const ROOT = process.cwd();
 const SITE_ORIGIN = "https://kwartierwest.be";
 const IGNORED_DIRS = new Set([".git", "node_modules", "_backups", "_screens", "_chrome-profile"]);
-const REQUIRED_META_NAMES = ["description", "twitter:card", "twitter:title", "twitter:description", "twitter:image"];
-const REQUIRED_META_PROPERTIES = ["og:type", "og:site_name", "og:title", "og:description", "og:url", "og:image"];
+const REQUIRED_META_NAMES = ["description", "robots", "twitter:card", "twitter:title", "twitter:description", "twitter:image", "twitter:image:alt"];
+const REQUIRED_META_PROPERTIES = [
+  "og:type",
+  "og:locale",
+  "og:site_name",
+  "og:title",
+  "og:description",
+  "og:url",
+  "og:image",
+  "og:image:secure_url",
+  "og:image:type",
+  "og:image:width",
+  "og:image:height",
+  "og:image:alt"
+];
 
 const failures = [];
 const warnings = [];
@@ -53,6 +66,10 @@ function localAssetExists(url) {
   const clean = url.slice(SITE_ORIGIN.length).split("?")[0].replace(/^\/+/, "");
   if (!clean) return true;
   return fs.existsSync(path.join(ROOT, clean));
+}
+
+function positiveInteger(value) {
+  return /^\d+$/.test(String(value || "")) && Number(value) > 0;
 }
 
 function isCanonicalUrl(value) {
@@ -103,6 +120,19 @@ function checkHtmlFile(file) {
 
   const twitterImage = metaBy(html, "name", "twitter:image");
   if (twitterImage && !localAssetExists(twitterImage)) failures.push(`${fileLabel}: twitter:image asset ontbreekt (${twitterImage}).`);
+
+  if (!noindex) {
+    const ogSecureImage = metaBy(html, "property", "og:image:secure_url");
+    if (ogImage && ogSecureImage && ogImage !== ogSecureImage) {
+      warnings.push(`${fileLabel}: og:image:secure_url wijkt af van og:image.`);
+    }
+
+    const ogWidth = metaBy(html, "property", "og:image:width");
+    const ogHeight = metaBy(html, "property", "og:image:height");
+    if (!positiveInteger(ogWidth)) failures.push(`${fileLabel}: og:image:width is geen positief getal.`);
+    if (!positiveInteger(ogHeight)) failures.push(`${fileLabel}: og:image:height is geen positief getal.`);
+    if (!/data-seo-jsonld="webpage"/i.test(html)) failures.push(`${fileLabel}: mist WebPage JSON-LD.`);
+  }
 
   if (fileLabel.startsWith("pages/events/detail/") && !/<script\b[^>]*type="application\/ld\+json"/i.test(html)) {
     failures.push(`${fileLabel}: event detail mist JSON-LD.`);

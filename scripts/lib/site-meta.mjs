@@ -90,7 +90,7 @@ export function renderSeoHead({
   ogImage = DEFAULT_OG_IMAGE,
   ogAlt = "Kwartier West - Tekno- en Hip hop-evenementenplatform",
   ogType = "website",
-  robots = "",
+  robots = "index, follow, max-image-preview:large",
   imageType = "",
   imageWidth = "",
   imageHeight = "",
@@ -115,6 +115,7 @@ export function renderSeoHead({
     `<meta name="description" content="${escapeHtml(safeDescription)}"${descriptionKey ? ` data-i18n-content="${escapeHtml(descriptionKey)}"` : ""}>`,
     robots ? `<meta name="robots" content="${escapeHtml(robots)}">` : "",
     `<meta property="og:type" content="${escapeHtml(ogType)}">`,
+    `<meta property="og:locale" content="nl_BE">`,
     `<meta property="og:site_name" content="Kwartier West">`,
     `<meta property="og:title" content="${escapeHtml(safeTitle)}">`,
     `<meta property="og:description" content="${escapeHtml(safeDescription)}">`,
@@ -127,6 +128,7 @@ export function renderSeoHead({
     `<meta name="twitter:title" content="${escapeHtml(safeTitle)}">`,
     `<meta name="twitter:description" content="${escapeHtml(safeDescription)}">`,
     `<meta name="twitter:image" content="${escapeHtml(safeImage)}">`,
+    `<meta name="twitter:image:alt" content="${escapeHtml(ogAlt)}">`,
     `<link rel="canonical" href="${escapeHtml(safeCanonical)}">`,
     extra
   ].filter(Boolean).join("\n  ");
