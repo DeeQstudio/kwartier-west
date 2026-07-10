@@ -287,6 +287,7 @@ function renderEventPage(eventItem, sideKey, artistMap) {
   const title = String(eventItem?.title || "Kwartier West Event").trim();
   const canonical = `${SITE_ORIGIN}/pages/events/detail/${encodeURIComponent(slug)}`;
   const poster = String(eventItem?.poster || "").trim();
+  const heroPoster = String(eventItem?.heroPoster || poster).trim();
   const posterUrl = poster ? toAbsoluteUrl(poster) : "";
   const posterType = String(eventItem?.posterType || "").trim();
   const posterWidth = Number(eventItem?.posterWidth || 0);
@@ -331,7 +332,7 @@ function renderEventPage(eventItem, sideKey, artistMap) {
 
   const main = `
   <main id="main-content" class="page-shell">
-    <header class="hero-surface hero-surface--lane hero-surface--lane-${escapeHtml(sideClass)} hero-surface--events${poster ? " hero-surface--event-poster" : ""}"${poster ? ` style="--event-poster: url('${escapeHtml(poster)}')"` : ""}>
+    <header class="hero-surface hero-surface--lane hero-surface--lane-${escapeHtml(sideClass)} hero-surface--events${heroPoster ? " hero-surface--event-poster" : ""}"${heroPoster ? ` style="--event-poster: url('${escapeHtml(heroPoster)}')"` : ""}>
       <p class="eyebrow">${escapeHtml(sideLabel(sideKey))} / Eventdetail</p>
       <h1>${escapeHtml(title)}</h1>
       <p class="lead">${escapeHtml(headline)}</p>
