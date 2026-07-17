@@ -229,13 +229,17 @@ function renderPage(page = {}) {
     descriptionKey: page.descriptionKey,
     canonical: page.canonical,
     ogImage: page.ogImage,
-    ogAlt: page.ogAlt
+    ogAlt: page.ogAlt,
+    imageType: page.imageType,
+    imageWidth: page.imageWidth,
+    imageHeight: page.imageHeight
   });
 
   const heroActions = renderActions(page.actions);
+  const heroClass = String(page.heroClass || "hero-surface hero-surface--lane hero-surface--lane-global").trim();
   const main = `
   <main id="main-content" class="page-shell">
-    <header class="hero-surface hero-surface--lane hero-surface--lane-global">
+    <header class="${escapeHtml(heroClass)}">
       <p class="eyebrow"${i18nAttr(page.eyebrowKey)}>${escapeHtml(page.eyebrow)}</p>
       <h1${i18nAttr(page.heroTitleKey)}>${escapeHtml(page.heroTitle)}</h1>
       <p class="lead"${i18nAttr(page.leadKey)}>${escapeHtml(page.lead)}</p>${heroActions ? `\n      ${heroActions}` : ""}
