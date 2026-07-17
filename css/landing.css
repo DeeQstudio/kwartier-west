@@ -699,10 +699,15 @@ body.landing::before {
   line-height: 1;
 }
 
-.portal-footer__powered img {
-  height: clamp(0.64rem, 0.8vw, 0.72rem);
-  width: auto;
-  display: block;
+.portal-footer__powered-logo {
+  display: inline-block;
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  text-transform: none;
 }
 
 .portal-footer a:hover,
