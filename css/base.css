@@ -980,6 +980,42 @@ textarea {
   backdrop-filter: blur(8px);
 }
 
+.hero-surface--contact-desk {
+  min-height: clamp(320px, 36vw, 480px);
+  align-content: end;
+  padding-top: clamp(1.1rem, 2vw, 1.7rem);
+  padding-bottom: clamp(1rem, 2.3vw, 1.8rem);
+  background-image:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.88), rgba(5, 5, 5, 0.5) 34%, rgba(5, 5, 5, 0.18) 62%, rgba(5, 5, 5, 0.58)),
+    linear-gradient(180deg, rgba(5, 5, 5, 0.12), rgba(5, 5, 5, 0.54)),
+    url("../assets/img/brand/westcontact.png");
+  background-size: cover;
+  background-position: center;
+  border-left-color: rgba(255, 255, 255, 0.34);
+  border-top-color: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.hero-surface--contact-desk::before {
+  display: none;
+}
+
+.hero-surface--contact-desk > h1 {
+  max-width: min(44vw, 620px);
+  font-size: clamp(2.35rem, 4.4vw, 4.7rem);
+  line-height: 0.9;
+}
+
+.hero-surface--contact-desk > .lead {
+  max-width: min(39vw, 560px);
+}
+
+.hero-surface--contact-desk .cta-btn,
+.hero-surface--contact-desk .chip-link {
+  background: rgba(5, 5, 5, 0.4);
+  backdrop-filter: blur(8px);
+}
+
 .hero-surface h1 {
   overflow-wrap: anywhere;
 }
@@ -4741,6 +4777,29 @@ input[disabled] {
     left: auto;
     bottom: auto;
     margin-top: 0.1rem;
+  }
+
+  .hero-surface--contact-desk {
+    min-height: clamp(310px, 82vw, 390px);
+    align-content: end;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-image:
+      linear-gradient(180deg, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.72) 58%, rgba(5, 5, 5, 0.93)),
+      url("../assets/img/brand/westcontact.png");
+    background-size: cover;
+    background-position: 49% center;
+  }
+
+  .hero-surface--contact-desk > h1 {
+    max-width: 16rem;
+    font-size: clamp(2rem, 11.2vw, 3rem);
+    line-height: 0.9;
+  }
+
+  .hero-surface--contact-desk > .lead {
+    max-width: 19rem;
+    font-size: 0.92rem;
   }
 
   .kw-side-tekno .page-main > .hero-surface--lane-tekno:not(.hero-surface--events),
