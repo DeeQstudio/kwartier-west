@@ -1294,7 +1294,7 @@ textarea {
 .page-rail__villa-media {
   position: absolute;
   inset: 0;
-  background: url("../assets/img/events/villa-west-2026-07-24.png") center / cover no-repeat;
+  background: url("../assets/img/events/villa-west-2026-07-24-foreign-elements.png") center / cover no-repeat;
   filter: saturate(0.92) contrast(1.08) brightness(0.78);
   transform: scale(1.02);
   transition: transform 260ms ease, filter 260ms ease;
