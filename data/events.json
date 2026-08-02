@@ -75,12 +75,12 @@
                                      "tekno",
                                      "hiphop"
                                  ],
-                       "poster":  "/assets/img/events/villa-west-2026-08-07-rap-hiphop.png",
-                       "heroPoster":  "/assets/img/events/villa-west.jpg",
+                       "poster":  "/assets/img/events/villa-west-2026-08-07-openair.png",
+                       "heroPoster":  "/assets/img/events/villa-west-2026-08-07-openair.png",
                        "posterType":  "image/png",
                        "posterWidth":  1254,
                        "posterHeight":  1254,
-                       "schedule":  "Vrijdag 07/08 bij Villa Bota, 20:30-00:00",
+                       "schedule":  "Vrijdag 07/08 bij Villa Bota, 20:30-00:00 - special edition open air, gratis inkom",
                        "lineup":  [
                                       {
                                           "name":  "De Kweker & friends"
@@ -91,7 +91,7 @@
                                   ],
                        "tickets":  {
                                        "mode":  "external",
-                                       "label":  "Meer info",
+                                       "label":  "Gratis welkom",
                                        "url":  "https://www.villabota.be"
                                    },
                        "source":  {
@@ -108,13 +108,13 @@
                                       "availability":  {
                                                            "timeZone":  "Europe/Brussels",
                                                            "weekday":  5,
-                                                           "startDate":  "2026-07-03",
-                                                           "endDate":  "2026-08-28",
+                                                           "startDate":  "2026-08-07",
+                                                           "endDate":  "2026-08-07",
                                                            "startTime":  "20:25",
                                                            "endTime":  "00:05"
                                                        }
                                   },
-                       "notes":  "Villa West is de zomerresidentie van Kwartier West op Villa Bota in Brugge. Op 07/08 staat Rap & Hip hop centraal: De Kweker brengt friends mee voor de eerste blok van de avond, waarna MC Tubbie het laatste uur richting middernacht neemt."
+                       "notes":  "Villa West is de zomerresidentie van Kwartier West op Villa Bota in Brugge. Op 07/08 zet Villa Bota de deuren open voor een speciale open-air editie met gratis inkom. De boksen blazen naar buiten, De Kweker brengt friends mee voor de eerste blok van de avond en MC Tubbie neemt het laatste uur richting middernacht."
                    }
                ],
     "hiphop":  [

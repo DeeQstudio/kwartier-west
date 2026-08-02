@@ -455,6 +455,19 @@ body.events-page {
 }
 
 @media (max-width: 760px) {
+  .hero-surface--event-poster {
+    background-image:
+      linear-gradient(94deg, rgba(4, 4, 4, 0.9), rgba(4, 4, 4, 0.74) 58%, rgba(4, 4, 4, 0.82)),
+      radial-gradient(520px 220px at 72% 0%, rgba(227, 13, 13, 0.16), transparent 74%),
+      var(--event-poster);
+    background-position: center 56%;
+  }
+
+  .hero-surface--event-poster::after {
+    opacity: 0.1;
+    filter: saturate(1.6) contrast(1.2) brightness(1.28);
+  }
+
   .feature-card--poster,
   .event-card--poster {
     grid-template-columns: 1fr;
