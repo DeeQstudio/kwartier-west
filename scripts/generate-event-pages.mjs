@@ -190,6 +190,8 @@ function streamMarkup(eventItem) {
   const endDate = String(availability.endDate || eventItem?.date || "").trim();
   const startTime = String(availability.startTime || "21:55").trim();
   const endTime = String(availability.endTime || "00:05").trim();
+  const eventStartTime = String(eventItem?.time || "22:00").trim();
+  const eventEndTime = String(eventItem?.endTime || "00:00").trim();
   if (!videoUrl && !audioUrl) return "";
 
   return `
@@ -198,11 +200,11 @@ function streamMarkup(eventItem) {
         <div class="event-stream__head">
           <p class="eyebrow">Live vanuit Villa Bota</p>
           <h2 id="villa-west-stream-title">Kijk live mee</h2>
-          <p class="event-stream__lead">Villa West loopt van 22:00 tot 00:00. De player komt automatisch online vanaf 21:55 en sluit om 00:05.</p>
+          <p class="event-stream__lead">Villa West loopt van ${escapeHtml(eventStartTime)} tot ${escapeHtml(eventEndTime)}. De player komt automatisch online vanaf ${escapeHtml(startTime)} en sluit om ${escapeHtml(endTime)}.</p>
         </div>
         <div class="event-stream__status" data-stream-status>
           <span class="event-stream__status-kicker">Streamvenster</span>
-          <p>De livestream wordt hier automatisch beschikbaar tussen 21:55 en 00:05.</p>
+          <p>De livestream wordt hier automatisch beschikbaar tussen ${escapeHtml(startTime)} en ${escapeHtml(endTime)}.</p>
         </div>
         <div class="event-stream__mount" data-stream-mount hidden></div>
         <div class="event-stream__controls" data-stream-controls hidden>
@@ -348,7 +350,7 @@ function renderEventPage(eventItem, sideKey, artistMap) {
         <article class="event-detail-card">
           <h2>Event info</h2>
           <dl class="event-detail-list">
-            ${schedule ? `<div><dt>Reeks</dt><dd>${escapeHtml(schedule)}</dd></div>` : ""}
+            ${schedule ? `<div><dt>Moment</dt><dd>${escapeHtml(schedule)}</dd></div>` : ""}
             <div><dt>${schedule ? "Start" : "Datum"}</dt><dd>${escapeHtml(eventDate)}</dd></div>
             <div><dt>Locatie</dt><dd>${escapeHtml(location || "Wordt bevestigd")}</dd></div>
             <div><dt>Status</dt><dd>${escapeHtml(status)}</dd></div>

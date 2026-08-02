@@ -158,10 +158,13 @@ function updateStatus(node, active) {
   const status = node.querySelector("[data-stream-status]");
   if (!status) return;
 
+  const startTime = String(node.dataset.startTime || "21:55").trim();
+  const endTime = String(node.dataset.endTime || "00:05").trim();
+
   node.classList.toggle("is-stream-live", active);
   status.innerHTML = active
     ? '<span class="event-stream__status-kicker">Live</span><p>De Villa Bota stream is nu beschikbaar op kwartierwest.be.</p>'
-    : '<span class="event-stream__status-kicker">Nog niet live</span><p>De livestream wordt hier automatisch beschikbaar tussen 21:55 en 00:05.</p>';
+    : `<span class="event-stream__status-kicker">Nog niet live</span><p>De livestream wordt hier automatisch beschikbaar tussen ${startTime} en ${endTime}.</p>`;
 }
 
 function syncStream(node, now = new Date()) {

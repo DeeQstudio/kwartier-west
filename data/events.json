@@ -1,5 +1,5 @@
 ﻿{
-    "updatedAt":  "2026-07-20T00:00:00Z",
+    "updatedAt":  "2026-08-02T00:00:00Z",
     "sources":  {
                     "tekno":  [
                                   {
@@ -65,8 +65,8 @@
                    {
                        "id":  "villa-west-radio-2026",
                        "title":  "Villa West",
-                       "date":  "2026-07-24",
-                       "time":  "22:00",
+                       "date":  "2026-08-07",
+                       "time":  "20:30",
                        "endTime":  "00:00",
                        "region":  "Brugge",
                        "venue":  "Villa Bota",
@@ -75,21 +75,18 @@
                                      "tekno",
                                      "hiphop"
                                  ],
-                       "poster":  "/assets/img/events/villa-west-2026-07-24-foreign-elements.png",
+                       "poster":  "/assets/img/events/villa-west-2026-08-07-rap-hiphop.png",
                        "heroPoster":  "/assets/img/events/villa-west.jpg",
                        "posterType":  "image/png",
                        "posterWidth":  1254,
                        "posterHeight":  1254,
-                       "schedule":  "Elke vrijdag in juli en augustus, 22:00-00:00",
+                       "schedule":  "Vrijdag 07/08 bij Villa Bota, 20:30-00:00",
                        "lineup":  [
                                       {
-                                          "name":  "Foreign Elements"
+                                          "name":  "De Kweker & friends"
                                       },
                                       {
-                                          "slug":  "thepanda"
-                                      },
-                                      {
-                                          "slug":  "mombietekk"
+                                          "slug":  "mc-tubbie"
                                       }
                                   ],
                        "tickets":  {
@@ -100,7 +97,7 @@
                        "source":  {
                                       "platform":  "Villa Bota",
                                       "url":  "https://www.villabota.be",
-                                      "syncedAt":  "2026-07-20T00:00:00Z"
+                                      "syncedAt":  "2026-08-02T00:00:00Z"
                                   },
                        "stream":  {
                                       "enabled":  true,
@@ -113,11 +110,11 @@
                                                            "weekday":  5,
                                                            "startDate":  "2026-07-03",
                                                            "endDate":  "2026-08-28",
-                                                           "startTime":  "21:55",
+                                                           "startTime":  "20:25",
                                                            "endTime":  "00:05"
                                                        }
                                   },
-                       "notes":  "Villa West is de zomerresidentie van Kwartier West op Villa Bota in Brugge. Op 24/07 komt The P.A.N.D.A met zijn crew Foreign Elements: ze bouwen ter plaatse beats en brengen tracks en freestyles op die live gemaakte instrumentals. Daarna neemt Mombietekk over tot middernacht."
+                       "notes":  "Villa West is de zomerresidentie van Kwartier West op Villa Bota in Brugge. Op 07/08 staat Rap & Hip hop centraal: De Kweker brengt friends mee voor de eerste blok van de avond, waarna MC Tubbie het laatste uur richting middernacht neemt."
                    }
                ],
     "hiphop":  [

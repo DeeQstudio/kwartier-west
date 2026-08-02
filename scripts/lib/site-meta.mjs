@@ -1,5 +1,5 @@
 export const SITE_ORIGIN = "https://kwartierwest.be";
-export const CSS_ASSET_VERSION = "20260719a";
+export const CSS_ASSET_VERSION = "20260802a";
 export const ARTIST_DETAIL_VERSION = "20260625b";
 export const OG_ASSET_VERSION = "20260625a";
 export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og/og-cover.png?v=${OG_ASSET_VERSION}`;

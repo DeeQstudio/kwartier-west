@@ -127,15 +127,15 @@ export function mountPageRail({ sideKey = "global" } = {}) {
           <span class="page-rail__villa-media" aria-hidden="true"></span>
           <span class="page-rail__villa-kicker">Villa Bota / zomer 2026</span>
           <span class="page-rail__villa-title">Villa West</span>
-          <span class="page-rail__villa-meta">Elke vrijdag / 22:00-00:00</span>
-          <span class="page-rail__villa-line">Hiphop & acid tekno op de radio</span>
+          <span class="page-rail__villa-meta">Vrijdag 07/08 / 20:30-00:00</span>
+          <span class="page-rail__villa-line">Rap & hip hop op Villa Bota</span>
         </a>
         <a class="page-rail__stream" href="${villaStreamHref}">
           <span class="page-rail__stream-preview" aria-hidden="true">
             <span></span>
           </span>
           <span class="page-rail__stream-copy">
-            <span class="page-rail__stream-kicker">21:55-00:05</span>
+            <span class="page-rail__stream-kicker">20:25-00:05</span>
             <span class="page-rail__stream-title">Bekijk de stream</span>
           </span>
         </a>
