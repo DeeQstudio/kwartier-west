@@ -195,3 +195,177 @@
 
 @media(max-width:980px){.home-booking-close{grid-template-columns:1fr;align-items:start}.home-booking-close>a{justify-self:start}}
 @media(max-width:620px){.home-booking-close{min-height:auto;padding-top:85px;padding-bottom:85px}.home-booking-close h2{font-size:16vw}.home-booking-close>a{font-size:9vw;white-space:normal}}
+
+/* V6.3.2 — artist mobile width safety. Large Dutch words must never widen the page. */
+.artist-page{width:100%;max-width:100%;overflow-x:clip}
+.artist-page .artist-hero,
+.artist-page .artist-quote,
+.artist-page .artist-story,
+.artist-page .artist-links,
+.artist-page .artist-booking,
+.artist-page .next-artist,
+.artist-page .artist-hero-title,
+.artist-page .artist-story>*,
+.artist-page .artist-story-copy{min-width:0;max-width:100%}
+.artist-page .artist-hero-title h1,
+.artist-page .artist-quote blockquote,
+.artist-page .artist-story h2,
+.artist-page .artist-booking h2,
+.artist-page .next-artist b{
+  max-width:100%;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  hyphens:auto;
+}
+
+@media(max-width:620px){
+  .artist-quote{min-height:auto;padding-top:clamp(78px,14vh,120px);padding-bottom:clamp(78px,14vh,120px)}
+  .artist-quote blockquote{font-size:clamp(38px,11vw,54px);line-height:.94;letter-spacing:-.05em}
+  .artist-hero-title h1{font-size:clamp(66px,20vw,92px);line-height:.72}
+  .artist-story h2{font-size:clamp(50px,14vw,68px);line-height:.88}
+  .artist-booking h2{font-size:clamp(52px,14vw,72px);line-height:.88}
+  .next-artist b{font-size:clamp(52px,15vw,76px);line-height:.84}
+}
+
+/* V6.3.3 — global mobile viewport contract.
+   Keep every page inside the device viewport without disabling pinch zoom.
+   This fixes the layout source (grid/flex/text/transform overflow) and uses
+   root clipping only as a final safety boundary. */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+@supports(overflow:clip){html,body{overflow-x:clip}}
+main{width:100%;max-width:100%;min-width:0}
+
+/* Grid/flex children are allowed to shrink instead of forcing a wider canvas. */
+:where(
+  .statement,
+  .home-scene,
+  .roster-home-grid,
+  .event-home,
+  .home-booking-close,
+  .page-banner-copy,
+  .tekno-machine,
+  .tekno-archive-hit,
+  .hiphop-broadcast,
+  .artist-index-layout,
+  .artist-story,
+  .artist-links>div,
+  .event-status,
+  .event-grid,
+  .event-facts,
+  .event-editorial,
+  .event-stream-head,
+  .booking-hero,
+  .booking-builder,
+  .contact-grid,
+  .archive-intro,
+  .archive-event-link,
+  .partner-details article,
+  .manifest-lines>div,
+  .artist-spotlight,
+  .next-artist
+)>*{min-width:0;max-width:100%}
+
+/* Media may fill a frame, never define a page width. */
+:where(main,section,article,figure){min-width:0;max-width:100%}
+:where(img,video,canvas,svg,iframe){max-width:100%}
+
+@media(max-width:620px){
+  /* Every public page gets the same hard viewport boundary. Horizontal rails
+     keep their own overflow-x:auto and remain swipeable inside this boundary. */
+  :where(
+    .home,
+    .scene-page,
+    .artists-page,
+    .artist-page,
+    .events-page,
+    .archive-page,
+    .partners-page,
+    .booking-page,
+    .contact-page,
+    .manifest-page,
+    .legal-page,
+    .verify-page,
+    .not-found,
+    .notfound
+  ){width:100%;max-width:100%;min-width:0;overflow-x:hidden}
+
+  @supports(overflow:clip){
+    :where(
+      .home,
+      .scene-page,
+      .artists-page,
+      .artist-page,
+      .events-page,
+      .archive-page,
+      .partners-page,
+      .booking-page,
+      .contact-page,
+      .manifest-page,
+      .legal-page,
+      .verify-page,
+      .not-found,
+      .notfound
+    ){overflow-x:clip}
+  }
+
+  /* Display type can wrap in Dutch instead of expanding the layout viewport.
+     `anywhere` is a fallback for names/compounds that have no dictionary break. */
+  :where(
+    .statement h1,
+    .scene-info h2,
+    .roster-home h2,
+    .event-home-copy h2,
+    .network-home h2,
+    .home-booking-close h2,
+    .page-banner-copy h1,
+    .tekno-hero-title h1,
+    .machine-left h2,
+    .tekno-archive-hit h2,
+    .scene-book h2,
+    .hiphop-hero-copy h1,
+    .broadcast-copy h2,
+    .artist-spotlight-copy h2,
+    .roster-hero-copy h1,
+    .events-hero-title h1,
+    .archive-hero-type h1,
+    .booking-hero-left h1,
+    .manifest-hero-copy h1,
+    .manifest-lines h2,
+    .artist-hero-title h1,
+    .artist-quote blockquote,
+    .artist-story h2,
+    .artist-booking h2,
+    .next-artist b,
+    .event-status h2,
+    .event-card h2,
+    .archive-push h2,
+    .event-editorial h2,
+    .event-lineup h2,
+    .villa-copy h1,
+    .relics-title h1,
+    .archive-intro h2,
+    .archive-event-link b,
+    .legal-hero h1,
+    .error-card h1
+  ){
+    max-width:100%;
+    overflow-wrap:anywhere;
+    word-break:normal;
+    hyphens:auto;
+  }
+
+  /* Transformed artwork stays a visual effect, not document width. */
+  .event-home-poster,
+  .broadcast-stack,
+  .partners-hero-logos,
+  .booking-hero-router,
+  .artist-hero,
+  .relics-gallery,
+  .archive-wall{max-width:100%;overflow:hidden}
+
+  /* Keep the deliberately horizontal artist rail scrollable in its own box. */
+  .scene-roster-rail,.artist-filter{max-width:100%;overscroll-behavior-inline:contain}
+
+  /* Small-screen spacing should be based on the viewport, never a child width. */
+  .site-nav,.menu-panel{max-width:100vw}
+}
