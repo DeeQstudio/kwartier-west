@@ -65,8 +65,8 @@
                    {
                        "id":  "villa-west-radio-2026",
                        "title":  "Villa West",
-                       "date":  "2026-08-07",
-                       "time":  "20:30",
+                       "date":  "2026-08-21",
+                       "time":  "22:00",
                        "endTime":  "00:00",
                        "region":  "Brugge",
                        "venue":  "Villa Bota",
@@ -75,18 +75,21 @@
                                      "tekno",
                                      "hiphop"
                                  ],
-                       "poster":  "/assets/img/events/villa-west-2026-08-07-openair.png",
-                       "heroPoster":  "/assets/img/events/villa-west-2026-08-07-openair.png",
-                       "posterType":  "image/png",
+                       "poster":  "/assets/img/events/villa-west-2026-08-21.jpg",
+                       "heroPoster":  "/assets/img/events/villa-west-2026-08-21.jpg",
+                       "posterType":  "image/jpeg",
                        "posterWidth":  1254,
                        "posterHeight":  1254,
-                       "schedule":  "Vrijdag 07/08 bij Villa Bota, 20:30-00:00 - special edition open air, gratis inkom",
+                       "schedule":  "Vrijdag 21/08 bij Villa Bota, 22:00-00:00",
                        "lineup":  [
                                       {
-                                          "name":  "De Kweker & friends"
+                                          "slug":  "thorre"
                                       },
                                       {
-                                          "slug":  "mc-tubbie"
+                                          "name":  "Siga & Lefever"
+                                      },
+                                      {
+                                          "name":  "Wildcard"
                                       }
                                   ],
                        "tickets":  {
@@ -108,13 +111,13 @@
                                       "availability":  {
                                                            "timeZone":  "Europe/Brussels",
                                                            "weekday":  5,
-                                                           "startDate":  "2026-08-07",
-                                                           "endDate":  "2026-08-07",
-                                                           "startTime":  "20:25",
+                                                           "startDate":  "2026-08-21",
+                                                           "endDate":  "2026-08-21",
+                                                           "startTime":  "21:55",
                                                            "endTime":  "00:05"
                                                        }
                                   },
-                       "notes":  "Villa West is de zomerresidentie van Kwartier West op Villa Bota in Brugge. Op 07/08 zet Villa Bota de deuren open voor een speciale open-air editie met gratis inkom. De boksen blazen naar buiten, De Kweker brengt friends mee voor de eerste blok van de avond en MC Tubbie neemt het laatste uur richting middernacht."
+                       "notes":  "Villa West op vrijdag 21/08 bij Villa Bota. Thorre, Siga & Lefever spelen van 22:00 tot 23:00. Van 23:00 tot 00:00 is het podium voor Wildcard."
                    }
                ],
     "hiphop":  [
