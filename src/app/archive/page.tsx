@@ -4,7 +4,7 @@ import { makeMetadata } from "@/lib/metadata";
 
 export const metadata = makeMetadata({
   title: "Archief | Kwartier West",
-  description: "Fotoarchief van Kwartier West-producties in Brugge. Bekijk Teknorelics: Eye of the Temple en voorbije events.",
+  description: "Fotoarchief van Kwartier West met beelden, line-ups en momenten uit voorbije events, waaronder Teknorelics: Eye of the Temple.",
   canonical: "https://kwartierwest.be/archive",
   og: "https://kwartierwest.be/assets/og/archive.jpg",
 });

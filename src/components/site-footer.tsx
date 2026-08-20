@@ -33,7 +33,7 @@ export function SiteFooter() {
           <a href="https://www.deeqstudio.com/" target="_blank" rel="noopener noreferrer">Digital partner DeeQ Studio</a>
         </div>
       </div>
-      <div className="footer-base"><span>© 2026 Kwartier West</span><span>Brugge, België</span></div>
+      <div className="footer-base"><span>© 2026 Kwartier West</span><span>West-Vlaams collectief</span></div>
     </footer>
   );
 }

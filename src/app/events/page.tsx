@@ -5,8 +5,8 @@ import { eventBySlug } from "@/data/events";
 import { makeMetadata } from "@/lib/metadata";
 
 export const metadata = makeMetadata({
-  title: "Events | Kwartier West Brugge",
-  description: "Kwartier West events in Brugge: Villa West op 21 augustus 2026, livestream vanuit Villa Bota en het archief van eerdere producties.",
+  title: "Events | Kwartier West",
+  description: "Events van Kwartier West. Actueel: Villa West op 21 augustus 2026 bij Villa Bota in Brugge, plus het archief van eerdere producties.",
   canonical: "https://kwartierwest.be/events",
   og: "https://kwartierwest.be/assets/og/events.jpg",
 });

@@ -5,7 +5,7 @@ import { makeMetadata } from "@/lib/metadata";
 
 export const metadata = makeMetadata({
   title: "Artiesten | Kwartier West",
-  description: "Ontdek de 21 Tekno- en Hip hop-artiesten van Kwartier West: rappers, producers, DJ's en live-acts uit Brugge en daarbuiten.",
+  description: "Ontdek de 21 Tekno- en Hip hop-artiesten van Kwartier West: rappers, producers, DJ's en live-acts binnen het collectief.",
   canonical: "https://kwartierwest.be/artiesten",
   og: "https://kwartierwest.be/assets/og/artiesten.jpg",
 });

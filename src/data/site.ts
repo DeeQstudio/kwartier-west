@@ -3,8 +3,7 @@ export const site = {
   url: "https://kwartierwest.be",
   email: "info@kwartierwest.be",
   locale: "nl_BE",
-  location: "Brugge, België",
-  description: "Brugs collectief voor Tekno en Hip hop, artiesten, events en booking.",
+  description: "West-Vlaams collectief voor Tekno en Hip hop, artiesten, events en booking.",
   socials: {
     instagram: "https://www.instagram.com/kwtr_west/",
     facebook: "https://www.facebook.com/profile.php?id=61557994985369",
@@ -21,7 +20,6 @@ export const organizationSchema = {
   url: "https://kwartierwest.be/",
   logo: "https://kwartierwest.be/assets/kw-wordmark.png",
   description: site.description,
-  location: { "@type": "Place", name: site.location },
   email: site.email,
   sameAs: Object.values(site.socials),
 } as const;

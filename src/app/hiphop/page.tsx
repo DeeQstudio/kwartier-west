@@ -4,8 +4,8 @@ import { HiphopRoster } from "@/components/scene-rosters";
 import { makeMetadata } from "@/lib/metadata";
 
 export const metadata = makeMetadata({
-  title: "Hip hop Brugge | De Kweker & Kwartier West artiesten",
-  description: "Hip hop bij Kwartier West in Brugge: De Kweker, rappers, producers en live-artiesten uit West-Vlaanderen, met profielen, bookings en officiële artiestenlinks.",
+  title: "Hip hop West-Vlaanderen | De Kweker & Kwartier West",
+  description: "West-Vlaamse hip hop bij Kwartier West, met De Kweker, rappers, producers en live-artiesten, profielen, bookings en officiële artiestenlinks.",
   canonical: "https://kwartierwest.be/hiphop",
   og: "https://kwartierwest.be/assets/og/hiphop.jpg",
 });

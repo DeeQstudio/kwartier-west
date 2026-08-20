@@ -112,7 +112,7 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <p>Brugge / België<br />Tekno + Hip hop</p>
+        <p>West-Vlaams<br />Tekno + Hip hop</p>
       </aside>
     </>
   );
