@@ -1,128 +1,87 @@
-# Kwartier West Website
+# Kwartier West Flagship V6.3
 
-Production-grade frontend for Kwartier West.
+Production migration of the V5 visual/content source to **Next.js 16.3.1 + TypeScript + React 19.2.8**.
 
-## Core goals
-- Two artist lanes: Tekno and Hip hop.
-- Booking flow for single artist, multiple artists, side collective, full label takeover.
-- Event hub with official social source references.
-- Villa West and current events as crawlable launch routes.
-- Data contracts prepared for future app/webhook integration.
-- International UX: language detection + persistent language switch across pages.
+## Architecture
 
-## Routes
-- `/index.html`
-- `/pages/tekno/index.html`
-- `/pages/hiphop/index.html`
-- `/pages/events/index.html`
-- `/pages/booking/index.html`
-- `/pages/partners/index.html`
-- `/pages/contact/index.html`
-- `/pages/manifest/index.html`
+- `src/app` — App Router routes, metadata routes and API route handlers.
+- `src/data/artists.ts` — one typed source of truth for all 21 artists; home, scene rosters, artist index, booking UI and artist pages derive from it.
+- `src/data/events.ts` — typed event registry.
+- `src/components` — shared navigation, footer, artist renderer, typed roster/index modules, booking UI and motion layer.
+- `src/lib/booking-server.ts` — server-only booking validation, Turnstile, signed verification links, private Vercel Blob workflow and email delivery.
+- `public/assets` — production visual assets migrated without changing their public URLs.
+- `scripts/release-qa.mjs` — release contract for routes, assets, security markers and migration integrity.
 
-Parked/noindex future route:
-- `/pages/shop/index.html`
+The V5 design language and public route structure are intentionally preserved, with the V6.2 visual repair baseline and the V6.3 content/navigation repair layered on top.
 
-## Data contracts
-- `data/artists.json`
-- `data/events.json`
-- `data/partners.json`
-- `data/integrations.json`
+## V6.3 live/event + visual/content hardening
 
-Parked future contract:
-- `data/shop.json`
+- Villa West on **21 August 2026** remains the current main event until the final live window ends.
+- Villa Bota video is loaded only from **21:55 to 00:05 Europe/Brussels**, with the existing audio fallback.
+- CSP explicitly permits only the required Villa Bota video frame and stream host.
+- The final Villa West poster, timetable and line-up are the current event source: Thorre + Siga & Lefever 22:00–23:00, Wildcard 23:00–00:00.
+- Tekno now leads with authentic event photography plus recognisable Kwartier West scene artwork instead of the previous synthetic hero.
+- Hip hop uses a general scene visual for the intro and puts De Kweker in the primary artist position.
+- De Kweker has stronger metadata/structured data and a direct crawlable official-site link to `https://kwkr.be`.
+- Artist media distinguishes face-led photography from official artwork so logos/artwork are not destructively cropped.
+- Interior chapters receive a shared scroll-directed 3D/depth layer on top of their existing page-specific motion.
+- Partner surfaces were rebuilt as dark glass/matte plates; the oversized white logo boxes are removed.
+- Public-facing copy was rewritten to describe Kwartier West, its artists, scenes, events and bookings instead of explaining website templates, routes, image handling or archive mechanics.
+- The artists-page navigation is now permanently high-contrast on a dark navigation surface, including over light hero sections.
+- The duplicate oversized Kwartier West wordmark before the home booking CTA is removed; the footer remains the single large closing brand moment.
+- The home booking close is now a direct booking proposition rather than a duplicate brand panel.
 
-## Commands
-- `npm run dev`
-- `npm run validate`
-- `npm run artist-pages`
-- `npm run event-pages`
-- `npm run seo-build`
-- `npm run booking-mail-test`
-- `npm run booking-flow-test`
-- `npm run newsletter-flow-test`
-- `npm run site-check`
-- `npm run seo-check`
-- `npm run visual-audit`
-- `npm run check`
+## Local setup
 
-`npm run visual-audit` starts a temporary local static server, captures desktop and mobile screenshots for the main public routes, and writes the report to `_screens/visual-audit/`.
+1. Use Node 22.
+2. Copy `.env.example` to `.env.local` and fill the required secrets.
+3. Run `npm install`.
+4. Run `npm run release`.
+5. Run `npm run dev` for local visual QA.
 
-## Internationalization
-- Base language: Dutch (nl-BE).
-- Supported UI languages: Dutch (`nl`) and English (`en`).
-- Page language follows the HTML `lang` attribute first, so clean browsers land on Dutch.
-- More languages should only be documented after the dictionaries, checks and visual review are complete.
+**Do not deploy before `npm run release` passes.** The generated package does not include `node_modules`.
 
-## Integration handoff
-When backend/app is ready, connect:
-1. `data/integrations.json.eventSync.endpoint`
-2. `data/integrations.json.bookingWebhook.endpoint`
+## Required Vercel environment variables
 
-`data/integrations.json.shopApi.endpoint` is kept as a future module, but it is not part of the public launch surface.
+Required in production:
 
-The frontend already emits structured booking payloads and consumes normalized data contracts.
-If `bookingWebhook.enabled=true`, booking submissions are POSTed automatically from the website.
+- `TURNSTILE_SITE_KEY`
+- `TURNSTILE_SECRET_KEY`
+- `BOOKING_VERIFY_SECRET` (minimum 32 characters)
+- `BLOB_READ_WRITE_TOKEN`
+- `BOOKING_TO_EMAIL`
 
-## Booking email delivery (Vercel)
-The project includes a server-side endpoint at `/api/bookings` for direct booking email delivery.
+Choose one mail path:
 
-Supported providers:
-- `smtp` (recommended if you already have a mailbox, e.g. one.com)
-- `resend`
-- `auto` (default): tries SMTP first, then Resend fallback
+- Resend: `RESEND_API_KEY` + `BOOKING_FROM_EMAIL`
+- SMTP: `BOOKING_SMTP_HOST`, `BOOKING_SMTP_PORT`, `BOOKING_SMTP_USER`, `BOOKING_SMTP_PASS`
 
-Set these environment variables in Vercel:
-- `BOOKING_PROVIDER` = `auto` | `smtp` | `resend` (optional, default: `auto`)
-- `BOOKING_TO_EMAIL` (optional, default: `info@kwartierwest.be`)
-- `BOOKING_FROM_EMAIL` (optional; for SMTP default is `Kwartier West <info@kwartierwest.be>`, for Resend default is `Kwartier West <onboarding@resend.dev>`)
+## Booking flow
 
-SMTP variables:
-- `BOOKING_SMTP_HOST`
-- `BOOKING_SMTP_PORT` (e.g. `587`)
-- `BOOKING_SMTP_SECURE` (`true` for SSL/465, `false` for STARTTLS/587)
-- `BOOKING_SMTP_USER`
-- `BOOKING_SMTP_PASS`
+1. Client submits JSON only after Cloudflare Turnstile succeeds.
+2. Server validates exact keys, sizes, scene/artist combinations and timing.
+3. Request is stored in a **private** Vercel Blob.
+4. The visitor receives a signed, 20-minute email verification link.
+5. Verification atomically claims the request and forwards it to Kwartier West.
+6. The pending request is removed after successful forwarding.
 
-Resend variables:
-- `RESEND_API_KEY` (or `RESEND_KEY` / `RESEND_TOKEN`)
+The in-process request throttle is intentionally a secondary guard. For a high-traffic production launch, also configure a Vercel Firewall rate-limit rule on `POST /api/bookings`; Turnstile and email verification remain the primary abuse controls.
 
-Without valid SMTP or Resend configuration, booking submissions return a clear configuration error.
+## Security note
 
-## Uit Het Westen newsletter system (Vercel)
-The project includes `/api/newsletter` for Uit Het Westen subscriptions.
+The site keeps the V5 security-header baseline. The CSP allows inline script/style execution because Next.js App Router injects framework bootstrap payloads. No user-supplied HTML is rendered; the only `dangerouslySetInnerHTML` use is static JSON-LD serialization. If you later choose nonce-based CSP, Next.js requires request-time rendering for nonce injection, which changes the caching/performance profile.
 
-What it does:
-- validates email, consent, honeypot and minimum fill time
-- rate-limits by IP and email
-- stores subscribers persistently when Vercel Blob or Upstash Redis is configured
-- detects duplicate active subscriptions and updates the subscriber record
-- sends an internal signup notification
-- optionally sends a welcome mail with unsubscribe link
-- exposes an admin export endpoint
+## Legacy URL preservation
 
-Mail delivery reuses booking SMTP by default. Optional newsletter-specific overrides:
-- `NEWSLETTER_PROVIDER` = `auto` | `smtp` | `resend`
-- `NEWSLETTER_TO_EMAIL` (optional, default falls back to `BOOKING_TO_EMAIL`)
-- `NEWSLETTER_FROM_EMAIL` (optional, default falls back to `BOOKING_FROM_EMAIL`)
-- `NEWSLETTER_SMTP_HOST`
-- `NEWSLETTER_SMTP_PORT`
-- `NEWSLETTER_SMTP_SECURE`
-- `NEWSLETTER_SMTP_USER`
-- `NEWSLETTER_SMTP_PASS`
-- `NEWSLETTER_RESEND_API_KEY`
+Historical `/pages/...` routes and old artist/event paths redirect permanently through `next.config.ts`. Public asset URLs remain unchanged.
 
-Persistent subscriber storage:
-- Vercel Blob is the preferred storage for this project.
-- `BLOB_READ_WRITE_TOKEN` is provided automatically when the Vercel Blob store is connected to the project.
-- `NEWSLETTER_UPSTASH_REDIS_REST_URL` or `UPSTASH_REDIS_REST_URL`
-- `NEWSLETTER_UPSTASH_REDIS_REST_TOKEN` or `UPSTASH_REDIS_REST_TOKEN`
-- `NEWSLETTER_SECRET` (falls back to `BOOKING_VERIFY_SECRET` for unsubscribe tokens)
-- `NEWSLETTER_REQUIRE_STORAGE=true` is recommended for production so the API refuses fake success when persistent storage is missing.
+## Before replacing live
 
-Admin export:
-- Set `NEWSLETTER_ADMIN_SECRET` (falls back to `BOOKING_VERIFY_SECRET`).
-- Request `GET /api/newsletter?action=export` with header `Authorization: Bearer <secret>`.
+A clean release requires:
 
-Local QA:
-- `npm run newsletter-flow-test` sends a real Uit Het Westen test signup through the configured provider.
+```bash
+npm install
+npm run release
+```
+
+Then deploy this project root to the existing Vercel project. Keep the current live site untouched until the build and visual QA both pass.

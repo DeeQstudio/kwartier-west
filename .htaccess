@@ -1,9 +1,0 @@
-RewriteEngine On
-
-# Canonical host: redirect www to apex over HTTPS
-RewriteCond %{HTTP_HOST} ^www\.kwartierwest\.be$ [NC]
-RewriteRule ^ https://kwartierwest.be%{REQUEST_URI} [L,R=301]
-
-# Force HTTPS for apex host
-RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://kwartierwest.be%{REQUEST_URI} [L,R=301]

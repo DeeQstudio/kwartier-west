@@ -1,0 +1,9 @@
+import Link from "next/link";
+
+export function TeknorelicsEyeOfTheTempleContent() {
+  return (
+    <>
+      <section className="relics-hero" data-relics-hero=""><div className="relics-photo"><img src="/assets/media/archive/teknorelics-03.webp" alt="Teknorelics Eye of the Temple in Het Entrepot" /></div><div className="relics-title"><span>28.03.2026 / HET ENTREPOT</span><h1>Eye of<br />the Temple</h1><p>Teknorelics / Brugge</p></div><div className="relics-count">01—07</div></section><section className="relics-lineup section-pad"><span className="eyebrow">Line-up</span><div><Link href="/artiesten/jenesaispas">Jenesaispas</Link><span>Albiovix</span><span>Eli</span><span>Kalki</span><span>Ruffhouss</span><span>23 Shayatin</span><span>Sirius</span></div></section><section className="relics-gallery" data-relics-gallery=""><figure><img src="/assets/media/archive/teknorelics-01.webp" alt="Teknorelics foto 1" loading="lazy" /></figure><figure><img src="/assets/media/archive/teknorelics-02.webp" alt="Teknorelics foto 2" loading="lazy" /></figure><figure><img src="/assets/media/archive/teknorelics-03.webp" alt="Teknorelics foto 3" loading="lazy" /></figure><figure><img src="/assets/media/archive/teknorelics-04.webp" alt="Teknorelics foto 4" loading="lazy" /></figure><figure><img src="/assets/media/archive/teknorelics-05.webp" alt="Teknorelics foto 5" loading="lazy" /></figure><figure><img src="/assets/media/archive/teknorelics-06.webp" alt="Teknorelics foto 6" loading="lazy" /></figure><figure><img src="/assets/media/archive/teknorelics-07.webp" alt="Teknorelics foto 7" loading="lazy" /></figure></section><section className="event-editorial section-pad"><div><span className="eyebrow">28.03.2026 / Het Entrepot</span><h2>Eye of the Temple in beeld.</h2></div><div><p>Een nacht van Teknorelics in Het Entrepot, met de ruimte, het publiek, de apparatuur en de artiesten vastgelegd in zeven beelden.</p></div></section>
+    </>
+  );
+}
