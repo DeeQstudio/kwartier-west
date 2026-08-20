@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export function MotionDirector() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const root = document.documentElement;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -34,6 +37,9 @@ export function MotionDirector() {
     qa("[data-reveal]").forEach((el) => revealObserver.observe(el));
 
     let ticking = false;
+    let frameId: number | null = null;
+    let initFrameId: number | null = null;
+
     const update = () => {
       ticking = false;
       if (reduce) return;
@@ -194,20 +200,27 @@ export function MotionDirector() {
     const request = () => {
       if (!ticking) {
         ticking = true;
-        window.requestAnimationFrame(update);
+        frameId = window.requestAnimationFrame(update);
       }
     };
 
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", request, { passive: true });
-    update();
+
+    // App Router keeps this component mounted between pages. Wait one frame so
+    // the newly navigated page has committed, then measure its DOM from scratch.
+    initFrameId = window.requestAnimationFrame(() => {
+      initFrameId = window.requestAnimationFrame(update);
+    });
 
     return () => {
       revealObserver.disconnect();
       window.removeEventListener("scroll", request);
       window.removeEventListener("resize", request);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+      if (initFrameId !== null) window.cancelAnimationFrame(initFrameId);
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
