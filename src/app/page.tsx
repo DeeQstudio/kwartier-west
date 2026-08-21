@@ -64,15 +64,6 @@ export default function HomePage() {
           </div>
           <div className="hero-side-label hero-side-label--l">TEKNO</div>
           <div className="hero-side-label hero-side-label--r">HIP HOP</div>
-          <div className={`scroll-instruction ${styles.introScroll}`}>
-            <span>Scroll</span>
-            <i />
-            <small>Tekno / Hip hop / live</small>
-          </div>
-          <div className={styles.introCue} aria-hidden="true">
-            <span>Open Kwartier West</span>
-            <i />
-          </div>
         </div>
       </section>
 
@@ -147,9 +138,8 @@ export default function HomePage() {
         <div className="event-home-copy">
           <span className="eyebrow">04 / Villa West</span>
           <h2>
-            Villa West
-            <br />
-            21.08.2026
+            <span>Villa West</span>
+            <span className="event-home-date">21.08.2026</span>
           </h2>
           <p>
             Vrijdag 21 augustus sluit Villa West de zomer af bij Villa Bota. Thorre en Siga &amp;

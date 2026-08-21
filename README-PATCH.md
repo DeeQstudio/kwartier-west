@@ -1,17 +1,24 @@
-# Kwartier West V6.3.2 consolidation patch
+# Kwartier West V6.3.3 UX consolidation patch
 
-Overlay this patch on the current `kwartier-west` repository root and replace existing files.
+Copy every item in this patch over the existing `clients/kwartier-west` repository root and choose merge/replace.
 
-This consolidates:
-- 20-artist roster after former-member removal
-- dynamic artist count (no hardcoded 21)
-- regenerated artist banner and OG image with 20 / 13 Tekno / 07 Hip hop
-- current home photographic intro + Tuffer Hip hop scene
-- automatic cinematic intro prelude without auto-scrolling the page
-- cached/rerouted motion lifecycle with lighter mobile transform ranges
-- QA guard against reintroducing the removed former artist
+This patch consolidates:
+- automatic home opening composition (no scroll input required for the opening movement)
+- removal of the red intro signal line and instructional `SCROLL` / `OPEN KWARTIER WEST` copy
+- professional mobile typography without automatic hyphenation
+- adaptive artist quote/name sizing for long words
+- per-artist photo focal points and identity-safe mobile artist framing
+- 20-artist roster banner, cache-busted as `artists-banner-v2.webp`
+- corrected 20-artist OG image
+- artist hero title/image separation so headings do not cover faces
+- QA guards for former-artist remnants, stale roster banner references and automatic hyphenation
 
-After overlay:
-1. Confirm no former-member files exist under `public/assets/media/artists` or `public/assets/og/artists`.
-2. Run `npm run release`.
-3. Commit/push only if release is green.
+After copying:
+
+    npm run release
+
+Then, only if green:
+
+    git add .
+    git commit -m "Polish mobile type, artist framing and home intro"
+    git push

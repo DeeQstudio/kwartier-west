@@ -212,9 +212,9 @@
 .artist-page .artist-booking h2,
 .artist-page .next-artist b{
   max-width:100%;
-  overflow-wrap:anywhere;
+  overflow-wrap:normal;
   word-break:normal;
-  hyphens:auto;
+  hyphens:none;
 }
 
 @media(max-width:620px){
@@ -348,9 +348,9 @@ main{width:100%;max-width:100%;min-width:0}
     .error-card h1
   ){
     max-width:100%;
-    overflow-wrap:anywhere;
+    overflow-wrap:normal;
     word-break:normal;
-    hyphens:auto;
+    hyphens:none;
   }
 
   /* Transformed artwork stays a visual effect, not document width. */
@@ -375,4 +375,139 @@ main{width:100%;max-width:100%;min-width:0}
   .hero-photo{will-change:transform}
   .hero-photo--l,.hero-photo--r{clip-path:none}
   .hero-cross:before,.hero-cross:after{will-change:transform}
+}
+
+/* V6.3.3 — professional responsive typography + identity-safe artist framing. */
+body{hyphens:none}
+
+:where(
+  .statement h1,
+  .scene-info h2,
+  .roster-home h2,
+  .event-home-copy h2,
+  .network-home h2,
+  .home-booking-close h2,
+  .page-banner-copy h1,
+  .tekno-hero-title h1,
+  .machine-left h2,
+  .tekno-archive-hit h2,
+  .scene-book h2,
+  .hiphop-hero-copy h1,
+  .broadcast-copy h2,
+  .artist-spotlight-copy h2,
+  .roster-hero-copy h1,
+  .events-hero-title h1,
+  .archive-hero-type h1,
+  .booking-hero-left h1,
+  .manifest-hero-copy h1,
+  .manifest-lines h2,
+  .artist-hero-title h1,
+  .artist-quote blockquote,
+  .artist-story h2,
+  .artist-booking h2,
+  .next-artist b,
+  .event-status h2,
+  .event-card h2,
+  .archive-push h2,
+  .event-editorial h2,
+  .event-lineup h2,
+  .villa-copy h1,
+  .relics-title h1,
+  .archive-intro h2,
+  .archive-event-link b,
+  .legal-hero h1,
+  .error-card h1
+){
+  overflow-wrap:normal;
+  word-break:normal;
+  hyphens:none;
+  text-wrap:balance;
+}
+
+:where(p,li,dd,.statement-copy,.event-home-copy,.artist-story-copy){text-wrap:pretty}
+
+/* Home starts alive: MotionDirector auto-closes the opening composition, then
+   scroll continues naturally from that state. */
+.home-hero{height:235vh}
+.event-home-copy h2>span{display:block}
+.event-home-date{font-size:.66em;letter-spacing:-.055em;white-space:nowrap}
+
+/* The artist roster title and sheet are intentionally separated; type should
+   never sit across a face in the editorial board. */
+.roster-hero-copy{width:min(39vw,650px)}
+.roster-hero-copy h1{font-size:clamp(66px,6.35vw,112px);line-height:.82;letter-spacing:-.072em}
+.roster-hero-sheet{right:4vw;width:47vw}
+
+/* Every portrait gets a deliberate focal point. Artwork keeps its contain-like
+   treatment; photographs prioritise identity over decorative crop. */
+.artist-hero[data-media-kind="photo"] .artist-hero-photo img{
+  object-position:var(--artist-focus,50% 28%)!important;
+}
+
+@media(max-width:620px){
+  /* Smaller fluid display sizes wrap at real word boundaries instead of using
+     automatic dictionary hyphens such as arties-/ten or 202-/6. */
+  .home-hero{height:190svh}
+  .statement h1{font-size:clamp(52px,15vw,68px)}
+  .scene-info h2{font-size:clamp(72px,23vw,104px)}
+  .roster-home h2{font-size:clamp(46px,13vw,60px);line-height:.88}
+  .event-home-copy h2{font-size:clamp(58px,17vw,74px);line-height:.82}
+  .event-home-date{font-size:.62em;letter-spacing:-.04em}
+  .network-home h2{font-size:clamp(46px,13.5vw,62px)}
+  .home-booking-close h2{font-size:clamp(48px,13.5vw,64px)}
+  .page-banner-copy h1{font-size:clamp(62px,18vw,82px)}
+  .machine-left h2,.broadcast-copy h2{font-size:clamp(50px,14vw,66px)}
+  .booking-hero-left h1{font-size:clamp(62px,18vw,82px)}
+  .manifest-hero-copy h1{font-size:clamp(60px,17vw,78px)}
+  .manifest-lines h2{font-size:clamp(54px,15vw,70px)}
+  .legal-hero h1{font-size:clamp(58px,17vw,78px)}
+  .villa-copy h1{font-size:clamp(64px,19vw,88px)}
+  .relics-title h1{font-size:clamp(58px,17vw,78px)}
+
+  /* Stable mobile portrait composition modelled on the successful Thorre page. */
+  .artist-hero[data-media-kind="photo"] .artist-hero-photo{
+    inset:17vh 0 0 20vw!important;
+    overflow:hidden;
+  }
+  .artist-hero[data-media-kind="photo"] .artist-hero-photo img{
+    object-position:var(--artist-focus-mobile,var(--artist-focus,50% 20%))!important;
+  }
+  .artist-hero[data-media-kind="photo"] .artist-hero-red{
+    width:auto!important;
+    inset:0!important;
+    background:linear-gradient(90deg,#050505 0 24%,rgba(229,20,17,.78) 24% 27%,rgba(0,0,0,.08) 62%,rgba(0,0,0,.46))!important;
+    mix-blend-mode:normal!important;
+  }
+  .artist-hero-title{left:20px;bottom:8vh;max-width:82vw}
+  .artist-hero-title h1{font-size:clamp(62px,18vw,82px);line-height:.76}
+  .artist-title--md h1{font-size:clamp(54px,15.5vw,70px)}
+  .artist-title--sm h1{font-size:clamp(46px,13vw,60px)}
+
+  .artist-quote blockquote{
+    font-size:clamp(38px,10.5vw,50px);
+    line-height:.96;
+    letter-spacing:-.045em;
+  }
+  .artist-quote--sm blockquote{font-size:clamp(34px,9vw,44px)}
+  .artist-quote--xs blockquote{font-size:clamp(29px,7.7vw,38px);line-height:1}
+  .artist-story h2{font-size:clamp(48px,13vw,62px)}
+  .artist-booking h2{font-size:clamp(50px,13.5vw,66px)}
+  .next-artist b{font-size:clamp(50px,14vw,68px)}
+  .next-artist--md b{font-size:clamp(44px,12vw,58px)}
+  .next-artist--sm b{font-size:clamp(38px,10vw,50px)}
+
+  /* Long e-mail/URL-like strings may break without an artificial hyphen. */
+  .contact-big a,.contact-hero>h1>a{
+    overflow-wrap:anywhere;
+    word-break:normal;
+    hyphens:none;
+  }
+
+  .roster-hero{min-height:100svh;height:auto;padding:calc(var(--nav) + 38px) 20px 72px;display:grid;gap:34px;align-content:start}
+  .roster-hero-count,.roster-hero-sheet,.roster-hero-copy{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:100%;max-width:100%}
+  .roster-hero-count{order:1}
+  .roster-hero-sheet{order:2;height:auto;aspect-ratio:16/10;transform:rotate(-1.5deg);box-shadow:0 18px 48px rgba(0,0,0,.16)}
+  .roster-hero-copy{order:3}
+  .roster-hero-copy h1{font-size:clamp(54px,15vw,68px);margin:14px 0 22px}
+  .roster-hero-copy p{max-width:100%;font-size:14px}
 }

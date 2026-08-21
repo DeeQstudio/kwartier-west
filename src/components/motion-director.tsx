@@ -78,22 +78,32 @@ export function MotionDirector() {
     let ticking = false;
     let frameId: number | null = null;
     let initFrameId: number | null = null;
+    let introFrameId: number | null = null;
+    let introBase = hero ? (reduce ? 0.58 : 0) : 0;
+    const introTarget = 0.58;
 
     const update = () => {
       ticking = false;
-      if (reduce) return;
+      if (reduce && !hero) return;
 
       const compact = window.innerWidth <= 760;
       const motionScale = compact ? 0.55 : 1;
 
       if (hero) {
-        const p = progress(hero);
+        // The opening composition now closes automatically on first paint. We do
+        // not move the document itself: the visitor keeps full scroll control.
+        // Once the prelude has completed, real scroll progress continues from
+        // that visual state instead of jumping back to the old zero state.
+        const raw = progress(hero);
+        const p = clamp(introBase + raw * (1 - introBase));
         setVar("--hero-photos", String(n(clamp(p / 0.42))));
         setVar("--hero-logo", String(n(clamp((p - 0.12) / 0.45))));
         setVar("--hero-line", String(n(clamp((p - 0.2) / 0.35))));
         setVar("--hero-labels", String(n(clamp((p - 0.48) / 0.28))));
         setVar("--hero-red", String(n(clamp((p - 0.7) / 0.25) * 100, 2)));
       }
+
+      if (reduce) return;
 
       sceneChapters.forEach((el) => {
         const rect = el.getBoundingClientRect();
@@ -237,6 +247,19 @@ export function MotionDirector() {
       }
     };
 
+    if (hero && !reduce) {
+      const startedAt = performance.now();
+      const duration = window.innerWidth <= 760 ? 1250 : 1550;
+      const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+      const playIntro = (now: number) => {
+        const t = clamp((now - startedAt) / duration);
+        introBase = introTarget * easeOut(t);
+        update();
+        if (t < 1) introFrameId = window.requestAnimationFrame(playIntro);
+      };
+      introFrameId = window.requestAnimationFrame(playIntro);
+    }
+
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", request, { passive: true });
 
@@ -252,6 +275,7 @@ export function MotionDirector() {
       window.removeEventListener("resize", request);
       if (frameId !== null) window.cancelAnimationFrame(frameId);
       if (initFrameId !== null) window.cancelAnimationFrame(initFrameId);
+      if (introFrameId !== null) window.cancelAnimationFrame(introFrameId);
     };
   }, [pathname]);
 

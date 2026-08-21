@@ -64,6 +64,9 @@ for (const [name, text] of sourceText) {
 }
 const artistIndexPage = readFileSync(join(root, "src/app/artiesten/page.tsx"), "utf8");
 if (!artistIndexPage.includes("{artists.length}")) errors.push("artist roster hero count is not derived from typed artist data");
+if (!artistIndexPage.includes("/assets/generated/artists-banner-v2.webp")) errors.push("artist roster must use the cache-busted 20-artist banner");
+if (!existsSync(join(publicDir, "assets/generated/artists-banner-v2.webp"))) errors.push("20-artist roster banner is missing");
+if (!existsSync(join(publicDir, "assets/og/artiesten-v2.jpg"))) errors.push("20-artist roster OG image is missing");
 for (const slug of artistSlugs) {
   if (!existsSync(join(publicDir, `assets/media/artists/${slug}.webp`))) {
     errors.push(`artist asset missing: ${slug}.webp`);
@@ -87,6 +90,12 @@ for (const [page, marker] of [
 ]) {
   const text = readFileSync(join(root, page), "utf8");
   if (!text.includes(marker)) errors.push(`${page}: typed roster component missing`);
+}
+
+
+const homePage = readFileSync(join(root, "src/app/page.tsx"), "utf8");
+for (const marker of ["Open Kwartier West", "scroll-instruction", "introCue"]) {
+  if (homePage.includes(marker)) errors.push(`home intro still contains deprecated instruction: ${marker}`);
 }
 
 const events = readFileSync(join(root, "src/data/events.ts"), "utf8");
@@ -139,6 +148,7 @@ for (const [name, text] of sourceText) {
 
 for (const [name, text] of sourceText) {
   if (name === "scripts/release-qa.mjs") continue;
+  if (/hyphens\s*:\s*auto/i.test(text)) errors.push(`${name}: automatic hyphenation is forbidden in production typography`);
   if (/\bTODO\b|\bFIXME\b|Lorem ipsum|example\.com/i.test(text)) errors.push(`${name}: unfinished/debug content remains`);
   if (/console\.log\(|debugger;|alert\(/.test(text)) errors.push(`${name}: debug statement remains`);
   if (text.includes("dangerouslySetInnerHTML") && name !== "src/components/json-ld.tsx") {
