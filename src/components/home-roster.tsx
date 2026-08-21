@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { useMemo, useState } from "react";
-import { artistBySlug } from "@/data/artists";
+import { artists, artistBySlug } from "@/data/artists";
 import { homeRosterOrder } from "@/data/site";
 import { artistMediaKind } from "@/lib/artist-media";
 
@@ -18,7 +18,7 @@ export function HomeRoster() {
   return (
     <section className="roster-home section-pad" data-roster>
       <header>
-        <div><span className="eyebrow">03 / Roster</span><h2>21 artiesten.<br />Twee scenes.</h2></div>
+        <div><span className="eyebrow">03 / Roster</span><h2>{artists.length} artiesten.<br />Twee scenes.</h2></div>
         <Link className="text-link" href="/artiesten">Alle artiesten</Link>
       </header>
       <div className="roster-home-grid">

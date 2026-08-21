@@ -22,7 +22,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `https://kwartierwest.be/artiesten/de-kweker`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `https://kwartierwest.be/artiesten/thorre`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `https://kwartierwest.be/artiesten/krank`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/mc-tubbie`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `https://kwartierwest.be/artiesten/thepanda`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `https://kwartierwest.be/artiesten/duvve`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `https://kwartierwest.be/artiesten/bruce`, changeFrequency: "weekly" as const, priority: 0.7 },

@@ -7,7 +7,7 @@ export const artists = [
     "role": "Head Master of the Collective / Producer",
     "scene": "tekno",
     "variant": "artist-v0",
-    "index": "01 / 21",
+    "index": "01 / 20",
     "image": "/assets/media/artists/onschuldig.webp",
     "quote": "Provides unique Tekno & Acid sound.",
     "paragraphs": [
@@ -61,7 +61,7 @@ export const artists = [
     "role": "DJ / Live-set",
     "scene": "tekno",
     "variant": "artist-v1",
-    "index": "02 / 21",
+    "index": "02 / 20",
     "image": "/assets/media/artists/hyperion.webp",
     "quote": "Directe hardtekk-snelheid zonder dode lucht.",
     "paragraphs": [
@@ -109,7 +109,7 @@ export const artists = [
     "role": "DJ / Live-set",
     "scene": "tekno",
     "variant": "artist-v2",
-    "index": "03 / 21",
+    "index": "03 / 20",
     "image": "/assets/media/artists/woebn.webp",
     "quote": "Een herkenbare multi-genre sound met constante energie en drive.",
     "paragraphs": [
@@ -163,7 +163,7 @@ export const artists = [
     "role": "DJ / Producent",
     "scene": "tekno",
     "variant": "artist-v3",
-    "index": "04 / 21",
+    "index": "04 / 20",
     "image": "/assets/media/artists/noratn.webp",
     "quote": "Energieke tek- en aciddruk met een diepe, hypnotische onderstroom.",
     "paragraphs": [
@@ -211,7 +211,7 @@ export const artists = [
     "role": "DJ / Producer",
     "scene": "tekno",
     "variant": "artist-v0",
-    "index": "05 / 21",
+    "index": "05 / 20",
     "image": "/assets/media/artists/alexer.webp",
     "quote": "Hypnotische grooves, warme melodieen en rauwe ritmes voor open airs en free parties.",
     "paragraphs": [
@@ -277,7 +277,7 @@ export const artists = [
     "role": "Tekno-producer / Live-artiest",
     "scene": "tekno",
     "variant": "artist-v1",
-    "index": "06 / 21",
+    "index": "06 / 20",
     "image": "/assets/media/artists/spoorloos.webp",
     "quote": "Hybride livesets met zware kicks, tribale ritmes en pure tekno-energie.",
     "paragraphs": [
@@ -343,7 +343,7 @@ export const artists = [
     "role": "DJ",
     "scene": "tekno",
     "variant": "artist-v2",
-    "index": "07 / 21",
+    "index": "07 / 20",
     "image": "/assets/media/artists/wildcrd.webp",
     "quote": "Hardgroove Techno, Acidcore en Tekno met pure energie en compromisloze drive.",
     "paragraphs": [
@@ -397,7 +397,7 @@ export const artists = [
     "role": "DJ / Live-set",
     "scene": "tekno",
     "variant": "artist-v3",
-    "index": "08 / 21",
+    "index": "08 / 20",
     "image": "/assets/media/artists/jenesaispas.webp",
     "quote": "Gecontroleerde chaos met rauwe loodsenergie.",
     "paragraphs": [
@@ -436,7 +436,7 @@ export const artists = [
     "role": "DJ / Live-set",
     "scene": "tekno",
     "variant": "artist-v0",
-    "index": "09 / 21",
+    "index": "09 / 20",
     "image": "/assets/media/artists/kulture.webp",
     "quote": "Percussieve druk en snelle floorfeedback.",
     "paragraphs": [
@@ -490,7 +490,7 @@ export const artists = [
     "role": "DJ / Live-set",
     "scene": "tekno",
     "variant": "artist-v1",
-    "index": "10 / 21",
+    "index": "10 / 20",
     "image": "/assets/media/artists/kumatekz.webp",
     "quote": "Industrieel gewicht en laagfrequente autoriteit.",
     "paragraphs": [
@@ -538,7 +538,7 @@ export const artists = [
     "role": "DJ / Live-set",
     "scene": "tekno",
     "variant": "artist-v2",
-    "index": "11 / 21",
+    "index": "11 / 20",
     "image": "/assets/media/artists/masschie.webp",
     "quote": "Acidlijnen, snelle beweging, geen verloren bars.",
     "paragraphs": [
@@ -586,7 +586,7 @@ export const artists = [
     "role": "DJ / Live-set",
     "scene": "tekno",
     "variant": "artist-v3",
-    "index": "12 / 21",
+    "index": "12 / 20",
     "image": "/assets/media/artists/mombietekk.webp",
     "quote": "Meedogenloze BPM-push met rave-eerst keuzes.",
     "paragraphs": [
@@ -634,7 +634,7 @@ export const artists = [
     "role": "DJ / Live-set",
     "scene": "tekno",
     "variant": "artist-v0",
-    "index": "13 / 21",
+    "index": "13 / 20",
     "image": "/assets/media/artists/psamtek.webp",
     "quote": "Closingdruk met gedisciplineerde sequentiecontrole.",
     "paragraphs": [
@@ -673,7 +673,7 @@ export const artists = [
     "role": "Rapper",
     "scene": "hiphop",
     "variant": "artist-v1",
-    "index": "14 / 21",
+    "index": "14 / 20",
     "image": "/assets/media/artists/de-kweker-feature.webp",
     "quote": "Geen rol, geen show. Gewoon eerlijke bars uit z'n hoofd.",
     "paragraphs": [
@@ -758,7 +758,7 @@ export const artists = [
     "role": "Rapper",
     "scene": "hiphop",
     "variant": "artist-v2",
-    "index": "15 / 21",
+    "index": "15 / 20",
     "image": "/assets/media/artists/thorre.webp",
     "quote": "Maatschappijkritische bars met relativering en humor, van euforie tot diepbedroefdheid.",
     "paragraphs": [
@@ -836,7 +836,7 @@ export const artists = [
     "role": "Rapper",
     "scene": "hiphop",
     "variant": "artist-v3",
-    "index": "16 / 21",
+    "index": "16 / 20",
     "image": "/assets/media/artists/krank.webp",
     "quote": "No nonsense bars die je een spiegel voorhouden, met een kritische invalshoek.",
     "paragraphs": [
@@ -866,8 +866,8 @@ export const artists = [
         "href": "https://www.instagram.com/krankkkkkk_/"
       }
     ],
-    "nextSlug": "mc-tubbie",
-    "nextName": "MC Tubbie",
+    "nextSlug": "thepanda",
+    "nextName": "The P.A.N.D.A",
     "description": "Krank is een West-Vlaamse rapper uit Knokke die sinds 2008 nummers maakt.",
     "title": "Krank | Kwartier West",
     "canonical": "https://kwartierwest.be/artiesten/krank",
@@ -891,84 +891,12 @@ export const artists = [
     }
   },
   {
-    "slug": "mc-tubbie",
-    "name": "MC Tubbie",
-    "role": "Rapper / Freestyle MC",
-    "scene": "hiphop",
-    "variant": "artist-v0",
-    "index": "17 / 21",
-    "image": "/assets/media/artists/mc-tubbie.webp",
-    "quote": "Geen hype, geen masker. Gewoon gevoel en rechtuit bars.",
-    "paragraphs": [
-      "MC Tubbie doet wat hij voelt. Niet wat werkt. Niet wat verwacht wordt.",
-      "Hij denkt veel: over mensen, over hoe alles draait en over waarom iedereen altijd iets probeert te zijn. Tubbie niet. Hij zegt wat hij ziet, soms zacht, soms hard, maar altijd rechtuit.",
-      "Op een beat leeft hij anders: woorden komen zonder zoeken, zonder geschreven blad. Wat in de ruimte hangt pakt hij vast, en voor je het weet zit iedereen mee in zijn tempo."
-    ],
-    "bullets": [
-      "Freestyle reflex op het moment",
-      "Tempo lezen en slim breken",
-      "Pure crowdconnectie zonder masker"
-    ],
-    "links": [
-      {
-        "label": "linktree",
-        "value": "mc.tubbie",
-        "href": "https://linktr.ee/mc.tubbie"
-      },
-      {
-        "label": "soundcloud",
-        "value": "MC Tubbie",
-        "href": "https://soundcloud.com/gemak-kelijk"
-      },
-      {
-        "label": "youtube",
-        "value": "@mctubbie1672",
-        "href": "https://www.youtube.com/@mctubbie1672"
-      },
-      {
-        "label": "instagram",
-        "value": "@tubbieontheroad",
-        "href": "https://www.instagram.com/tubbieontheroad/"
-      },
-      {
-        "label": "facebook",
-        "value": "Youth Warrior Sound",
-        "href": "https://www.facebook.com/youthwarriorsound/"
-      }
-    ],
-    "nextSlug": "thepanda",
-    "nextName": "The P.A.N.D.A",
-    "description": "MC Tubbie doet wat hij voelt. Niet wat werkt. Niet wat verwacht wordt.",
-    "title": "MC Tubbie | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/mc-tubbie",
-    "og": "https://kwartierwest.be/assets/og/artists/mc-tubbie.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "MC Tubbie",
-      "url": "https://kwartierwest.be/artiesten/mc-tubbie",
-      "image": "https://kwartierwest.be/assets/media/artists/mc-tubbie.webp",
-      "jobTitle": "Rapper / Freestyle MC",
-      "description": "MC Tubbie doet wat hij voelt. Niet wat werkt. Niet wat verwacht wordt.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://linktr.ee/mc.tubbie",
-        "https://soundcloud.com/gemak-kelijk",
-        "https://www.youtube.com/@mctubbie1672",
-        "https://www.instagram.com/tubbieontheroad/",
-        "https://www.facebook.com/youthwarriorsound/"
-      ]
-    }
-  },
-  {
     "slug": "thepanda",
     "name": "The P.A.N.D.A",
     "role": "Indie hiphopartiest",
     "scene": "hiphop",
     "variant": "artist-v1",
-    "index": "18 / 21",
+    "index": "17 / 20",
     "image": "/assets/media/artists/thepanda.webp",
     "quote": "Knallende drums, soulful en jazzy old-school beats, en strakke bars recht uit hart en ziel.",
     "paragraphs": [
@@ -1028,7 +956,7 @@ export const artists = [
     "role": "Rapper / Live-artiest",
     "scene": "hiphop",
     "variant": "artist-v2",
-    "index": "19 / 21",
+    "index": "18 / 20",
     "image": "/assets/media/artists/duvve.webp",
     "quote": "Hoog-energie rap met podiumurgentie op bandniveau.",
     "paragraphs": [
@@ -1076,7 +1004,7 @@ export const artists = [
     "role": "Producent",
     "scene": "hiphop",
     "variant": "artist-v3",
-    "index": "20 / 21",
+    "index": "19 / 20",
     "image": "/assets/media/artists/bruce.webp",
     "quote": "Precies drumwerk en schaduwrijk klankdesign.",
     "paragraphs": [
@@ -1115,7 +1043,7 @@ export const artists = [
     "role": "Producent / Beatmaker",
     "scene": "hiphop",
     "variant": "artist-v0",
-    "index": "21 / 21",
+    "index": "20 / 20",
     "image": "/assets/media/artists/creamz.webp",
     "quote": "Bounce-architectuur met gedetailleerd textuurwerk.",
     "paragraphs": [

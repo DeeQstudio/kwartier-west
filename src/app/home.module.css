@@ -1,0 +1,14 @@
+.introField {
+  background-color: #050505;
+  background-image: url('/assets/media/home/kwartier-west-intro.webp') !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
+}
+
+@media (max-width: 620px) {
+  .introField {
+    /* Keep the integrated Kwartier West sign readable on narrow screens. */
+    background-position: 15% center !important;
+  }
+}

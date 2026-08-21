@@ -53,7 +53,7 @@ if (files.some((file) => extname(file) === ".html")) errors.push("static .html d
 
 const artists = readFileSync(join(root, "src/data/artists.ts"), "utf8");
 const artistSlugs = [...artists.matchAll(/"slug": "([^"]+)"/g)].map((match) => match[1]);
-if (artistSlugs.length !== 21) errors.push(`expected 21 typed artists, found ${artistSlugs.length}`);
+if (artistSlugs.length !== 20) errors.push(`expected 20 typed artists, found ${artistSlugs.length}`);
 if (new Set(artistSlugs).size !== artistSlugs.length) errors.push("duplicate artist slug found");
 for (const slug of artistSlugs) {
   if (!existsSync(join(publicDir, `assets/media/artists/${slug}.webp`))) {
@@ -63,7 +63,7 @@ for (const slug of artistSlugs) {
 
 
 const siteData = readFileSync(join(root, "src/data/site.ts"), "utf8");
-for (const [name, expectedCount] of [["homeRosterOrder", 10], ["teknoRosterOrder", 13], ["hiphopRosterOrder", 8]]) {
+for (const [name, expectedCount] of [["homeRosterOrder", 9], ["teknoRosterOrder", 13], ["hiphopRosterOrder", 7]]) {
   const block = siteData.match(new RegExp(`export const ${name} = \\[([\\s\\S]*?)\\] as const;`))?.[1] ?? "";
   const slugs = [...block.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
   if (slugs.length !== expectedCount) errors.push(`${name}: expected ${expectedCount} entries, found ${slugs.length}`);
@@ -102,7 +102,7 @@ for (const route of expectedRoutes) {
   const marker = route === "/" ? "https://kwartierwest.be" : `https://kwartierwest.be${route}`;
   if (!sitemap.includes(marker)) errors.push(`sitemap route contract missing: ${route}`);
 }
-if (expectedRoutes.length !== 35) errors.push(`expected 35 indexed routes, found ${expectedRoutes.length}`);
+if (expectedRoutes.length !== 34) errors.push(`expected 34 indexed routes, found ${expectedRoutes.length}`);
 
 const validRoutes = new Set([...expectedRoutes, "/booking/verifieer"]);
 const internalHrefRe = /href=(?:"|{`)(\/[^"`}?#]*)(?:[^"`}]*)?(?:"|`})/g;

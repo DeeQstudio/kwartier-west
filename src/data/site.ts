@@ -34,7 +34,6 @@ export const homeRosterOrder = [
   "spoorloos",
   "creamz",
   "masschie",
-  "mc-tubbie",
 ] as const;
 
 export const teknoRosterOrder = [
@@ -57,7 +56,6 @@ export const hiphopRosterOrder = [
   "de-kweker",
   "thorre",
   "krank",
-  "mc-tubbie",
   "thepanda",
   "duvve",
   "bruce",

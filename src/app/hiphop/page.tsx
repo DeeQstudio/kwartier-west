@@ -49,7 +49,7 @@ export default function HiphopPage() {
         <div className="hiphop-hero-cards">
           <figure className="hiphop-hero-card--kweker" data-artist-slug="de-kweker" data-media-kind="photo"><img src="/assets/media/artists/de-kweker-feature.webp" alt="De Kweker, rapper uit Brugge" /><figcaption>De Kweker</figcaption></figure>
           <figure data-artist-slug="thepanda" data-media-kind="photo"><img src="/assets/media/artists/thepanda.webp" alt="The P.A.N.D.A" /><figcaption>The P.A.N.D.A</figcaption></figure>
-          <figure data-artist-slug="mc-tubbie" data-media-kind="photo"><img src="/assets/media/artists/mc-tubbie.webp" alt="MC Tubbie live" /><figcaption>MC Tubbie</figcaption></figure>
+          <figure data-artist-slug="thorre" data-media-kind="photo"><img src="/assets/media/artists/thorre.webp" alt="Thorre live" /><figcaption>Thorre</figcaption></figure>
         </div>
         <div className="hiphop-signal">LOCAL SIGNAL / WEST-VLAANDEREN</div>
       </section>
@@ -59,8 +59,8 @@ export default function HiphopPage() {
         <div className="broadcast-stack">
           <Link href="/artiesten/de-kweker" data-stack-index="0" data-artist-slug="de-kweker" data-media-kind="photo"><img src="/assets/media/artists/de-kweker-feature.webp" alt="De Kweker" /><span>De Kweker</span></Link>
           <Link href="/artiesten/thepanda" data-stack-index="1" data-artist-slug="thepanda" data-media-kind="photo"><img src="/assets/media/artists/thepanda.webp" alt="The P.A.N.D.A" /><span>The P.A.N.D.A</span></Link>
-          <Link href="/artiesten/mc-tubbie" data-stack-index="2" data-artist-slug="mc-tubbie" data-media-kind="photo"><img src="/assets/media/artists/mc-tubbie.webp" alt="MC Tubbie" /><span>MC Tubbie</span></Link>
-          <Link href="/artiesten/thorre" data-stack-index="3" data-artist-slug="thorre" data-media-kind="photo"><img src="/assets/media/artists/thorre.webp" alt="Thorre" /><span>Thorre</span></Link>
+          <Link href="/artiesten/thorre" data-stack-index="2" data-artist-slug="thorre" data-media-kind="photo"><img src="/assets/media/artists/thorre.webp" alt="Thorre" /><span>Thorre</span></Link>
+          <Link href="/artiesten/krank" data-stack-index="3" data-artist-slug="krank" data-media-kind="photo"><img src="/assets/media/artists/krank.webp" alt="Krank" /><span>Krank</span></Link>
         </div>
       </section>
 
