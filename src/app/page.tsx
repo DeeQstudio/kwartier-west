@@ -58,16 +58,20 @@ export default function HomePage() {
           </div>
 
           <div className="hero-cross" />
-          <div className="hero-kicker">West-Vlaams / Tekno + Hip hop</div>
+          <div className={`hero-kicker ${styles.introKicker}`}>West-Vlaams / Tekno + Hip hop</div>
           <div className="hero-logo" style={{ opacity: "var(--hero-logo, 0)" }}>
             <img src="/assets/kw-wordmark.png" alt="Kwartier West" />
           </div>
           <div className="hero-side-label hero-side-label--l">TEKNO</div>
           <div className="hero-side-label hero-side-label--r">HIP HOP</div>
-          <div className="scroll-instruction">
+          <div className={`scroll-instruction ${styles.introScroll}`}>
             <span>Scroll</span>
             <i />
             <small>Tekno / Hip hop / live</small>
+          </div>
+          <div className={styles.introCue} aria-hidden="true">
+            <span>Open Kwartier West</span>
+            <i />
           </div>
         </div>
       </section>

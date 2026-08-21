@@ -19,11 +19,41 @@ export function MotionDirector() {
     const qa = <T extends Element = HTMLElement>(selector: string, context: ParentNode = document) =>
       Array.from(context.querySelectorAll<T>(selector));
 
+    // App Router swaps page content without remounting the root layout. Cache the
+    // freshly committed page DOM once per pathname instead of querying it on every
+    // scroll frame. This is noticeably smoother on mobile devices.
+    const hero = q<HTMLElement>("[data-home-hero]");
+    const sceneChapters = qa<HTMLElement>("[data-scene-chapter]");
+    const banners = qa<HTMLElement>("[data-banner]");
+    const tekno = q<HTMLElement>("[data-tekno-hero]");
+    const hiphop = q<HTMLElement>("[data-hiphop-hero]");
+    const dial = q<HTMLElement>("[data-tek-machine]");
+    const broadcast = q<HTMLElement>("[data-hip-broadcast]");
+    const archiveStack = q<HTMLElement>("[data-archive-stack]");
+    const galleryTiles = qa<HTMLElement>(".relics-gallery figure,.archive-tile");
+    const orbit = q<HTMLElement>("[data-partner-orbit]");
+    const orbitNodes = orbit ? qa<HTMLElement>(".partner-node", orbit) : [];
+    const manifestRows = qa<HTMLElement>("[data-manifest]>div");
+    const footer = q<HTMLElement>(".footer-mark");
+
     const chapters = qa<HTMLElement>("main > section:not(:first-child)");
     chapters.forEach((section, index) => {
       section.classList.add("motion-chapter");
       section.dataset.motionIndex = String(index + 1).padStart(2, "0");
     });
+
+    const tracked = [
+      { el: q<HTMLElement>("[data-roster-hero]"), kind: "rotate" },
+      { el: q<HTMLElement>("[data-events-hero]"), kind: "event" },
+      { el: q<HTMLElement>("[data-archive-hero]"), kind: "archive" },
+      { el: q<HTMLElement>("[data-partners-hero]"), kind: "partner" },
+      { el: q<HTMLElement>("[data-booking-hero]"), kind: "booking" },
+      { el: q<HTMLElement>("[data-contact-hero]"), kind: "contact" },
+      { el: q<HTMLElement>("[data-manifest-hero]"), kind: "manifest" },
+      { el: q<HTMLElement>("[data-artist-hero]"), kind: "artist" },
+      { el: q<HTMLElement>("[data-villa-hero]"), kind: "villa" },
+      { el: q<HTMLElement>("[data-relics-hero]"), kind: "relic" },
+    ] as const;
 
     const revealObserver = new IntersectionObserver(
       (entries) => entries.forEach((entry) => {
@@ -32,9 +62,18 @@ export function MotionDirector() {
           revealObserver.unobserve(entry.target);
         }
       }),
-      { threshold: 0.12, rootMargin: "0px 0px -5%" },
+      { threshold: 0.1, rootMargin: "0px 0px -4%" },
     );
     qa("[data-reveal]").forEach((el) => revealObserver.observe(el));
+
+    // Avoid forcing style recalculation when a rounded value did not actually change.
+    const lastVars = new Map<string, string>();
+    const setVar = (name: string, value: string) => {
+      if (lastVars.get(name) === value) return;
+      lastVars.set(name, value);
+      root.style.setProperty(name, value);
+    };
+    const n = (value: number, digits = 4) => Number(value.toFixed(digits));
 
     let ticking = false;
     let frameId: number | null = null;
@@ -44,158 +83,152 @@ export function MotionDirector() {
       ticking = false;
       if (reduce) return;
 
-      const hero = q("[data-home-hero]");
+      const compact = window.innerWidth <= 760;
+      const motionScale = compact ? 0.55 : 1;
+
       if (hero) {
         const p = progress(hero);
-        root.style.setProperty("--hero-photos", String(clamp(p / 0.42)));
-        root.style.setProperty("--hero-logo", String(clamp((p - 0.12) / 0.45)));
-        root.style.setProperty("--hero-line", String(clamp((p - 0.2) / 0.35)));
-        root.style.setProperty("--hero-labels", String(clamp((p - 0.48) / 0.28)));
-        root.style.setProperty("--hero-red", String(clamp((p - 0.7) / 0.25) * 100));
+        setVar("--hero-photos", String(n(clamp(p / 0.42))));
+        setVar("--hero-logo", String(n(clamp((p - 0.12) / 0.45))));
+        setVar("--hero-line", String(n(clamp((p - 0.2) / 0.35))));
+        setVar("--hero-labels", String(n(clamp((p - 0.48) / 0.28))));
+        setVar("--hero-red", String(n(clamp((p - 0.7) / 0.25) * 100, 2)));
       }
 
-      qa<HTMLElement>("[data-scene-chapter]").forEach((el) => {
+      sceneChapters.forEach((el) => {
         const rect = el.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        el.style.setProperty("--scene-y", `${(p - 0.5) * -50}px`);
-        el.style.setProperty("--scene-scale", String(1.08 - p * 0.05));
+        setVarFor(el, "--scene-y", `${n((p - 0.5) * -50 * motionScale, 2)}px`);
+        setVarFor(el, "--scene-scale", String(n((compact ? 1.03 : 1.08) - p * (compact ? 0.018 : 0.05))));
       });
 
-      qa<HTMLElement>("[data-banner]").forEach((el) => {
+      banners.forEach((el) => {
         const p = progress(el);
-        el.style.setProperty("--banner-scale", String(1.08 - p * 0.07));
-        el.style.setProperty("--banner-y", `${p * -28}px`);
-        el.style.setProperty("--banner-line", String(clamp(p * 1.8)));
+        setVarFor(el, "--banner-scale", String(n((compact ? 1.04 : 1.08) - p * (compact ? 0.035 : 0.07))));
+        setVarFor(el, "--banner-y", `${n(p * -28 * motionScale, 2)}px`);
+        setVarFor(el, "--banner-line", String(n(clamp(p * 1.8))));
       });
 
-      const tekno = q("[data-tekno-hero]");
       if (tekno) {
         const p = progress(tekno);
-        root.style.setProperty("--tek-hero-scale", String(1.09 - p * 0.07));
-        root.style.setProperty("--tek-hero-y", `${p * -34}px`);
-        root.style.setProperty("--tek-title-x", `${p * 42}px`);
+        setVar("--tek-hero-scale", String(n((compact ? 1.045 : 1.09) - p * (compact ? 0.035 : 0.07))));
+        setVar("--tek-hero-y", `${n(p * -34 * motionScale, 2)}px`);
+        setVar("--tek-title-x", `${n(p * 42 * motionScale, 2)}px`);
       }
 
-      const hiphop = q<HTMLElement>("[data-hiphop-hero]");
       if (hiphop) {
         const p = clamp(window.scrollY / Math.max(1, hiphop.offsetHeight - window.innerHeight * 0.2));
-        root.style.setProperty("--hip-red", String(1 - p * 0.22));
-        root.style.setProperty("--hip-title-y", `${p * -30}px`);
-        root.style.setProperty("--hip-card-y", `${p * 36}px`);
+        setVar("--hip-red", String(n(1 - p * 0.22)));
+        setVar("--hip-title-y", `${n(p * -30 * motionScale, 2)}px`);
+        setVar("--hip-card-y", `${n(p * 36 * motionScale, 2)}px`);
       }
 
-      const variables: Array<[string, string, string]> = [
-        ["[data-roster-hero]", "--roster-sheet-r", "rotate"],
-        ["[data-events-hero]", "--event-a-r", "event"],
-        ["[data-archive-hero]", "--archive-track-x", "archive"],
-        ["[data-partners-hero]", "--partner-hero-y", "partner"],
-        ["[data-booking-hero]", "--booking-router-x", "booking"],
-        ["[data-contact-hero]", "--contact-mail-x", "contact"],
-        ["[data-manifest-hero]", "--manifest-mark-r", "manifest"],
-        ["[data-artist-hero]", "--artist-hero-scale", "artist"],
-        ["[data-villa-hero]", "--villa-r", "villa"],
-        ["[data-relics-hero]", "--relic-scale", "relic"],
-      ];
-
-      for (const [selector, , kind] of variables) {
-        const el = q<HTMLElement>(selector);
+      for (const { el, kind } of tracked) {
         if (!el) continue;
         const p = clamp(window.scrollY / Math.max(1, kind === "artist" || kind === "relic" ? window.innerHeight : el.offsetHeight));
         if (kind === "rotate") {
-          root.style.setProperty("--roster-sheet-r", `${-3 + p * 5}deg`);
-          root.style.setProperty("--roster-sheet-y", `${p * 35}px`);
+          setVar("--roster-sheet-r", `${n(-3 + p * 5 * motionScale, 2)}deg`);
+          setVar("--roster-sheet-y", `${n(p * 35 * motionScale, 2)}px`);
         } else if (kind === "event") {
-          root.style.setProperty("--event-a-r", `${-5 + p * 6}deg`);
-          root.style.setProperty("--event-b-r", `${3 - p * 5}deg`);
-          root.style.setProperty("--event-a-y", `${p * 45}px`);
-          root.style.setProperty("--event-b-y", `${p * -32}px`);
+          setVar("--event-a-r", `${n(-5 + p * 6 * motionScale, 2)}deg`);
+          setVar("--event-b-r", `${n(3 - p * 5 * motionScale, 2)}deg`);
+          setVar("--event-a-y", `${n(p * 45 * motionScale, 2)}px`);
+          setVar("--event-b-y", `${n(p * -32 * motionScale, 2)}px`);
         } else if (kind === "archive") {
-          root.style.setProperty("--archive-track-x", `${-8 - p * 38}vw`);
+          setVar("--archive-track-x", `${n(-8 - p * 38 * motionScale, 2)}vw`);
         } else if (kind === "partner") {
-          root.style.setProperty("--partner-hero-y", `${(p - 0.4) * 34}px`);
+          setVar("--partner-hero-y", `${n((p - 0.4) * 34 * motionScale, 2)}px`);
         } else if (kind === "booking") {
-          root.style.setProperty("--booking-router-x", `${p * 24}px`);
+          setVar("--booking-router-x", `${n(p * 24 * motionScale, 2)}px`);
         } else if (kind === "contact") {
-          root.style.setProperty("--contact-mail-x", `${p * -30}px`);
+          setVar("--contact-mail-x", `${n(p * -30 * motionScale, 2)}px`);
         } else if (kind === "manifest") {
-          root.style.setProperty("--manifest-mark-r", `${-3 + p * 7}deg`);
+          setVar("--manifest-mark-r", `${n(-3 + p * 7 * motionScale, 2)}deg`);
         } else if (kind === "artist") {
-          root.style.setProperty("--artist-hero-scale", String(1.06 - p * 0.05));
-          root.style.setProperty("--artist-hero-y", `${p * 45}px`);
+          setVar("--artist-hero-scale", String(n((compact ? 1.03 : 1.06) - p * (compact ? 0.025 : 0.05))));
+          setVar("--artist-hero-y", `${n(p * 45 * motionScale, 2)}px`);
         } else if (kind === "villa") {
-          root.style.setProperty("--villa-r", `${-7 + p * 10}deg`);
-          root.style.setProperty("--villa-y", `${p * 45}px`);
+          setVar("--villa-r", `${n(-7 + p * 10 * motionScale, 2)}deg`);
+          setVar("--villa-y", `${n(p * 45 * motionScale, 2)}px`);
         } else if (kind === "relic") {
-          root.style.setProperty("--relic-scale", String(1.08 - p * 0.06));
+          setVar("--relic-scale", String(n((compact ? 1.04 : 1.08) - p * (compact ? 0.03 : 0.06))));
         }
       }
 
-      const dial = q("[data-tek-machine]");
       if (dial) {
         const rect = dial.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        root.style.setProperty("--dial-r", `${p * 220}deg`);
+        setVar("--dial-r", `${n(p * 220 * motionScale, 2)}deg`);
       }
 
-      const broadcast = q("[data-hip-broadcast]");
       if (broadcast) {
         const rect = broadcast.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        root.style.setProperty("--broadcast-y", `${(p - 0.5) * -55}px`);
-        root.style.setProperty("--ticker-x", `${(p - 0.5) * -260}px`);
+        setVar("--broadcast-y", `${n((p - 0.5) * -55 * motionScale, 2)}px`);
+        setVar("--ticker-x", `${n((p - 0.5) * -260 * motionScale, 2)}px`);
       }
 
-      const archiveStack = q("[data-archive-stack]");
       if (archiveStack) {
         const rect = archiveStack.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        root.style.setProperty("--as1", `${(p - 0.5) * -60}px`);
-        root.style.setProperty("--as2", `${(p - 0.5) * 45}px`);
-        root.style.setProperty("--as3", `${(p - 0.5) * -30}px`);
+        setVar("--as1", `${n((p - 0.5) * -60 * motionScale, 2)}px`);
+        setVar("--as2", `${n((p - 0.5) * 45 * motionScale, 2)}px`);
+        setVar("--as3", `${n((p - 0.5) * -30 * motionScale, 2)}px`);
       }
 
-      qa<HTMLElement>(".relics-gallery figure,.archive-tile").forEach((el, index) => {
+      galleryTiles.forEach((el, index) => {
         const rect = el.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        el.style.setProperty(index < 7 ? "--gallery-y" : "--archive-y", `${(p - 0.5) * (index % 2 ? 30 : -30)}px`);
+        setVarFor(el, index < 7 ? "--gallery-y" : "--archive-y", `${n((p - 0.5) * (index % 2 ? 30 : -30) * motionScale, 2)}px`);
       });
 
-      const orbit = q("[data-partner-orbit]");
       if (orbit) {
         const rect = orbit.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        root.style.setProperty("--orbit-core-r", `${(p - 0.5) * 8}deg`);
-        qa<HTMLElement>(".partner-node", orbit).forEach((node, index) =>
-          node.style.setProperty("--node-y", `${(p - 0.5) * (index % 2 ? 35 : -35)}px`),
+        setVar("--orbit-core-r", `${n((p - 0.5) * 8 * motionScale, 2)}deg`);
+        orbitNodes.forEach((node, index) =>
+          setVarFor(node, "--node-y", `${n((p - 0.5) * (index % 2 ? 35 : -35) * motionScale, 2)}px`),
         );
       }
 
-      qa<HTMLElement>("[data-manifest]>div").forEach((el, index) => {
+      manifestRows.forEach((el, index) => {
         const rect = el.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        el.style.setProperty("--manifest-x", `${(p - 0.5) * (index % 2 ? -45 : 45)}px`);
+        setVarFor(el, "--manifest-x", `${n((p - 0.5) * (index % 2 ? -45 : 45) * motionScale, 2)}px`);
       });
 
       chapters.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
         const signed = p - 0.5;
-        section.style.setProperty("--chapter-p", String(p));
-        section.style.setProperty("--chapter-title-y", `${signed * -36}px`);
-        section.style.setProperty("--chapter-title-rx", `${signed * 7}deg`);
-        section.style.setProperty("--chapter-plate-y", `${signed * -52}px`);
-        section.style.setProperty("--chapter-plate-rx", `${-13 + p * 24}deg`);
-        section.style.setProperty("--chapter-plate-ry", `${(index % 2 ? -1 : 1) * (-18 + p * 32)}deg`);
-        section.style.setProperty("--chapter-line", String(clamp((p - 0.05) / 0.45)));
+        setVarFor(section, "--chapter-p", String(n(p)));
+        setVarFor(section, "--chapter-title-y", `${n(signed * -36 * motionScale, 2)}px`);
+        setVarFor(section, "--chapter-title-rx", `${n(signed * 7 * motionScale, 2)}deg`);
+        setVarFor(section, "--chapter-plate-y", `${n(signed * -52 * motionScale, 2)}px`);
+        setVarFor(section, "--chapter-plate-rx", `${n(-13 + p * 24 * motionScale, 2)}deg`);
+        setVarFor(section, "--chapter-plate-ry", `${n((index % 2 ? -1 : 1) * (-18 + p * 32 * motionScale), 2)}deg`);
+        setVarFor(section, "--chapter-line", String(n(clamp((p - 0.05) / 0.45))));
       });
 
-      const footer = q(".footer-mark");
       if (footer) {
         const rect = footer.getBoundingClientRect();
         const p = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        root.style.setProperty("--footer-y", `${(1 - p) * 38}px`);
+        setVar("--footer-y", `${n((1 - p) * 38 * motionScale, 2)}px`);
       }
     };
+
+    // Element-local variables are cached separately to prevent repeated style writes.
+    const elementVarCache = new WeakMap<HTMLElement, Map<string, string>>();
+    function setVarFor(el: HTMLElement, name: string, value: string) {
+      let cache = elementVarCache.get(el);
+      if (!cache) {
+        cache = new Map<string, string>();
+        elementVarCache.set(el, cache);
+      }
+      if (cache.get(name) === value) return;
+      cache.set(name, value);
+      el.style.setProperty(name, value);
+    }
 
     const request = () => {
       if (!ticking) {
@@ -207,8 +240,8 @@ export function MotionDirector() {
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", request, { passive: true });
 
-    // App Router keeps this component mounted between pages. Wait one frame so
-    // the newly navigated page has committed, then measure its DOM from scratch.
+    // Wait two frames for the new App Router page to commit and paint, then
+    // initialise its scroll state. This also makes direct loads feel alive immediately.
     initFrameId = window.requestAnimationFrame(() => {
       initFrameId = window.requestAnimationFrame(update);
     });

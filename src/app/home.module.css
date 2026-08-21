@@ -4,11 +4,139 @@
   background-repeat: no-repeat !important;
   background-position: center center !important;
   background-size: cover !important;
+  transform-origin: 50% 50%;
+  will-change: transform, filter;
+  animation: introImageIn 1500ms cubic-bezier(.18,.76,.2,1) both;
+}
+
+.introField::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.48), transparent 42%, rgba(0,0,0,.16)),
+    linear-gradient(180deg, rgba(0,0,0,.18), transparent 42%, rgba(0,0,0,.35));
+  animation: introShadeIn 1700ms ease-out both;
+}
+
+.introField::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.72) 28%, rgba(229,20,17,.9) 68%, transparent);
+  box-shadow: 0 0 34px rgba(229,20,17,.36);
+  transform: scaleY(0);
+  transform-origin: 50% 50%;
+  opacity: 0;
+  animation: introSignal 1250ms 450ms cubic-bezier(.2,.76,.22,1) both;
+}
+
+.introKicker,
+.introScroll {
+  opacity: 0;
+  animation: introMetaIn 650ms 900ms ease-out forwards;
+}
+
+.introCue {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: clamp(22px, 4vh, 48px);
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: introCueIn 700ms 1150ms ease-out forwards;
+  pointer-events: none;
+}
+
+.introCue i {
+  display: block;
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(180deg, #fff, var(--red));
+  transform-origin: top;
+  animation: introCueLine 1450ms 1500ms cubic-bezier(.2,.76,.22,1) infinite;
+}
+
+@keyframes introImageIn {
+  from { transform: scale(1.035); filter: brightness(.62) contrast(1.08); }
+  to { transform: scale(1); filter: brightness(1) contrast(1); }
+}
+
+@keyframes introShadeIn {
+  from { opacity: .92; }
+  to { opacity: 1; }
+}
+
+@keyframes introSignal {
+  0% { opacity: 0; transform: scaleY(0); }
+  38% { opacity: .9; transform: scaleY(1); }
+  100% { opacity: 0; transform: scaleY(1); }
+}
+
+@keyframes introMetaIn {
+  from { opacity: 0; transform: translateY(-7px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes introCueIn {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: .78; transform: translate(-50%, 0); }
+}
+
+@keyframes introCueLine {
+  0% { opacity: .28; transform: scaleY(.2); }
+  48% { opacity: 1; transform: scaleY(1); }
+  100% { opacity: .28; transform: scaleY(.2); }
 }
 
 @media (max-width: 620px) {
   .introField {
     /* Keep the integrated Kwartier West sign readable on narrow screens. */
     background-position: 15% center !important;
+    animation-duration: 1050ms;
+  }
+
+  .introField::after {
+    left: 62%;
+  }
+
+  .introCue {
+    bottom: 22px;
+    font-size: 7px;
+  }
+
+  .introCue i {
+    height: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .introField,
+  .introField::before,
+  .introField::after,
+  .introKicker,
+  .introScroll,
+  .introCue,
+  .introCue i {
+    animation: none !important;
+  }
+
+  .introKicker,
+  .introScroll,
+  .introCue {
+    opacity: 1;
   }
 }

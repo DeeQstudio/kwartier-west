@@ -55,6 +55,15 @@ const artists = readFileSync(join(root, "src/data/artists.ts"), "utf8");
 const artistSlugs = [...artists.matchAll(/"slug": "([^"]+)"/g)].map((match) => match[1]);
 if (artistSlugs.length !== 20) errors.push(`expected 20 typed artists, found ${artistSlugs.length}`);
 if (new Set(artistSlugs).size !== artistSlugs.length) errors.push("duplicate artist slug found");
+
+const forbiddenFormerArtist = "tubb" + "ie";
+const forbiddenRefs = files.filter((file) => file.toLowerCase().includes(forbiddenFormerArtist));
+if (forbiddenRefs.length) errors.push(`former artist files remain: ${forbiddenRefs.join(", ")}`);
+for (const [name, text] of sourceText) {
+  if (text.toLowerCase().includes(forbiddenFormerArtist)) errors.push(`${name}: former artist reference remains`);
+}
+const artistIndexPage = readFileSync(join(root, "src/app/artiesten/page.tsx"), "utf8");
+if (!artistIndexPage.includes("{artists.length}")) errors.push("artist roster hero count is not derived from typed artist data");
 for (const slug of artistSlugs) {
   if (!existsSync(join(publicDir, `assets/media/artists/${slug}.webp`))) {
     errors.push(`artist asset missing: ${slug}.webp`);
