@@ -36,9 +36,6 @@ const mustExist = [
   "src/components/roster-board.tsx",
   "src/components/artist-announcements.tsx",
   "src/app/artiesten/opengraph-image.tsx",
-  "src/components/villa-west-stream.tsx",
-  "src/components/villa-west-status.tsx",
-  "src/lib/time-window.ts",
   "src/lib/artist-media.ts",
   "next.config.ts",
   "tsconfig.json",
@@ -102,15 +99,17 @@ const eventSlugs = [...events.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => m
 if (eventSlugs.length !== 2) errors.push(`expected 2 typed event records, found ${eventSlugs.length}`);
 for (const marker of [
   'date: "2026-08-21"',
-  'startTime: "21:55"',
-  'endTime: "00:05"',
-  'https://live.villabota.be/index-video-only.html',
-  'https://caster04.streampakket.com/proxy/8186/stream',
+  'status: "past"',
   'name: "Thorre"',
   'name: "Siga & Lefever"',
   'name: "Wildcard"',
 ]) {
-  if (!events.includes(marker)) errors.push(`Villa West live contract missing: ${marker}`);
+  if (!events.includes(marker)) errors.push(`Villa West archive contract missing: ${marker}`);
+}
+for (const marker of ["VillaWestStream", "VillaWestStatus", "live.villabota.be", "caster04.streampakket.com"]) {
+  if (sourceText.some(([name, text]) => name !== "scripts/release-qa.mjs" && text.includes(marker))) {
+    errors.push(`retired Villa West live reference remains: ${marker}`);
+  }
 }
 
 const staticRoutes = JSON.parse(readFileSync(join(root, "scripts/expected-routes.json"), "utf8"));
@@ -187,8 +186,6 @@ for (const marker of [
   "frame-ancestors 'none'",
   "object-src 'none'",
   "https://challenges.cloudflare.com",
-  "https://live.villabota.be",
-  "https://caster04.streampakket.com",
   "/pages/tekno/",
   "/pages/hiphop/",
   "/pages/tekno/artist/:slug",

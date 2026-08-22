@@ -727,11 +727,10 @@ const artistSources = [
   }
 ] as const satisfies readonly ArtistSource[];
 
-function enrichArtist(source: ArtistSource, index: number): Artist {
+function enrichArtist(source: ArtistSource): Artist {
   const sameAs = source.links.map((link) => link.href);
   return {
     ...source,
-    variant: `artist-v${index % 4}` as Artist["variant"],
     title: `${source.name} | Kwartier West`,
     canonical: `${siteUrl}/artiesten/${source.slug}`,
     og: `${siteUrl}/assets/og/artists/${source.slug}.jpg`,

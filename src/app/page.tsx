@@ -3,8 +3,6 @@ import { JsonLd } from "@/components/json-ld";
 import { HomeRoster } from "@/components/home-roster";
 import { ArtistAnnouncements } from "@/components/artist-announcements";
 import { makeMetadata } from "@/lib/metadata";
-import { eventBySlug } from "@/data/events";
-import { VillaWestStatus } from "@/components/villa-west-status";
 import styles from "./home.module.css";
 
 export const metadata = makeMetadata({
@@ -30,8 +28,6 @@ const schemas = [
 ] as const;
 
 export default function HomePage() {
-  const villa = eventBySlug.get("villa-west-2026");
-
   return (
     <main id="main" className="home" data-page="home">
       {schemas.map((schema, index) => (
@@ -130,43 +126,6 @@ export default function HomePage() {
       <ArtistAnnouncements />
 
       <HomeRoster />
-
-      <section className="event-home event-home--live">
-        <div className="event-home-poster" data-reveal="left">
-          <img
-            src="/assets/media/events/villa-west-2026-08-21.jpg"
-            alt="Villa West — laatste editie op 21 augustus 2026"
-          />
-        </div>
-        <div className="event-home-copy">
-          <span className="eyebrow">04 / Villa West</span>
-          <h2>
-            <span>Villa West</span>
-            <span className="event-home-date">21.08.2026</span>
-          </h2>
-          <p>
-            Op vrijdag 21 augustus sloot Villa West de zomer af bij Villa Bota. Thorre en Siga &amp;
-            Lefever openden van 22:00 tot 23:00; Wildcard nam over tot middernacht.
-          </p>
-          <dl>
-            <div>
-              <dt>Locatie</dt>
-              <dd>Villa Bota / Brugge</dd>
-            </div>
-            <div>
-              <dt>Uur</dt>
-              <dd>22:00–00:00</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>{villa?.stream ? <VillaWestStatus stream={villa.stream} /> : "Main event"}</dd>
-            </div>
-          </dl>
-          <Link className="arrow-link" href="/events/villa-west-2026">
-            Open eventarchief <span>↗</span>
-          </Link>
-        </div>
-      </section>
 
       <section className="network-home section-pad">
         <div>

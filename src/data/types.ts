@@ -30,7 +30,6 @@ export type ArtistSource = {
 };
 
 export type Artist = ArtistSource & {
-  variant: `artist-v${number}`;
   title: string;
   canonical: string;
   og: string;

@@ -77,30 +77,15 @@
 .partner-details article:before{content:"";position:absolute;left:0;top:-1px;width:clamp(45px,7vw,110px);height:1px;background:var(--red)}
 .partner-node{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.16)}
 
-/* Villa West — timezone-gated broadcast surface. */
-.villa-live-jump{position:absolute;z-index:8;left:var(--pad);bottom:clamp(24px,4vw,56px);display:flex;align-items:center;gap:9px;padding:10px 13px;border:1px solid rgba(255,255,255,.36);background:rgba(5,5,5,.7);backdrop-filter:blur(10px);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
-.villa-live-jump i{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(229,20,17,.16);animation:kwLivePulse 1.7s ease-in-out infinite}
-@keyframes kwLivePulse{50%{box-shadow:0 0 0 10px rgba(229,20,17,0)}}
-.event-lineup--current{padding:clamp(70px,10vh,140px) var(--pad);background:#0b0b0b;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.event-lineup--current>span{display:block;margin-bottom:25px;font-size:9px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.event-lineup--archive{padding:clamp(70px,10vh,140px) var(--pad);background:#0b0b0b;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.event-lineup--archive>span{display:block;margin-bottom:25px;font-size:9px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
 .villa-lineup-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .villa-lineup-grid>a,.villa-lineup-grid>div{min-height:210px;padding:30px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--line);transition:background .25s,transform .25s}
 .villa-lineup-grid>*:last-child{border-right:0}.villa-lineup-grid>a:hover{background:var(--red);transform:translateY(-6px)}
 .villa-lineup-grid small{font-size:9px;color:#888}.villa-lineup-grid b{font-size:clamp(28px,4vw,64px);line-height:.88;letter-spacing:-.055em}.villa-lineup-grid em{font-style:normal;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
-.event-stream-shell{position:relative;min-height:92vh;display:grid;align-content:center;gap:34px;background:radial-gradient(circle at 75% 28%,rgba(229,20,17,.16),transparent 34%),#050505;overflow:hidden;border-bottom:1px solid var(--line)}
-.event-stream-shell:before{content:"LIVE / KW / VILLA BOTA";position:absolute;right:-.05em;bottom:-.22em;font-size:clamp(80px,16vw,280px);font-weight:900;line-height:.75;letter-spacing:-.075em;color:rgba(255,255,255,.025);white-space:nowrap;pointer-events:none}
-.event-stream-head{position:relative;z-index:2;display:grid;grid-template-columns:1fr minmax(260px,430px);gap:50px;align-items:end}
-.event-stream-head h2{margin:10px 0 0;font-size:clamp(56px,9vw,148px);line-height:.78;letter-spacing:-.075em}
-.event-stream-head p{margin:0;color:#aaa;line-height:1.55}
-.event-stream-status{position:relative;z-index:2;display:grid;grid-template-columns:140px 1fr;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;text-transform:uppercase;letter-spacing:.1em;font-size:9px}
-.event-stream-status span{color:var(--red);font-weight:900}.event-stream-status b{font-size:10px}
-.event-stream-live{position:relative;z-index:2}.event-stream-frame{position:relative;aspect-ratio:16/9;background:#000;border:1px solid rgba(255,255,255,.2);box-shadow:0 40px 100px rgba(0,0,0,.55);overflow:hidden}.event-stream-frame:before{content:"ON AIR";position:absolute;z-index:2;left:14px;top:14px;background:var(--red);padding:8px 10px;font-size:8px;font-weight:900;letter-spacing:.14em}.event-stream-frame iframe{width:100%;height:100%;border:0;background:#000}
-.event-stream-controls{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:16px}.event-stream-controls>div{display:flex;align-items:center;gap:15px}.event-stream-controls span{font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:#999}.event-stream-controls audio{height:36px;max-width:min(420px,48vw)}.event-stream-controls>a{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--red);padding-bottom:4px}
-.event-stream-closed{position:relative;z-index:2;min-height:44vh;border:1px solid rgba(255,255,255,.16);display:grid;place-content:center;text-align:center;gap:14px;background:repeating-linear-gradient(0deg,rgba(255,255,255,.014) 0 1px,transparent 1px 4px),radial-gradient(circle at 50% 50%,rgba(229,20,17,.12),transparent 35%);overflow:hidden}.event-stream-closed span{font-size:10px;font-weight:900;letter-spacing:.2em;color:var(--red)}.event-stream-closed b{font-size:clamp(28px,5vw,76px);letter-spacing:-.055em}.stream-scanline{position:absolute;left:0;right:0;height:2px;background:rgba(255,255,255,.25);box-shadow:0 0 18px rgba(255,255,255,.2);animation:kwScan 4.5s linear infinite}@keyframes kwScan{from{top:-2px}to{top:100%}}
-
-@media(max-width:980px){.tekno-signature-break{grid-template-columns:1fr}.tekno-signature-break figure{width:min(760px,100%);justify-self:end}.event-stream-head{grid-template-columns:1fr}.villa-lineup-grid{grid-template-columns:1fr}.villa-lineup-grid>a,.villa-lineup-grid>div{min-height:140px;border-right:0;border-bottom:1px solid var(--line)}.villa-lineup-grid>*:last-child{border-bottom:0}}
-@media(max-width:620px){.motion-chapter:after{width:58px;top:44px;right:20px}.motion-chapter:before{right:20px}.tekno-signature-break{min-height:auto;padding-top:90px;padding-bottom:90px}.tekno-signature-break h2{font-size:15vw}.partner-detail-logo{min-height:120px}.event-stream-shell{min-height:80vh}.event-stream-head h2{font-size:19vw}.event-stream-status{grid-template-columns:1fr;gap:8px}.event-stream-controls{align-items:flex-start;flex-direction:column}.event-stream-controls>div{width:100%;align-items:flex-start;flex-direction:column}.event-stream-controls audio{max-width:100%;width:100%}.event-stream-closed{min-height:38vh}.villa-live-jump{left:20px;bottom:20px}}
-@media(prefers-reduced-motion:reduce){.motion-chapter:after,.motion-chapter>h2,.motion-chapter>header h2,.motion-chapter>div:first-child>h2,.motion-chapter>div:first-child>div>h2{transform:none!important}.villa-live-jump i,.stream-scanline{animation:none!important}}
+@media(max-width:980px){.tekno-signature-break{grid-template-columns:1fr}.tekno-signature-break figure{width:min(760px,100%);justify-self:end}.villa-lineup-grid{grid-template-columns:1fr}.villa-lineup-grid>a,.villa-lineup-grid>div{min-height:140px;border-right:0;border-bottom:1px solid var(--line)}.villa-lineup-grid>*:last-child{border-bottom:0}}
+@media(max-width:620px){.motion-chapter:after{width:58px;top:44px;right:20px}.motion-chapter:before{right:20px}.tekno-signature-break{min-height:auto;padding-top:90px;padding-bottom:90px}.tekno-signature-break h2{font-size:15vw}.partner-detail-logo{min-height:120px}}
+@media(prefers-reduced-motion:reduce){.motion-chapter:after,.motion-chapter>h2,.motion-chapter>header h2,.motion-chapter>div:first-child>h2,.motion-chapter>div:first-child>div>h2{transform:none!important}}
 
 /* V6.2 repair pass — controlled composition before decoration */
 
@@ -252,7 +237,6 @@ main{width:100%;max-width:100%;min-width:0}
   .event-grid,
   .event-facts,
   .event-editorial,
-  .event-stream-head,
   .booking-hero,
   .booking-builder,
   .contact-grid,
@@ -582,4 +566,16 @@ body{hyphens:none}
   .artist-hero[data-media-kind="identity"] .artist-hero-photo{inset:17vh 0 0 24vw!important}
   .artist-hero[data-media-kind="identity"] .artist-hero-red{width:28%!important;inset:0 auto 0 0!important;background:var(--red)!important}
   .artist-hero[data-media-kind="identity"] .artist-hero-title{max-width:88vw}
+}
+
+/* One stable artist-page composition. Per-artist data controls only media type
+   and focal position; dataset order no longer changes the hero layout. */
+.artist-layout-split .artist-hero-photo{inset:8vh 5vw 0 42vw}
+.artist-layout-split .artist-hero-red{inset:0;width:48%;background:var(--red);mix-blend-mode:normal}
+.artist-layout-split .artist-hero-title{max-width:52vw}
+
+@media(max-width:620px){
+  .artist-layout-split .artist-hero[data-media-kind="photo"] .artist-hero-photo{inset:17vh 0 0 20vw}
+  .artist-layout-split .artist-hero[data-media-kind="photo"] .artist-hero-red{inset:0;width:auto;background:linear-gradient(90deg,#050505 0 24%,rgba(229,20,17,.78) 24% 27%,rgba(0,0,0,.08) 62%,rgba(0,0,0,.46));mix-blend-mode:normal}
+  .artist-layout-split .artist-hero-title{max-width:82vw}
 }

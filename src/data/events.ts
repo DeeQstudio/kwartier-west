@@ -4,18 +4,6 @@ export type EventLineupItem = {
   artistSlug?: string;
 };
 
-export type EventStream = {
-  enabled: boolean;
-  label: string;
-  videoUrl: string;
-  audioUrl: string;
-  sourceUrl: string;
-  timeZone: string;
-  startDate: string;
-  startTime: string;
-  endTime: string;
-};
-
 export type EventRecord = {
   slug: string;
   title: string;
@@ -32,7 +20,6 @@ export type EventRecord = {
   status: "upcoming" | "past";
   poster: string;
   lineup: readonly EventLineupItem[];
-  stream?: EventStream;
   schema: Record<string, unknown> | null;
 };
 
@@ -106,17 +93,6 @@ export const events = [
       { name: "Siga & Lefever", slot: "22:00–23:00" },
       { name: "Wildcard", slot: "23:00–00:00" },
     ],
-    stream: {
-      enabled: true,
-      label: "Villa Bota livestream",
-      videoUrl: "https://live.villabota.be/index-video-only.html",
-      audioUrl: "https://caster04.streampakket.com/proxy/8186/stream",
-      sourceUrl: "https://www.villabota.be",
-      timeZone: "Europe/Brussels",
-      startDate: "2026-08-21",
-      startTime: "21:55",
-      endTime: "00:05",
-    },
     schema: {
       "@context": "https://schema.org",
       "@type": "MusicEvent",

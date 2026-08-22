@@ -47,7 +47,7 @@ export default async function ArtistPage({
   };
 
   return (
-    <main id="main" className={`artist-page artist-${artist.scene} ${artist.variant}`}>
+    <main id="main" className={`artist-page artist-${artist.scene} artist-layout-split`}>
       {artist.schema && <JsonLd data={artist.schema} />}
       <JsonLd data={breadcrumb} />
       <ArtistDetail artist={artist} />
