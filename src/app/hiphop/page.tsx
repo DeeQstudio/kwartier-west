@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
 import { HiphopRoster } from "@/components/scene-rosters";
+import { ArtistAnnouncements } from "@/components/artist-announcements";
+import { hiphopArtists } from "@/data/artists";
 import { makeMetadata } from "@/lib/metadata";
 
 export const metadata = makeMetadata({
@@ -23,18 +25,16 @@ const schemas = [
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Kwartier West hip hop artiesten",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@type": "Person",
-          "name": "De Kweker",
-          "url": "https://kwartierwest.be/artiesten/de-kweker",
-          "sameAs": "https://kwkr.be"
-        }
+    "numberOfItems": hiphopArtists.length,
+    "itemListElement": hiphopArtists.map((artist, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Person",
+        "name": artist.name,
+        "url": artist.canonical
       }
-    ]
+    }))
   }
 ] as const;
 
@@ -77,6 +77,7 @@ export default function HiphopPage() {
         </div>
       </section>
 
+      <ArtistAnnouncements compact />
       <HiphopRoster />
       <section className="scene-book scene-book--light"><span>Hip hop / booking</span><h2>Live, productie of meerdere artiesten op één avond.</h2><Link href="/booking?scene=hiphop">Start een Hip hop-aanvraag</Link></section>
     </main>

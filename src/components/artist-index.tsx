@@ -5,13 +5,12 @@ import type { Route } from "next";
 import { useState } from "react";
 import { artists } from "@/data/artists";
 import type { Scene } from "@/data/types";
-import { artistMediaKind } from "@/lib/artist-media";
 
 type Filter = "all" | Scene;
 
 export function ArtistIndex() {
   const [filter, setFilter] = useState<Filter>("all");
-  const [activeSlug, setActiveSlug] = useState<string>(artists[0].slug);
+  const [activeSlug, setActiveSlug] = useState<string>(artists[0]?.slug ?? "");
   const visible = artists.filter((artist) => filter === "all" || artist.scene === filter);
   const active = artists.find((artist) => artist.slug === activeSlug) ?? visible[0] ?? artists[0];
 
@@ -61,11 +60,13 @@ export function ArtistIndex() {
             );
           })}
         </div>
-        <figure className="artist-index-preview" data-artist-slug={active.slug} data-media-kind={artistMediaKind(active.slug)}>
-          <div className="preview-red" />
-          <img key={active.slug} alt="" data-index-preview src={active.image} />
-          <figcaption data-index-caption>{active.name}</figcaption>
-        </figure>
+        {active && (
+          <figure className="artist-index-preview" data-artist-slug={active.slug} data-media-kind={active.mediaKind}>
+            <div className="preview-red" />
+            <img key={active.slug} alt="" data-index-preview src={active.image} />
+            <figcaption data-index-caption>{active.name}</figcaption>
+          </figure>
+        )}
       </div>
     </section>
   );

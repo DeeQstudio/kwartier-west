@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
 import { HomeRoster } from "@/components/home-roster";
+import { ArtistAnnouncements } from "@/components/artist-announcements";
 import { makeMetadata } from "@/lib/metadata";
 import { eventBySlug } from "@/data/events";
 import { VillaWestStatus } from "@/components/villa-west-status";
@@ -126,6 +127,8 @@ export default function HomePage() {
         </Link>
       </section>
 
+      <ArtistAnnouncements />
+
       <HomeRoster />
 
       <section className="event-home event-home--live">
@@ -142,9 +145,8 @@ export default function HomePage() {
             <span className="event-home-date">21.08.2026</span>
           </h2>
           <p>
-            Vrijdag 21 augustus sluit Villa West de zomer af bij Villa Bota. Thorre en Siga &amp;
-            Lefever openen van 22:00 tot 23:00; Wildcard neemt over tot middernacht. Live volgen kan
-            vanaf 21:55.
+            Op vrijdag 21 augustus sloot Villa West de zomer af bij Villa Bota. Thorre en Siga &amp;
+            Lefever openden van 22:00 tot 23:00; Wildcard nam over tot middernacht.
           </p>
           <dl>
             <div>
@@ -160,8 +162,8 @@ export default function HomePage() {
               <dd>{villa?.stream ? <VillaWestStatus stream={villa.stream} /> : "Main event"}</dd>
             </div>
           </dl>
-          <Link className="arrow-link" href="/events/villa-west-2026#villa-west-stream">
-            Main event + livestream <span>↗</span>
+          <Link className="arrow-link" href="/events/villa-west-2026">
+            Open eventarchief <span>↗</span>
           </Link>
         </div>
       </section>

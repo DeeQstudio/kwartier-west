@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   typedRoutes: true,
   compress: true,
+  turbopack: {
+    root: process.cwd(),
+  },
 
   async redirects() {
     return [

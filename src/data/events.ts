@@ -99,7 +99,7 @@ export const events = [
     endTime: "00:00",
     venue: "Villa Bota",
     region: "Brugge",
-    status: "upcoming",
+    status: "past",
     poster: "/assets/media/events/villa-west-2026-08-21.jpg",
     lineup: [
       { name: "Thorre", slot: "22:00–23:00", artistSlug: "thorre" },
@@ -123,7 +123,7 @@ export const events = [
       "name": "Villa West",
       "startDate": "2026-08-21T22:00:00+02:00",
       "endDate": "2026-08-22T00:00:00+02:00",
-      "eventStatus": "https://schema.org/EventScheduled",
+      "eventStatus": "https://schema.org/EventCompleted",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
       "location": {
         "@type": "Place",

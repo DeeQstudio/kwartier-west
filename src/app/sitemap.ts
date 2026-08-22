@@ -1,40 +1,40 @@
 import type { MetadataRoute } from "next";
+import { artists } from "@/data/artists";
+import { events } from "@/data/events";
+
+const siteUrl = "https://kwartierwest.be";
+
+const staticRoutes = [
+  ["", "weekly", 1.0],
+  ["/tekno", "weekly", 0.8],
+  ["/hiphop", "weekly", 0.8],
+  ["/artiesten", "weekly", 0.8],
+  ["/events", "weekly", 0.8],
+  ["/archive", "weekly", 0.8],
+  ["/booking", "weekly", 0.8],
+  ["/partners", "weekly", 0.8],
+  ["/contact", "weekly", 0.8],
+  ["/manifest", "weekly", 0.8],
+  ["/privacy", "weekly", 0.8],
+  ["/voorwaarden", "weekly", 0.8],
+] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: `https://kwartierwest.be`, changeFrequency: "weekly" as const, priority: 1.0 },
-    { url: `https://kwartierwest.be/tekno`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/hiphop`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/artiesten`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/artiesten/onschuldig`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/hyperion`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/woebn`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/noratn`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/alexer`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/spoorloos`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/wildcrd`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/jenesaispas`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/kulture`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/kumatekz`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/masschie`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/mombietekk`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/psamtek`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/de-kweker`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/thorre`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/krank`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/thepanda`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/duvve`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/bruce`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/artiesten/creamz`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/events`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/events/villa-west-2026`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/events/teknorelics-eye-of-the-temple`, changeFrequency: "weekly" as const, priority: 0.7 },
-    { url: `https://kwartierwest.be/archive`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/booking`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/partners`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/contact`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/manifest`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/privacy`, changeFrequency: "weekly" as const, priority: 0.8 },
-    { url: `https://kwartierwest.be/voorwaarden`, changeFrequency: "weekly" as const, priority: 0.8 }
+    ...staticRoutes.map(([path, changeFrequency, priority]) => ({
+      url: `${siteUrl}${path}`,
+      changeFrequency,
+      priority,
+    })),
+    ...artists.map((artist) => ({
+      url: artist.canonical,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    })),
+    ...events.map((event) => ({
+      url: `${siteUrl}/events/${event.slug}`,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    })),
   ];
 }

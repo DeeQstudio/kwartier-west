@@ -351,6 +351,7 @@ export async function claimVerification(id: string) {
   await put(claimPath, new Date().toISOString(), {
     access: "private",
     addRandomSuffix: false,
+    allowOverwrite: false,
     contentType: "text/plain",
   });
   return claimPath;

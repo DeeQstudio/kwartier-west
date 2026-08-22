@@ -5,7 +5,7 @@ Production migration of the V5 visual/content source to **Next.js 16.3.1 + TypeS
 ## Architecture
 
 - `src/app` — App Router routes, metadata routes and API route handlers.
-- `src/data/artists.ts` — one typed source of truth for all 20 artists; home, scene rosters, artist index, booking UI and artist pages derive from it.
+- `src/data/artists.ts` — one typed source of truth for every artist; home, scene rosters, artist index, booking UI and artist pages derive from it.
 - `src/data/events.ts` — typed event registry.
 - `src/components` — shared navigation, footer, artist renderer, typed roster/index modules, booking UI and motion layer.
 - `src/lib/booking-server.ts` — server-only booking validation, Turnstile, signed verification links, private Vercel Blob workflow and email delivery.

@@ -1,13 +1,13 @@
-import type { Artist } from "./types";
+import type { Artist, ArtistSource, Scene } from "./types";
 
-export const artists = [
+const siteUrl = "https://kwartierwest.be";
+
+const artistSources = [
   {
     "slug": "onschuldig",
     "name": "Onschuldig",
     "role": "Head Master of the Collective / Producer",
     "scene": "tekno",
-    "variant": "artist-v0",
-    "index": "01 / 20",
     "image": "/assets/media/artists/onschuldig.webp",
     "quote": "Provides unique Tekno & Acid sound.",
     "paragraphs": [
@@ -32,36 +32,14 @@ export const artists = [
         "href": "https://www.instagram.com/0nschuldig/"
       }
     ],
-    "nextSlug": "hyperion",
-    "nextName": "Hyperion",
     "description": "Owner of the collective Kwartier West, onbegrensd soundsystem resident en WTK soundsystem resident. Digital & analog producer, making pure Acid, Tekno & Tribe",
-    "title": "Onschuldig | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/onschuldig",
-    "og": "https://kwartierwest.be/assets/og/artists/onschuldig.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Onschuldig",
-      "url": "https://kwartierwest.be/artiesten/onschuldig",
-      "image": "https://kwartierwest.be/assets/media/artists/onschuldig.webp",
-      "jobTitle": "Head Master of the Collective / Producer",
-      "description": "Owner of the collective Kwartier West, onbegrensd soundsystem resident en WTK soundsystem resident. Digital & analog producer, making pure Acid, Tekno & Tribe.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/onschuldig",
-        "https://www.instagram.com/0nschuldig/"
-      ]
-    }
+    "mediaKind": "artwork"
   },
   {
     "slug": "hyperion",
     "name": "Hyperion",
     "role": "DJ / Live-set",
     "scene": "tekno",
-    "variant": "artist-v1",
-    "index": "02 / 20",
     "image": "/assets/media/artists/hyperion.webp",
     "quote": "Directe hardtekk-snelheid zonder dode lucht.",
     "paragraphs": [
@@ -81,35 +59,14 @@ export const artists = [
         "href": "https://soundcloud.com/user-347588809"
       }
     ],
-    "nextSlug": "woebn",
-    "nextName": "Woebn",
     "description": "Snelle, rauwe druksets met strakke dynamiek en ravegerichte slagkracht.",
-    "title": "Hyperion | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/hyperion",
-    "og": "https://kwartierwest.be/assets/og/artists/hyperion.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Hyperion",
-      "url": "https://kwartierwest.be/artiesten/hyperion",
-      "image": "https://kwartierwest.be/assets/media/artists/hyperion.webp",
-      "jobTitle": "DJ / Live-set",
-      "description": "Snelle, rauwe druksets met strakke dynamiek en ravegerichte slagkracht.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/user-347588809"
-      ]
-    }
+    "mediaKind": "artwork"
   },
   {
     "slug": "woebn",
     "name": "Woebn",
     "role": "DJ / Live-set",
     "scene": "tekno",
-    "variant": "artist-v2",
-    "index": "03 / 20",
     "image": "/assets/media/artists/woebn.webp",
     "quote": "Een herkenbare multi-genre sound met constante energie en drive.",
     "paragraphs": [
@@ -134,27 +91,11 @@ export const artists = [
         "href": "https://www.instagram.com/_woebn_/"
       }
     ],
-    "nextSlug": "noratn",
-    "nextName": "NORATN",
     "description": "Deze underground krachtpatser uit België staat bekend om zijn unieke sound, waarin meerdere genres naadloos samenvloeien tot één sterke muzikale trip.",
-    "title": "Woebn | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/woebn",
-    "og": "https://kwartierwest.be/assets/og/artists/woebn.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Woebn",
-      "url": "https://kwartierwest.be/artiesten/woebn",
-      "image": "https://kwartierwest.be/assets/media/artists/woebn.webp",
-      "jobTitle": "DJ / Live-set",
-      "description": "Deze underground krachtpatser uit België staat bekend om zijn unieke sound, waarin meerdere genres naadloos samenvloeien tot één sterke muzikale trip.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/woebn",
-        "https://www.instagram.com/_woebn_/"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "43% 27%",
+      "mobile": "43% 20%"
     }
   },
   {
@@ -162,8 +103,6 @@ export const artists = [
     "name": "NORATN",
     "role": "DJ / Producent",
     "scene": "tekno",
-    "variant": "artist-v3",
-    "index": "04 / 20",
     "image": "/assets/media/artists/noratn.webp",
     "quote": "Energieke tek- en aciddruk met een diepe, hypnotische onderstroom.",
     "paragraphs": [
@@ -183,26 +122,11 @@ export const artists = [
         "href": "https://linktr.ee/noratn__"
       }
     ],
-    "nextSlug": "alexer",
-    "nextName": "Alexer",
     "description": "NORATN is een opkomende DJ en producer die zich beweegt tussen tek, acid en mental. Haar sound is energiek, diep en hypnotisch, met beats die blijven doorduwe",
-    "title": "NORATN | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/noratn",
-    "og": "https://kwartierwest.be/assets/og/artists/noratn.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "NORATN",
-      "url": "https://kwartierwest.be/artiesten/noratn",
-      "image": "https://kwartierwest.be/assets/media/artists/noratn.webp",
-      "jobTitle": "DJ / Producent",
-      "description": "NORATN is een opkomende DJ en producer die zich beweegt tussen tek, acid en mental. Haar sound is energiek, diep en hypnotisch, met beats die blijven doorduwen.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://linktr.ee/noratn__"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "57% 31%",
+      "mobile": "57% 23%"
     }
   },
   {
@@ -210,8 +134,6 @@ export const artists = [
     "name": "Alexer",
     "role": "DJ / Producer",
     "scene": "tekno",
-    "variant": "artist-v0",
-    "index": "05 / 20",
     "image": "/assets/media/artists/alexer.webp",
     "quote": "Hypnotische grooves, warme melodieen en rauwe ritmes voor open airs en free parties.",
     "paragraphs": [
@@ -246,38 +168,14 @@ export const artists = [
         "href": "https://www.facebook.com/profile.php?id=61559690368958"
       }
     ],
-    "nextSlug": "spoorloos",
-    "nextName": "Spoorloos",
     "description": "Alexer bouwt melancholische tekno- en tribe-sets die tussen gevoel en beweging hangen.",
-    "title": "Alexer | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/alexer",
-    "og": "https://kwartierwest.be/assets/og/artists/alexer.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Alexer",
-      "url": "https://kwartierwest.be/artiesten/alexer",
-      "image": "https://kwartierwest.be/assets/media/artists/alexer.webp",
-      "jobTitle": "DJ / Producer",
-      "description": "Alexer bouwt melancholische tekno- en tribe-sets die tussen gevoel en beweging hangen.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/alexer_23",
-        "https://www.instagram.com/alexer__23/",
-        "https://alexer23.bandcamp.com",
-        "https://www.facebook.com/profile.php?id=61559690368958"
-      ]
-    }
+    "mediaKind": "artwork"
   },
   {
     "slug": "spoorloos",
     "name": "Spoorloos",
     "role": "Tekno-producer / Live-artiest",
     "scene": "tekno",
-    "variant": "artist-v1",
-    "index": "06 / 20",
     "image": "/assets/media/artists/spoorloos.webp",
     "quote": "Hybride livesets met zware kicks, tribale ritmes en pure tekno-energie.",
     "paragraphs": [
@@ -312,38 +210,14 @@ export const artists = [
         "href": "https://www.facebook.com/brecht.timmerman/"
       }
     ],
-    "nextSlug": "wildcrd",
-    "nextName": "W!LD.CRD",
     "description": "Spoorloos is een tekno-producer en live-artiest uit West-Vlaanderen (Brugge). Zijn energie is geinspireerd door de free party scene. Zijn sound beweegt zich t",
-    "title": "Spoorloos | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/spoorloos",
-    "og": "https://kwartierwest.be/assets/og/artists/spoorloos.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Spoorloos",
-      "url": "https://kwartierwest.be/artiesten/spoorloos",
-      "image": "https://kwartierwest.be/assets/media/artists/spoorloos.webp",
-      "jobTitle": "Tekno-producer / Live-artiest",
-      "description": "Spoorloos is een tekno-producer en live-artiest uit West-Vlaanderen (Brugge). Zijn energie is geinspireerd door de free party scene. Zijn sound beweegt zich tussen tekno, tribecore en harde underground techno, met duidelijke invloeden uit tribe, acid en industriele noise.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://instagram.com/spoorloos23",
-        "https://soundcloud.com/spoorloostekno",
-        "https://linktr.ee/spoorloos23",
-        "https://www.facebook.com/brecht.timmerman/"
-      ]
-    }
+    "mediaKind": "artwork"
   },
   {
     "slug": "wildcrd",
     "name": "W!LD.CRD",
     "role": "DJ",
     "scene": "tekno",
-    "variant": "artist-v2",
-    "index": "07 / 20",
     "image": "/assets/media/artists/wildcrd.webp",
     "quote": "Hardgroove Techno, Acidcore en Tekno met pure energie en compromisloze drive.",
     "paragraphs": [
@@ -368,36 +242,14 @@ export const artists = [
         "href": "https://www.instagram.com/wild.crd_kdv/"
       }
     ],
-    "nextSlug": "jenesaispas",
-    "nextName": "Jenesaispas",
     "description": "W!LD.CRD staat voor pure energie, opbouwende spanning en een compromisloze drive achter de decks.",
-    "title": "W!LD.CRD | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/wildcrd",
-    "og": "https://kwartierwest.be/assets/og/artists/wildcrd.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "W!LD.CRD",
-      "url": "https://kwartierwest.be/artiesten/wildcrd",
-      "image": "https://kwartierwest.be/assets/media/artists/wildcrd.webp",
-      "jobTitle": "DJ",
-      "description": "W!LD.CRD staat voor pure energie, opbouwende spanning en een compromisloze drive achter de decks.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/karimdevlaeminck",
-        "https://www.instagram.com/wild.crd_kdv/"
-      ]
-    }
+    "mediaKind": "artwork"
   },
   {
     "slug": "jenesaispas",
     "name": "Jenesaispas",
     "role": "DJ / Live-set",
     "scene": "tekno",
-    "variant": "artist-v3",
-    "index": "08 / 20",
     "image": "/assets/media/artists/jenesaispas.webp",
     "quote": "Gecontroleerde chaos met rauwe loodsenergie.",
     "paragraphs": [
@@ -411,23 +263,11 @@ export const artists = [
       "Snelle impactrouting"
     ],
     "links": [],
-    "nextSlug": "kulture",
-    "nextName": "Kulture",
     "description": "Chaotische overgangen, onstabiele texturen en harde overgangscuts.",
-    "title": "Jenesaispas | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/jenesaispas",
-    "og": "https://kwartierwest.be/assets/og/artists/jenesaispas.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Jenesaispas",
-      "url": "https://kwartierwest.be/artiesten/jenesaispas",
-      "image": "https://kwartierwest.be/assets/media/artists/jenesaispas.webp",
-      "jobTitle": "DJ / Live-set",
-      "description": "Chaotische overgangen, onstabiele texturen en harde overgangscuts.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      }
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "78% 24%",
+      "mobile": "78% 18%"
     }
   },
   {
@@ -435,8 +275,6 @@ export const artists = [
     "name": "Kulture",
     "role": "DJ / Live-set",
     "scene": "tekno",
-    "variant": "artist-v0",
-    "index": "09 / 20",
     "image": "/assets/media/artists/kulture.webp",
     "quote": "Percussieve druk en snelle floorfeedback.",
     "paragraphs": [
@@ -461,36 +299,14 @@ export const artists = [
         "href": "https://www.instagram.com/kulture_stn/"
       }
     ],
-    "nextSlug": "kumatekz",
-    "nextName": "Kumatekz",
     "description": "Percussief momentum met compacte harde sets en dansvloergerichte timing.",
-    "title": "Kulture | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/kulture",
-    "og": "https://kwartierwest.be/assets/og/artists/kulture.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Kulture",
-      "url": "https://kwartierwest.be/artiesten/kulture",
-      "image": "https://kwartierwest.be/assets/media/artists/kulture.webp",
-      "jobTitle": "DJ / Live-set",
-      "description": "Percussief momentum met compacte harde sets en dansvloergerichte timing.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/kulture23",
-        "https://www.instagram.com/kulture_stn/"
-      ]
-    }
+    "mediaKind": "artwork"
   },
   {
     "slug": "kumatekz",
     "name": "Kumatekz",
     "role": "DJ / Live-set",
     "scene": "tekno",
-    "variant": "artist-v1",
-    "index": "10 / 20",
     "image": "/assets/media/artists/kumatekz.webp",
     "quote": "Industrieel gewicht en laagfrequente autoriteit.",
     "paragraphs": [
@@ -510,35 +326,14 @@ export const artists = [
         "href": "https://soundcloud.com/kumatekz23"
       }
     ],
-    "nextSlug": "masschie",
-    "nextName": "Masschie",
     "description": "Industriele accenten met zware laagfrequente balans en strakke setarchitectuur.",
-    "title": "Kumatekz | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/kumatekz",
-    "og": "https://kwartierwest.be/assets/og/artists/kumatekz.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Kumatekz",
-      "url": "https://kwartierwest.be/artiesten/kumatekz",
-      "image": "https://kwartierwest.be/assets/media/artists/kumatekz.webp",
-      "jobTitle": "DJ / Live-set",
-      "description": "Industriele accenten met zware laagfrequente balans en strakke setarchitectuur.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/kumatekz23"
-      ]
-    }
+    "mediaKind": "artwork"
   },
   {
     "slug": "masschie",
     "name": "Masschie",
     "role": "DJ / Live-set",
     "scene": "tekno",
-    "variant": "artist-v2",
-    "index": "11 / 20",
     "image": "/assets/media/artists/masschie.webp",
     "quote": "Acidlijnen, snelle beweging, geen verloren bars.",
     "paragraphs": [
@@ -558,26 +353,11 @@ export const artists = [
         "href": "https://soundcloud.com/masschie_sc"
       }
     ],
-    "nextSlug": "mombietekk",
-    "nextName": "Mombietekk",
     "description": "Acidgedreven patronen met meedogenloze groovesecties voor indoor- en open-air momenten.",
-    "title": "Masschie | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/masschie",
-    "og": "https://kwartierwest.be/assets/og/artists/masschie.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Masschie",
-      "url": "https://kwartierwest.be/artiesten/masschie",
-      "image": "https://kwartierwest.be/assets/media/artists/masschie.webp",
-      "jobTitle": "DJ / Live-set",
-      "description": "Acidgedreven patronen met meedogenloze groovesecties voor indoor- en open-air momenten.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/masschie_sc"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "64% 26%",
+      "mobile": "64% 20%"
     }
   },
   {
@@ -585,8 +365,6 @@ export const artists = [
     "name": "Mombietekk",
     "role": "DJ / Live-set",
     "scene": "tekno",
-    "variant": "artist-v3",
-    "index": "12 / 20",
     "image": "/assets/media/artists/mombietekk.webp",
     "quote": "Meedogenloze BPM-push met rave-eerst keuzes.",
     "paragraphs": [
@@ -606,26 +384,11 @@ export const artists = [
         "href": "https://soundcloud.com/gillian-mombert"
       }
     ],
-    "nextSlug": "psamtek",
-    "nextName": "Psamtek",
     "description": "Pittige high-BPM sets met focus op directe ravesequencing.",
-    "title": "Mombietekk | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/mombietekk",
-    "og": "https://kwartierwest.be/assets/og/artists/mombietekk.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Mombietekk",
-      "url": "https://kwartierwest.be/artiesten/mombietekk",
-      "image": "https://kwartierwest.be/assets/media/artists/mombietekk.webp",
-      "jobTitle": "DJ / Live-set",
-      "description": "Pittige high-BPM sets met focus op directe ravesequencing.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://soundcloud.com/gillian-mombert"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "48% 30%",
+      "mobile": "48% 24%"
     }
   },
   {
@@ -633,8 +396,6 @@ export const artists = [
     "name": "Psamtek",
     "role": "DJ / Live-set",
     "scene": "tekno",
-    "variant": "artist-v0",
-    "index": "13 / 20",
     "image": "/assets/media/artists/psamtek.webp",
     "quote": "Closingdruk met gedisciplineerde sequentiecontrole.",
     "paragraphs": [
@@ -648,32 +409,14 @@ export const artists = [
       "Finale-energie"
     ],
     "links": [],
-    "nextSlug": "onschuldig",
-    "nextName": "Onschuldig",
     "description": "Specialist in closingsets met harde sequenties en meedogenloze eindsprintdruk.",
-    "title": "Psamtek | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/psamtek",
-    "og": "https://kwartierwest.be/assets/og/artists/psamtek.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Psamtek",
-      "url": "https://kwartierwest.be/artiesten/psamtek",
-      "image": "https://kwartierwest.be/assets/media/artists/psamtek.webp",
-      "jobTitle": "DJ / Live-set",
-      "description": "Specialist in closingsets met harde sequenties en meedogenloze eindsprintdruk.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      }
-    }
+    "mediaKind": "artwork"
   },
   {
     "slug": "de-kweker",
     "name": "De Kweker",
     "role": "Rapper",
     "scene": "hiphop",
-    "variant": "artist-v1",
-    "index": "14 / 20",
     "image": "/assets/media/artists/de-kweker-feature.webp",
     "quote": "Geen rol, geen show. Gewoon eerlijke bars uit z'n hoofd.",
     "paragraphs": [
@@ -723,33 +466,11 @@ export const artists = [
         "href": "https://soundcloud.com/dekweker"
       }
     ],
-    "nextSlug": "thorre",
-    "nextName": "Thorre",
     "description": "De Kweker is een rapper uit Brugge (8000), actief bij Kwartier West en Rugged & Raw. Muziek, video en officiële artiesteninfo via kwkr.be.",
-    "title": "De Kweker — rapper uit Brugge | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/de-kweker",
-    "og": "https://kwartierwest.be/assets/og/artists/de-kweker.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "De Kweker",
-      "url": "https://kwartierwest.be/artiesten/de-kweker",
-      "mainEntityOfPage": "https://kwartierwest.be/artiesten/de-kweker",
-      "image": "https://kwartierwest.be/assets/media/artists/de-kweker-feature.webp",
-      "jobTitle": "Rapper",
-      "description": "De Kweker is een rapper uit Brugge (8000), actief bij Kwartier West en Rugged & Raw. Muziek, video en officiële artiesteninfo via kwkr.be.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://kwkr.be",
-        "https://www.instagram.com/dekweker_/",
-        "https://www.facebook.com/p/De-Kweker-61570442235326/",
-        "https://www.tiktok.com/@de.kweker",
-        "https://www.youtube.com/@De.kweker",
-        "https://open.spotify.com/artist/2v5Tuugqs8s4vaONc286EG",
-        "https://soundcloud.com/dekweker"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "50% 24%",
+      "mobile": "50% 18%"
     }
   },
   {
@@ -757,8 +478,6 @@ export const artists = [
     "name": "Thorre",
     "role": "Rapper",
     "scene": "hiphop",
-    "variant": "artist-v2",
-    "index": "15 / 20",
     "image": "/assets/media/artists/thorre.webp",
     "quote": "Maatschappijkritische bars met relativering en humor, van euforie tot diepbedroefdheid.",
     "paragraphs": [
@@ -803,31 +522,11 @@ export const artists = [
         "href": "https://www.tiktok.com/@thorre8560"
       }
     ],
-    "nextSlug": "krank",
-    "nextName": "Krank",
     "description": "Sinds zijn zestiende schrijft Thorre teksten. Wat ooit simpele en vluchtige teksten waren, groeide na meer dan vijftien jaar uit tot diepzinnige, emotioneel g",
-    "title": "Thorre | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/thorre",
-    "og": "https://kwartierwest.be/assets/og/artists/thorre.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Thorre",
-      "url": "https://kwartierwest.be/artiesten/thorre",
-      "image": "https://kwartierwest.be/assets/media/artists/thorre.webp",
-      "jobTitle": "Rapper",
-      "description": "Sinds zijn zestiende schrijft Thorre teksten. Wat ooit simpele en vluchtige teksten waren, groeide na meer dan vijftien jaar uit tot diepzinnige, emotioneel gedreven verhalen.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://www.facebook.com/Thorre8560/",
-        "https://soundcloud.com/thorre8560",
-        "https://open.spotify.com/artist/0umqiVi7wQcryg14XVu7AE",
-        "https://www.youtube.com/channel/UCfWQnA8aHN498DUd8Q1i4qQ",
-        "https://www.instagram.com/_thorregineel_/",
-        "https://www.tiktok.com/@thorre8560"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "50% 21%",
+      "mobile": "50% 15%"
     }
   },
   {
@@ -835,8 +534,6 @@ export const artists = [
     "name": "Krank",
     "role": "Rapper",
     "scene": "hiphop",
-    "variant": "artist-v3",
-    "index": "16 / 20",
     "image": "/assets/media/artists/krank.webp",
     "quote": "No nonsense bars die je een spiegel voorhouden, met een kritische invalshoek.",
     "paragraphs": [
@@ -866,28 +563,11 @@ export const artists = [
         "href": "https://www.instagram.com/krankkkkkk_/"
       }
     ],
-    "nextSlug": "thepanda",
-    "nextName": "The P.A.N.D.A",
     "description": "Krank is een West-Vlaamse rapper uit Knokke die sinds 2008 nummers maakt.",
-    "title": "Krank | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/krank",
-    "og": "https://kwartierwest.be/assets/og/artists/krank.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Krank",
-      "url": "https://kwartierwest.be/artiesten/krank",
-      "image": "https://kwartierwest.be/assets/media/artists/krank.webp",
-      "jobTitle": "Rapper",
-      "description": "Krank is een West-Vlaamse rapper uit Knokke die sinds 2008 nummers maakt.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://open.spotify.com/artist/6UdtoDuyUapSM5w0zTpi9R?si=XJKheAXETGqEgFbgXUCeVQ",
-        "https://www.youtube.com/@Krankkkkkk",
-        "https://www.instagram.com/krankkkkkk_/"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "68% 26%",
+      "mobile": "68% 20%"
     }
   },
   {
@@ -895,8 +575,6 @@ export const artists = [
     "name": "The P.A.N.D.A",
     "role": "Indie hiphopartiest",
     "scene": "hiphop",
-    "variant": "artist-v1",
-    "index": "17 / 20",
     "image": "/assets/media/artists/thepanda.webp",
     "quote": "Knallende drums, soulful en jazzy old-school beats, en strakke bars recht uit hart en ziel.",
     "paragraphs": [
@@ -926,28 +604,11 @@ export const artists = [
         "href": "https://open.spotify.com/artist/5QYOZhN0BU8QOFrPAmnPG7?si=owRSOSnWRfuyTCqe5LHkMQ"
       }
     ],
-    "nextSlug": "duvve",
-    "nextName": "Duvve",
     "description": "The P.A.N.D.A, aka The Persevering Alchemist Naughty Drum's Addict, is een indie hiphopartiest uit Vlaanderen.",
-    "title": "The P.A.N.D.A | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/thepanda",
-    "og": "https://kwartierwest.be/assets/og/artists/thepanda.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "The P.A.N.D.A",
-      "url": "https://kwartierwest.be/artiesten/thepanda",
-      "image": "https://kwartierwest.be/assets/media/artists/thepanda.webp",
-      "jobTitle": "Indie hiphopartiest",
-      "description": "The P.A.N.D.A, aka The Persevering Alchemist Naughty Drum's Addict, is een indie hiphopartiest uit Vlaanderen.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://linktr.ee/TheP_A_N_D_A",
-        "https://instagram.com/thep_a_n_d_a",
-        "https://open.spotify.com/artist/5QYOZhN0BU8QOFrPAmnPG7?si=owRSOSnWRfuyTCqe5LHkMQ"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "50% 25%",
+      "mobile": "50% 17%"
     }
   },
   {
@@ -955,8 +616,6 @@ export const artists = [
     "name": "Duvve",
     "role": "Rapper / Live-artiest",
     "scene": "hiphop",
-    "variant": "artist-v2",
-    "index": "18 / 20",
     "image": "/assets/media/artists/duvve.webp",
     "quote": "Hoog-energie rap met podiumurgentie op bandniveau.",
     "paragraphs": [
@@ -976,26 +635,11 @@ export const artists = [
         "href": "https://www.youtube.com/watch?v=xFmQNG0r0xE"
       }
     ],
-    "nextSlug": "bruce",
-    "nextName": "Bruce",
     "description": "Performancegerichte rapper met sterke focus op podiumbeweging en publieksreactie.",
-    "title": "Duvve | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/duvve",
-    "og": "https://kwartierwest.be/assets/og/artists/duvve.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Duvve",
-      "url": "https://kwartierwest.be/artiesten/duvve",
-      "image": "https://kwartierwest.be/assets/media/artists/duvve.webp",
-      "jobTitle": "Rapper / Live-artiest",
-      "description": "Performancegerichte rapper met sterke focus op podiumbeweging en publieksreactie.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      },
-      "sameAs": [
-        "https://www.youtube.com/watch?v=xFmQNG0r0xE"
-      ]
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "50% 23%",
+      "mobile": "50% 18%"
     }
   },
   {
@@ -1003,8 +647,6 @@ export const artists = [
     "name": "Bruce",
     "role": "Producent",
     "scene": "hiphop",
-    "variant": "artist-v3",
-    "index": "19 / 20",
     "image": "/assets/media/artists/bruce.webp",
     "quote": "Precies drumwerk en schaduwrijk klankdesign.",
     "paragraphs": [
@@ -1018,23 +660,11 @@ export const artists = [
       "Sessieklare sporen"
     ],
     "links": [],
-    "nextSlug": "creamz",
-    "nextName": "Creamz",
     "description": "Producer met focus op diepe drums, donkere melodische lagen en mixklare arrangementen.",
-    "title": "Bruce | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/bruce",
-    "og": "https://kwartierwest.be/assets/og/artists/bruce.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Bruce",
-      "url": "https://kwartierwest.be/artiesten/bruce",
-      "image": "https://kwartierwest.be/assets/media/artists/bruce.webp",
-      "jobTitle": "Producent",
-      "description": "Producer met focus op diepe drums, donkere melodische lagen en mixklare arrangementen.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      }
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "58% 24%",
+      "mobile": "58% 18%"
     }
   },
   {
@@ -1042,8 +672,6 @@ export const artists = [
     "name": "Creamz",
     "role": "Producent / Beatmaker",
     "scene": "hiphop",
-    "variant": "artist-v0",
-    "index": "20 / 20",
     "image": "/assets/media/artists/creamz.webp",
     "quote": "Bounce-architectuur met gedetailleerd textuurwerk.",
     "paragraphs": [
@@ -1057,28 +685,76 @@ export const artists = [
       "Dropgerichte arrangementen"
     ],
     "links": [],
-    "nextSlug": "de-kweker",
-    "nextName": "De Kweker",
     "description": "Beatmaker die bounce-gedreven grooves vormt met gelaagde drumtexturen.",
-    "title": "Creamz | Kwartier West",
-    "canonical": "https://kwartierwest.be/artiesten/creamz",
-    "og": "https://kwartierwest.be/assets/og/artists/creamz.jpg",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Creamz",
-      "url": "https://kwartierwest.be/artiesten/creamz",
-      "image": "https://kwartierwest.be/assets/media/artists/creamz.webp",
-      "jobTitle": "Producent / Beatmaker",
-      "description": "Beatmaker die bounce-gedreven grooves vormt met gelaagde drumtexturen.",
-      "memberOf": {
-        "@id": "https://kwartierwest.be/#organization"
-      }
+    "mediaKind": "artwork"
+  },
+  {
+    "slug": "zwoantje",
+    "name": "Zwoantje",
+    "role": "Rapper",
+    "scene": "hiphop",
+    "image": "/assets/media/artists/zwoantje.webp",
+    "mediaKind": "identity",
+    "quote": "Nieuwe West-Vlaamse stem. Eerste track onderweg.",
+    "paragraphs": [
+      "Zwoantje is een West-Vlaamse rapper uit Brugge en sluit aan bij de Hip hop-sectie van Kwartier West.",
+      "Ze staat aan het begin van haar releaseverhaal. Haar eerste track komt binnenkort."
+    ],
+    "bullets": [
+      "Hip hop",
+      "Brugge / West-Vlaanderen",
+      "Eerste track binnenkort"
+    ],
+    "links": [],
+    "description": "Zwoantje is een West-Vlaamse rapper uit Brugge en nieuw bij de Hip hop-sectie van Kwartier West. Haar eerste track komt binnenkort.",
+    "status": "new",
+    "announcement": {
+      "eyebrow": "Nieuw / Hip hop",
+      "title": "Zwoantje sluit aan bij Kwartier West.",
+      "body": "Een nieuwe West-Vlaamse stem in de Hip hop-sectie. Haar eerste track komt binnenkort."
     }
   }
-] as const satisfies readonly Artist[];
+] as const satisfies readonly ArtistSource[];
 
+function enrichArtist(source: ArtistSource, index: number): Artist {
+  const sameAs = source.links.map((link) => link.href);
+  return {
+    ...source,
+    variant: `artist-v${index % 4}` as Artist["variant"],
+    title: `${source.name} | Kwartier West`,
+    canonical: `${siteUrl}/artiesten/${source.slug}`,
+    og: `${siteUrl}/assets/og/artists/${source.slug}.jpg`,
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: source.name,
+      url: `${siteUrl}/artiesten/${source.slug}`,
+      image: `${siteUrl}${source.image}`,
+      jobTitle: source.role,
+      description: source.description,
+      memberOf: { "@id": `${siteUrl}/#organization` },
+      ...(sameAs.length ? { sameAs } : {}),
+    },
+  };
+}
+
+export const artists = artistSources.map(enrichArtist) as readonly Artist[];
 export const artistBySlug = new Map<string, Artist>(artists.map((artist) => [artist.slug, artist]));
-
 export const teknoArtists = artists.filter((artist) => artist.scene === "tekno");
 export const hiphopArtists = artists.filter((artist) => artist.scene === "hiphop");
+export const newArtists = artists.filter((artist) => artist.status === "new");
+
+export function artistsForScene(scene: Scene) {
+  return scene === "tekno" ? teknoArtists : hiphopArtists;
+}
+
+export function artistIndexLabel(slug: string) {
+  const index = artists.findIndex((artist) => artist.slug === slug);
+  return index < 0 ? "" : `${String(index + 1).padStart(2, "0")} / ${artists.length}`;
+}
+
+export function nextArtistInScene(artist: Artist) {
+  const sceneArtists = artistsForScene(artist.scene);
+  const index = sceneArtists.findIndex((item) => item.slug === artist.slug);
+  return sceneArtists[(index + 1) % sceneArtists.length] ?? artist;
+}

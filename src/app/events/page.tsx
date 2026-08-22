@@ -6,7 +6,7 @@ import { makeMetadata } from "@/lib/metadata";
 
 export const metadata = makeMetadata({
   title: "Events | Kwartier West",
-  description: "Events van Kwartier West. Actueel: Villa West op 21 augustus 2026 bij Villa Bota in Brugge, plus het archief van eerdere producties.",
+  description: "Events en archief van Kwartier West, met Villa West bij Villa Bota en Teknorelics in Het Entrepot in Brugge.",
   canonical: "https://kwartierwest.be/events",
   og: "https://kwartierwest.be/assets/og/events.jpg",
 });
@@ -32,21 +32,21 @@ export default function EventsPage() {
         <div className="events-poster-a"><img src="/assets/media/events/villa-west-2026-08-21.jpg" alt="Villa West 21 augustus 2026" /></div>
         <div className="events-poster-b"><img src="/assets/media/archive/teknorelics-03.webp" alt="Teknorelics live" /></div>
         <div className="events-hero-title">
-          <span>04 / EVENTS / LIVE</span>
+          <span>04 / EVENTS / ARCHIEF</span>
           <h1>EVENTS</h1>
-          <p>Villa West staat nog één keer op rood. Vrijdag 21 augustus, live vanuit Villa Bota.</p>
+          <p>Villa West sloot de zomer af op 21 augustus, live vanuit Villa Bota.</p>
         </div>
       </section>
 
       <section className="event-status section-pad event-status--live">
         <div>
-          <span className="eyebrow">Actueel / Villa West</span>
+          <span className="eyebrow">Archief / Villa West</span>
           <h2>Villa West<br />21.08.2026</h2>
         </div>
         <div className="event-status-live-copy">
-          <p>Thorre en Siga & Lefever spelen van 22:00 tot 23:00. Wildcard neemt het laatste uur over tot middernacht.</p>
+          <p>Thorre en Siga & Lefever speelden van 22:00 tot 23:00. Wildcard nam het laatste uur over tot middernacht.</p>
           <b>{villa?.stream ? <VillaWestStatus stream={villa.stream} /> : "Main event"}</b>
-          <Link href="/events/villa-west-2026#villa-west-stream">Open event + livestream</Link>
+          <Link href="/events/villa-west-2026">Open eventarchief</Link>
         </div>
       </section>
 

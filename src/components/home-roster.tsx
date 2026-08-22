@@ -2,18 +2,12 @@
 
 import Link from "next/link";
 import type { Route } from "next";
-import { useMemo, useState } from "react";
-import { artists, artistBySlug } from "@/data/artists";
-import { homeRosterOrder } from "@/data/site";
-import { artistMediaKind } from "@/lib/artist-media";
+import { useState } from "react";
+import { artists } from "@/data/artists";
 
 export function HomeRoster() {
-  const roster = useMemo(
-    () => homeRosterOrder.map((slug) => artistBySlug.get(slug)).filter(Boolean),
-    [],
-  );
-  const [activeSlug, setActiveSlug] = useState<string>(homeRosterOrder[0]);
-  const active = artistBySlug.get(activeSlug) ?? roster[0];
+  const [activeSlug, setActiveSlug] = useState<string>(artists[0]?.slug ?? "");
+  const active = artists.find((artist) => artist.slug === activeSlug) ?? artists[0];
 
   return (
     <section className="roster-home section-pad" data-roster>
@@ -23,7 +17,7 @@ export function HomeRoster() {
       </header>
       <div className="roster-home-grid">
         <div className="roster-list">
-          {roster.map((artist, index) => artist && (
+          {artists.map((artist, index) => (
             <Link
               className="roster-row"
               key={artist.slug}
@@ -40,7 +34,7 @@ export function HomeRoster() {
           ))}
         </div>
         {active && (
-          <figure className="roster-live-preview" data-artist-slug={active.slug} data-media-kind={artistMediaKind(active.slug)}>
+          <figure className="roster-live-preview" data-artist-slug={active.slug} data-media-kind={active.mediaKind}>
             <img key={active.slug} data-roster-preview src={active.image} alt="" />
             <figcaption data-roster-caption>{active.name} / {active.scene === "tekno" ? "Tekno" : "Hiphop"}</figcaption>
           </figure>

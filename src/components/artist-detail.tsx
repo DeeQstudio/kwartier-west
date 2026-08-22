@@ -2,31 +2,14 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Route } from "next";
 import type { Artist } from "@/data/types";
-import { artistMediaKind } from "@/lib/artist-media";
-
-type Focus = { desktop: string; mobile?: string };
-
-const artistFocus: Record<string, Focus> = {
-  "de-kweker": { desktop: "50% 24%", mobile: "50% 18%" },
-  bruce: { desktop: "58% 24%", mobile: "58% 18%" },
-  duvve: { desktop: "50% 23%", mobile: "50% 18%" },
-  jenesaispas: { desktop: "78% 24%", mobile: "78% 18%" },
-  krank: { desktop: "68% 26%", mobile: "68% 20%" },
-  masschie: { desktop: "64% 26%", mobile: "64% 20%" },
-  mombietekk: { desktop: "48% 30%", mobile: "48% 24%" },
-  noratn: { desktop: "57% 31%", mobile: "57% 23%" },
-  thepanda: { desktop: "50% 25%", mobile: "50% 17%" },
-  thorre: { desktop: "50% 21%", mobile: "50% 15%" },
-  woebn: { desktop: "43% 27%", mobile: "43% 20%" },
-};
+import { artistIndexLabel, nextArtistInScene } from "@/data/artists";
 
 function longestWordLength(text: string) {
   return Math.max(...text.split(/\s+/).map((word) => word.replace(/[^\p{L}\p{N}]/gu, "").length));
 }
 
 export function ArtistDetail({ artist }: { artist: Artist }) {
-  const mediaKind = artistMediaKind(artist.slug);
-  const focus = artistFocus[artist.slug] ?? { desktop: "50% 28%", mobile: "50% 20%" };
+  const focus = artist.focus ?? { desktop: "50% 28%", mobile: "50% 20%" };
   const heroStyle = {
     "--artist-focus": focus.desktop,
     "--artist-focus-mobile": focus.mobile ?? focus.desktop,
@@ -34,7 +17,8 @@ export function ArtistDetail({ artist }: { artist: Artist }) {
   const quoteWord = longestWordLength(artist.quote);
   const quoteSize = quoteWord >= 18 ? "artist-quote--xs" : quoteWord >= 14 ? "artist-quote--sm" : "";
   const titleSize = artist.name.length >= 12 ? "artist-title--sm" : artist.name.length >= 9 ? "artist-title--md" : "";
-  const nextSize = artist.nextName.length >= 12 ? "next-artist--sm" : artist.nextName.length >= 9 ? "next-artist--md" : "";
+  const nextArtist = nextArtistInScene(artist);
+  const nextSize = nextArtist.name.length >= 12 ? "next-artist--sm" : nextArtist.name.length >= 9 ? "next-artist--md" : "";
 
   return (
     <>
@@ -42,7 +26,7 @@ export function ArtistDetail({ artist }: { artist: Artist }) {
         className="artist-hero"
         data-artist-hero
         data-artist-slug={artist.slug}
-        data-media-kind={mediaKind}
+        data-media-kind={artist.mediaKind}
         style={heroStyle}
       >
         <div className="artist-hero-photo"><img src={artist.image} alt={artist.name} /></div>
@@ -52,7 +36,7 @@ export function ArtistDetail({ artist }: { artist: Artist }) {
           <h1>{artist.name}</h1>
           <p>{artist.role}</p>
         </div>
-        <div className="artist-hero-index">{artist.index}</div>
+        <div className="artist-hero-index">{artistIndexLabel(artist.slug)}</div>
       </section>
 
       <section className={`artist-quote ${quoteSize}`.trim()}><blockquote>{artist.quote}</blockquote></section>
@@ -86,8 +70,8 @@ export function ArtistDetail({ artist }: { artist: Artist }) {
         <Link href={`/booking?artist=${artist.slug}` as Route}>Start aanvraag</Link>
       </section>
 
-      <Link className={`next-artist ${nextSize}`.trim()} href={`/artiesten/${artist.nextSlug}` as Route}>
-        <small>Volgende / {artist.scene}</small><b>{artist.nextName}</b><span>→</span>
+      <Link className={`next-artist ${nextSize}`.trim()} href={`/artiesten/${nextArtist.slug}` as Route}>
+        <small>Volgende / {artist.scene}</small><b>{nextArtist.name}</b><span>→</span>
       </Link>
     </>
   );

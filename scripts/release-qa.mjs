@@ -33,6 +33,9 @@ const mustExist = [
   "src/components/home-roster.tsx",
   "src/components/artist-index.tsx",
   "src/components/scene-rosters.tsx",
+  "src/components/roster-board.tsx",
+  "src/components/artist-announcements.tsx",
+  "src/app/artiesten/opengraph-image.tsx",
   "src/components/villa-west-stream.tsx",
   "src/components/villa-west-status.tsx",
   "src/lib/time-window.ts",
@@ -53,7 +56,7 @@ if (files.some((file) => extname(file) === ".html")) errors.push("static .html d
 
 const artists = readFileSync(join(root, "src/data/artists.ts"), "utf8");
 const artistSlugs = [...artists.matchAll(/"slug": "([^"]+)"/g)].map((match) => match[1]);
-if (artistSlugs.length !== 20) errors.push(`expected 20 typed artists, found ${artistSlugs.length}`);
+if (artistSlugs.length < 1) errors.push("artist dataset is empty");
 if (new Set(artistSlugs).size !== artistSlugs.length) errors.push("duplicate artist slug found");
 
 const forbiddenFormerArtist = "tubb" + "ie";
@@ -64,28 +67,24 @@ for (const [name, text] of sourceText) {
 }
 const artistIndexPage = readFileSync(join(root, "src/app/artiesten/page.tsx"), "utf8");
 if (!artistIndexPage.includes("{artists.length}")) errors.push("artist roster hero count is not derived from typed artist data");
-if (!artistIndexPage.includes("/assets/generated/artists-banner-v2.webp")) errors.push("artist roster must use the cache-busted 20-artist banner");
-if (!existsSync(join(publicDir, "assets/generated/artists-banner-v2.webp"))) errors.push("20-artist roster banner is missing");
-if (!existsSync(join(publicDir, "assets/og/artiesten-v2.jpg"))) errors.push("20-artist roster OG image is missing");
+if (!artistIndexPage.includes("<RosterBoard />")) errors.push("artist roster visual must render from typed artist data");
+if (/artists-banner(?:-v\d+)?\.webp/.test(artistIndexPage)) errors.push("artist page still references a static roster-count image");
 for (const slug of artistSlugs) {
   if (!existsSync(join(publicDir, `assets/media/artists/${slug}.webp`))) {
     errors.push(`artist asset missing: ${slug}.webp`);
   }
 }
-
-
-const siteData = readFileSync(join(root, "src/data/site.ts"), "utf8");
-for (const [name, expectedCount] of [["homeRosterOrder", 9], ["teknoRosterOrder", 13], ["hiphopRosterOrder", 7]]) {
-  const block = siteData.match(new RegExp(`export const ${name} = \\[([\\s\\S]*?)\\] as const;`))?.[1] ?? "";
-  const slugs = [...block.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
-  if (slugs.length !== expectedCount) errors.push(`${name}: expected ${expectedCount} entries, found ${slugs.length}`);
-  for (const slug of slugs) if (!artistSlugs.includes(slug)) errors.push(`${name}: unknown artist slug ${slug}`);
+if (/"index"\s*:|"nextSlug"\s*:|"nextName"\s*:/.test(artists)) {
+  errors.push("derived artist index/next navigation is hardcoded in the artist source");
 }
+const siteData = readFileSync(join(root, "src/data/site.ts"), "utf8");
+if (/RosterOrder/.test(siteData)) errors.push("scene/home roster order is duplicated outside typed artist data");
 
 for (const [page, marker] of [
   ["src/app/page.tsx", "<HomeRoster />"],
   ["src/app/artiesten/page.tsx", "<ArtistIndex />"],
-  ["src/app/tekno/page.tsx", "<TeknoRoster order={teknoRosterOrder} />"],
+  ["src/app/artiesten/page.tsx", "<RosterBoard />"],
+  ["src/app/tekno/page.tsx", "<TeknoRoster />"],
   ["src/app/hiphop/page.tsx", "<HiphopRoster />"],
 ]) {
   const text = readFileSync(join(root, page), "utf8");
@@ -114,14 +113,16 @@ for (const marker of [
   if (!events.includes(marker)) errors.push(`Villa West live contract missing: ${marker}`);
 }
 
-const expectedRoutes = JSON.parse(readFileSync(join(root, "scripts/expected-routes.json"), "utf8"));
+const staticRoutes = JSON.parse(readFileSync(join(root, "scripts/expected-routes.json"), "utf8"));
+const expectedRoutes = [
+  ...staticRoutes,
+  ...artistSlugs.map((slug) => `/artiesten/${slug}`),
+  ...eventSlugs.map((slug) => `/events/${slug}`),
+];
 const sitemap = readFileSync(join(root, "src/app/sitemap.ts"), "utf8");
-for (const route of expectedRoutes) {
-  const marker = route === "/" ? "https://kwartierwest.be" : `https://kwartierwest.be${route}`;
-  if (!sitemap.includes(marker)) errors.push(`sitemap route contract missing: ${route}`);
+for (const marker of ['import { artists }', 'import { events }', '...artists.map', '...events.map']) {
+  if (!sitemap.includes(marker)) errors.push(`dynamic sitemap contract missing: ${marker}`);
 }
-if (expectedRoutes.length !== 34) errors.push(`expected 34 indexed routes, found ${expectedRoutes.length}`);
-
 const validRoutes = new Set([...expectedRoutes, "/booking/verifieer"]);
 const internalHrefRe = /href=(?:"|{`)(\/[^"`}?#]*)(?:[^"`}]*)?(?:"|`})/g;
 for (const [name, text] of sourceText.filter(([name]) => name.endsWith(".tsx"))) {

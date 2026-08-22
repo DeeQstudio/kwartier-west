@@ -18,7 +18,7 @@ export function VillaWest2026Content() {
           <h1>Villa<br />West</h1>
           <p>Laatste editie van zomer 2026 bij Villa Bota in Brugge.</p>
         </div>
-        <a className="villa-live-jump" href="#villa-west-stream"><i /> livestream 21:55–00:05</a>
+        <a className="villa-live-jump" href="#villa-west-stream"><i /> uitzendvenster 21:55–00:05</a>
       </section>
 
       <section className="event-facts section-pad">
@@ -31,11 +31,11 @@ export function VillaWest2026Content() {
       <section className="event-editorial section-pad">
         <div>
           <span className="eyebrow">Laatste Villa West</span>
-          <h2>Nog één vrijdag.<br />Nog één signaal.</h2>
+          <h2>De laatste vrijdag.<br />Het laatste signaal.</h2>
         </div>
         <div>
-          <p>Villa West sluit de zomerreeks af op vrijdag 21 augustus. Kwartier West neemt Villa Bota twee uur over met Thorre + Siga & Lefever, gevolgd door Wildcard.</p>
-          <p>De uitzending is live te volgen van 21:55 tot 00:05, met vijf minuten marge voor en na de acts.</p>
+          <p>Villa West sloot de zomerreeks af op vrijdag 21 augustus. Kwartier West nam Villa Bota twee uur over met Thorre + Siga & Lefever, gevolgd door Wildcard.</p>
+          <p>De uitzending liep van 21:55 tot 00:05, met vijf minuten marge voor en na de acts.</p>
         </div>
       </section>
 

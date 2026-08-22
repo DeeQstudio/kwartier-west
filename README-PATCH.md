@@ -1,24 +1,33 @@
-# Kwartier West V6.3.3 UX consolidation patch
+# Kwartier West V6.3.4 — Zwoantje / data-first artist system
 
-Copy every item in this patch over the existing `clients/kwartier-west` repository root and choose merge/replace.
+Deze patch vertrekt van de huidige V6.3.3-code.
 
-This patch consolidates:
-- automatic home opening composition (no scroll input required for the opening movement)
-- removal of the red intro signal line and instructional `SCROLL` / `OPEN KWARTIER WEST` copy
-- professional mobile typography without automatic hyphenation
-- adaptive artist quote/name sizing for long words
-- per-artist photo focal points and identity-safe mobile artist framing
-- 20-artist roster banner, cache-busted as `artists-banner-v2.webp`
-- corrected 20-artist OG image
-- artist hero title/image separation so headings do not cover faces
-- QA guards for former-artist remnants, stale roster banner references and automatic hyphenation
+## Wat verandert
+- Zwoantje toegevoegd als Hip hop-artiest.
+- 21 totaal / 13 Tekno / 8 Hip hop wordt volledig uit `src/data/artists.ts` afgeleid.
+- Per-artiest index (`14 / 21`) wordt runtime afgeleid, niet opgeslagen.
+- Volgende artiest wordt automatisch binnen dezelfde scene bepaald.
+- Tekno-, Hip hop- en home-rosters lezen rechtstreeks uit dezelfde artiestendata.
+- `/artiesten` gebruikt een echte HTML/CSS `RosterBoard` met alle artiesten; geen statische tellerposter meer.
+- Sitemap maakt artiesten- en eventroutes automatisch uit typed data.
+- Structured-data ItemLists gebruiken automatisch de actuele roster.
+- Dynamische OG-afbeelding voor `/artiesten` gebruikt actuele aantallen.
+- Nieuwe-artiest announcement op home en Hip hop-pagina wordt uit artist status/announcement data gevoed.
+- Zwoantje gebruikt voorlopig een Kwartier West announcement-card, geen fictief portret.
 
-After copying:
+## Toepassen
+Kopieer de volledige inhoud van deze patch over de root van `clients/kwartier-west` en kies vervangen/samenvoegen.
 
-    npm run release
+Daarna:
 
-Then, only if green:
+```powershell
+npm run release
+```
 
-    git add .
-    git commit -m "Polish mobile type, artist framing and home intro"
-    git push
+Als groen:
+
+```powershell
+git add .
+git commit -m "Add Zwoantje and make artist system data-driven"
+git push
+```
