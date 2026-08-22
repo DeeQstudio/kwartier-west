@@ -694,19 +694,30 @@ const artistSources = [
     "role": "Rapper",
     "scene": "hiphop",
     "image": "/assets/media/artists/zwoantje.webp",
-    "mediaKind": "identity",
-    "quote": "Nieuwe West-Vlaamse stem. Eerste track onderweg.",
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "50% 5%",
+      "mobile": "50% 16%"
+    },
+    "quote": "Van open verse tot publieksfavoriet, met twee gastoptredens op haar naam.",
     "paragraphs": [
       "Zwoantje is een West-Vlaamse rapper uit Brugge en sluit aan bij de Hip hop-sectie van Kwartier West.",
-      "Ze staat aan het begin van haar releaseverhaal. Haar eerste track komt binnenkort."
+      "Haar deelname aan de Wakker Open Verse Challenge van Plukketuffer betekende haar debuut. Ze werd uitgeroepen tot publieksfavoriet en stond daarna tweemaal als gast op het podium tijdens shows van Plukketuffer in Brugge en Knokke.",
+      "Haar eerste eigen track komt binnenkort."
     ],
     "bullets": [
-      "Hip hop",
-      "Brugge / West-Vlaanderen",
+      "Publieksfavoriet / Wakker Open Verse Challenge",
+      "Gastoptredens / Brugge en Knokke",
       "Eerste track binnenkort"
     ],
-    "links": [],
-    "description": "Zwoantje is een West-Vlaamse rapper uit Brugge en nieuw bij de Hip hop-sectie van Kwartier West. Haar eerste track komt binnenkort.",
+    "links": [
+      {
+        "label": "Instagram",
+        "value": "@zwoantje_",
+        "href": "https://www.instagram.com/zwoantje_/"
+      }
+    ],
+    "description": "Zwoantje is een West-Vlaamse rapper uit Brugge, publieksfavoriet van de Wakker Open Verse Challenge van Plukketuffer en nieuw bij Kwartier West.",
     "status": "new",
     "announcement": {
       "eyebrow": "Nieuw / Hip hop",
