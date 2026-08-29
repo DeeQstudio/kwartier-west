@@ -3,8 +3,6 @@ import { JsonLd } from "@/components/json-ld";
 import { HomeRoster } from "@/components/home-roster";
 import { ArtistAnnouncements } from "@/components/artist-announcements";
 import { makeMetadata } from "@/lib/metadata";
-import { eventBySlug } from "@/data/events";
-import { VillaWestStatus } from "@/components/villa-west-status";
 import styles from "./home.module.css";
 
 export const metadata = makeMetadata({
@@ -30,8 +28,6 @@ const schemas = [
 ] as const;
 
 export default function HomePage() {
-  const villa = eventBySlug.get("villa-west-2026");
-
   return (
     <main id="main" className="home" data-page="home">
       {schemas.map((schema, index) => (
@@ -131,20 +127,27 @@ export default function HomePage() {
 
       <HomeRoster />
 
-      <section className="event-home event-home--live">
-        <div className="event-home-poster" data-reveal="left">
-          <img src="/assets/media/events/villa-west-2026-08-28.jpg" alt="Villa West — laatste editie op 28 augustus 2026" />
-        </div>
+      <section className="event-home event-home--archive" id="villa-west-recap">
+        <Link className="event-home-poster" href="/events/villa-west-2026" data-reveal="left">
+          <img
+            src="/assets/media/events/villa-west-summer-recap-2026.webp"
+            alt="Villa West Summer Recap 2026"
+            width={1080}
+            height={1080}
+            loading="lazy"
+            decoding="async"
+          />
+        </Link>
         <div className="event-home-copy">
-          <span className="eyebrow">04 / Villa West</span>
-          <h2><span>Villa West</span><span className="event-home-date">28.08.2026</span></h2>
-          <p>Vrijdag 28 augustus sluit Villa West de zomer af bij Villa Bota. Natte23 speelt van 22:00 tot 23:00; Alexer neemt over tot middernacht. Live volgen kan vanaf 21:55.</p>
-          <dl>
+          <span className="eyebrow">04 / Archief / Villa West</span>
+          <h2><span>Villa West</span><span className="event-home-date">Recap 2026</span></h2>
+          <p>De zomerreeks bij Villa Bota is afgerond. Herbekijk Villa West en de laatste editie van 28 augustus in het archief.</p>
+          <dl className="event-meta-list">
             <div><dt>Locatie</dt><dd>Villa Bota / Brugge</dd></div>
-            <div><dt>Uur</dt><dd>22:00–00:00</dd></div>
-            <div><dt>Status</dt><dd>{villa?.stream ? <VillaWestStatus stream={villa.stream} /> : "Main event"}</dd></div>
+            <div><dt>Laatste editie</dt><dd>28.08.2026</dd></div>
+            <div><dt>Status</dt><dd>Voorbij / archief</dd></div>
           </dl>
-          <Link className="arrow-link" href="/events/villa-west-2026#villa-west-stream">Main event + livestream <span>↗</span></Link>
+          <Link className="arrow-link" href="/events/villa-west-2026">Open Villa West-archief <span>↗</span></Link>
         </div>
       </section>
 

@@ -14,12 +14,12 @@ Production migration of the V5 visual/content source to **Next.js 16.3.1 + TypeS
 
 The V5 design language and public route structure are intentionally preserved, with the V6.2 visual repair baseline and the V6.3 content/navigation repair layered on top.
 
-## V6.3 live/event + visual/content hardening
+## V6.3 archive + visual/content hardening
 
-- Villa West on **21 August 2026** remains the current main event until the final live window ends.
-- Villa Bota video is loaded only from **21:55 to 00:05 Europe/Brussels**, with the existing audio fallback.
-- CSP explicitly permits only the required Villa Bota video frame and stream host.
-- The final Villa West poster, timetable and line-up are the current event source: Thorre + Siga & Lefever 22:00–23:00, Wildcard 23:00–00:00.
+- Villa West is archived after the final edition on **28 August 2026**.
+- The homepage, events overview and archive link to the preserved Villa West route using the versioned Summer Recap 2026 artwork.
+- The final Villa West timetable and line-up remain in the typed event source: Natte23 22:00–23:00 and Alexer 23:00–00:00.
+- The retired Villa Bota livestream runtime and its external CSP permissions are removed.
 - Tekno now leads with authentic event photography plus recognisable Kwartier West scene artwork instead of the previous synthetic hero.
 - Hip hop uses a general scene visual for the intro and puts De Kweker in the primary artist position.
 - De Kweker has stronger metadata/structured data and a direct crawlable official-site link to `https://kwkr.be`.

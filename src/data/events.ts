@@ -4,18 +4,6 @@ export type EventLineupItem = {
   artistSlug?: string;
 };
 
-export type EventStream = {
-  enabled: boolean;
-  label: string;
-  videoUrl: string;
-  audioUrl: string;
-  sourceUrl: string;
-  timeZone: string;
-  startDate: string;
-  startTime: string;
-  endTime: string;
-};
-
 export type EventRecord = {
   slug: string;
   title: string;
@@ -32,7 +20,6 @@ export type EventRecord = {
   status: "upcoming" | "past";
   poster: string;
   lineup: readonly EventLineupItem[];
-  stream?: EventStream;
   schema: Record<string, unknown> | null;
 };
 
@@ -89,40 +76,29 @@ export const events = [
   },
   {
     slug: "villa-west-2026",
-    title: "Villa West 28 augustus 2026 | Kwartier West x Villa Bota",
-    description: "Laatste Villa West van zomer 2026 op vrijdag 28 augustus bij Villa Bota in Brugge. Natte23 en Alexer spelen Tekno-livesets van 22:00 tot 00:00.",
+    title: "Villa West Summer Recap 2026 | Kwartier West",
+    description: "Villa West is afgerond. Bekijk het archief van de zomerreeks bij Villa Bota in Brugge, met de laatste editie op 28 augustus met Natte23 en Alexer.",
     canonical: "https://kwartierwest.be/events/villa-west-2026",
-    og: "https://kwartierwest.be/assets/og/villa-west.jpg",
+    og: "https://kwartierwest.be/assets/og/villa-west-summer-recap-2026.jpg",
     date: "2026-08-28",
     displayDate: "28.08.2026",
     startTime: "22:00",
     endTime: "00:00",
     venue: "Villa Bota",
     region: "Brugge",
-    status: "upcoming",
-    poster: "/assets/media/events/villa-west-2026-08-28.jpg",
+    status: "past",
+    poster: "/assets/media/events/villa-west-summer-recap-2026.webp",
     lineup: [
       { name: "Natte23", slot: "22:00–23:00" },
       { name: "Alexer", slot: "23:00–00:00", artistSlug: "alexer" },
     ],
-    stream: {
-      enabled: true,
-      label: "Villa Bota livestream",
-      videoUrl: "https://live.villabota.be/index-video-only.html",
-      audioUrl: "https://caster04.streampakket.com/proxy/8186/stream",
-      sourceUrl: "https://www.villabota.be",
-      timeZone: "Europe/Brussels",
-      startDate: "2026-08-28",
-      startTime: "21:55",
-      endTime: "00:05",
-    },
     schema: {
       "@context": "https://schema.org",
       "@type": "MusicEvent",
-      "name": "Villa West",
+      "name": "Villa West — laatste editie",
       "startDate": "2026-08-28T22:00:00+02:00",
       "endDate": "2026-08-29T00:00:00+02:00",
-      "eventStatus": "https://schema.org/EventScheduled",
+      "eventStatus": "https://schema.org/EventCompleted",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
       "location": {
         "@type": "Place",
@@ -134,9 +110,9 @@ export const events = [
         }
       },
       "image": [
-        "https://kwartierwest.be/assets/media/events/villa-west-2026-08-28.jpg"
+        "https://kwartierwest.be/assets/media/events/villa-west-summer-recap-2026.webp"
       ],
-      "description": "Laatste Villa West van zomer 2026 op vrijdag 28 augustus bij Villa Bota in Brugge. Natte23 speelt van 22:00 tot 23:00 en Alexer van 23:00 tot 00:00.",
+      "description": "De laatste Villa West van zomer 2026 vond plaats op vrijdag 28 augustus bij Villa Bota in Brugge. Natte23 speelde van 22:00 tot 23:00 en Alexer van 23:00 tot 00:00.",
       "performer": [
         {
           "@type": "MusicGroup",

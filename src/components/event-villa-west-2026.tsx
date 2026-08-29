@@ -1,8 +1,6 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { eventBySlug } from "@/data/events";
-import { VillaWestStatus } from "@/components/villa-west-status";
-import { VillaWestStream } from "@/components/villa-west-stream";
 
 export function VillaWest2026Content() {
   const event = eventBySlug.get("villa-west-2026");
@@ -10,37 +8,36 @@ export function VillaWest2026Content() {
 
   return (
     <>
-      <section className="villa-hero villa-hero--current" data-villa-hero="">
+      <section className="villa-hero" data-villa-hero="">
         <div className="villa-red-room" />
-        <figure><img src={event.poster} alt="Villa West — 28 augustus 2026" /></figure>
+        <figure><img src={event.poster} alt="Villa West Summer Recap 2026" width={1080} height={1080} /></figure>
         <div className="villa-copy">
-          <span>28.08.2026 / <VillaWestStatus stream={event.stream!} /></span>
+          <span>28.08.2026 / VOORBIJ / ARCHIEF</span>
           <h1>Villa<br />West</h1>
-          <p>Laatste editie van zomer 2026 bij Villa Bota in Brugge.</p>
+          <p>Summer Recap 2026 bij Villa Bota in Brugge.</p>
         </div>
-        <a className="villa-live-jump" href="#villa-west-stream"><i /> livestream 21:55–00:05</a>
       </section>
 
       <section className="event-facts section-pad">
         <div><span>Datum</span><b>Vrijdag 28 augustus 2026</b></div>
         <div><span>Uur</span><b>22:00–00:00</b></div>
         <div><span>Locatie</span><b>Villa Bota / Brugge</b></div>
-        <div><span>Status</span><b><VillaWestStatus stream={event.stream!} /></b></div>
+        <div><span>Status</span><b>Voorbij / archief</b></div>
       </section>
 
       <section className="event-editorial section-pad">
         <div>
-          <span className="eyebrow">Laatste Villa West</span>
-          <h2>Nog één vrijdag.<br />Nog één signaal.</h2>
+          <span className="eyebrow">Villa West / Summer Recap 2026</span>
+          <h2>De laatste vrijdag.<br />Het laatste signaal.</h2>
         </div>
         <div>
-          <p>Villa West sluit de zomerreeks af op vrijdag 28 augustus. Natte23 opent met een Tekno-liveset van 22:00 tot 23:00, gevolgd door Alexer van 23:00 tot 00:00.</p>
-          <p>De uitzending is live te volgen van 21:55 tot 00:05, met vijf minuten marge voor en na de livesets.</p>
+          <p>Villa West sloot de zomerreeks af op vrijdag 28 augustus. Natte23 opende met een Tekno-liveset van 22:00 tot 23:00, gevolgd door Alexer van 23:00 tot 00:00.</p>
+          <p>De laatste editie bracht de line-up nog één keer samen bij Villa Bota in Brugge.</p>
         </div>
       </section>
 
-      <section className="event-lineup event-lineup--current">
-        <span>Line-up / tijdslot</span>
+      <section className="event-lineup event-lineup--archive">
+        <span>Laatste editie / line-up / tijdslot</span>
         <div className="villa-lineup-grid">
           {event.lineup.map((item, index) => {
             const content = (
@@ -58,8 +55,6 @@ export function VillaWest2026Content() {
           })}
         </div>
       </section>
-
-      {event.stream && <VillaWestStream stream={event.stream} />}
     </>
   );
 }
