@@ -158,13 +158,13 @@ export default function HomePage() {
         </div>
         <div className="network-logo-line">
           <Link href="/partners#all-tek-soundsystem">
-            <img src="/assets/partners/all-tek-soundsystem.svg" alt="All-Tek Soundsystem" loading="lazy" />
+            <img src="/assets/partners/all-tek-soundsystem.jpg" alt="All-Tek Soundsystem" loading="lazy" />
           </Link>
           <Link href="/partners#absurd-soundsystem">
-            <img src="/assets/partners/absurd-soundsystem.svg" alt="Absurd Soundsystem" loading="lazy" />
+            <img src="/assets/partners/absurd-soundsystem.jpg" alt="Absurd Soundsystem" loading="lazy" />
           </Link>
           <Link href="/partners#imakari-projects">
-            <img src="/assets/partners/imakari-projects.svg" alt="Imakari projects" loading="lazy" />
+            <img src="/assets/partners/imakari-projects.jpg" alt="Imakari projects" loading="lazy" />
           </Link>
           <Link href="/partners#tektopia">
             <img src="/assets/partners/tektopia.webp" alt="TekTopia" loading="lazy" />

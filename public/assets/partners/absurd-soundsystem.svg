@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
-  <title id="title">Absurd Soundsystem logo</title>
-  <desc id="desc">Minimal triangular emblem for Absurd Soundsystem.</desc>
-  <circle cx="64" cy="64" r="61" fill="#f0f0f0" stroke="#111111" stroke-width="2"/>
-  <circle cx="64" cy="64" r="52" fill="#ffffff" stroke="#bcbcbc" stroke-width="1.5"/>
-  <path d="M64 26 L98 87 H30 Z" fill="none" stroke="#0f0f0f" stroke-width="6.2" stroke-linejoin="round"/>
-  <path d="M64 41 L85 79 H43 Z" fill="none" stroke="#0f0f0f" stroke-width="4.2" stroke-linejoin="round"/>
-  <path d="M64 56 L72 72 H56 Z" fill="#0f0f0f"/>
-</svg>
