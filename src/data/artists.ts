@@ -700,16 +700,16 @@ const artistSources = [
       "mobile": "50% 16%"
     },
     "quote": "Van open verse tot publieksfavoriet, met twee gastoptredens op haar naam.",
+    "biographyTitle": "Ontstaan van de Brugse Zwaan",
     "paragraphs": [
-      "Zwoantje is een West-Vlaamse rapper uit Brugge en sluit aan bij de Hip hop-sectie van Kwartier West.",
+      "Wat begon als losse flarden tekst, groeide uit tot West-Vlaamse rapper Zwoantje.",
+      "Van open verse naar een plek binnen de Hiphopsectie van Kwartier West.",
+      "Met een diepgewortelde voorliefde voor Brugge, het West-Vlaams en muziek trok Zwoantje voor het eerst de studio in, waar haar eerste track vorm kreeg.",
       "Haar deelname aan de Wakker Open Verse Challenge van Plukketuffer betekende haar debuut. Ze werd uitgeroepen tot publieksfavoriet en stond daarna tweemaal als gast op het podium tijdens shows van Plukketuffer in Brugge en Knokke.",
-      "Haar eerste eigen track komt binnenkort."
+      "Haar eerste officiële track zit eraan te komen, en da’s nog maar het begin. Met een hoofd vol teksten, een hart voor het West-Vlaams en nog een hele resem wilde plannen is Zwoantje klaar om haar eigen verhaal verder te schrijven.",
+      "Op z’n Brugs. Op haar manier."
     ],
-    "bullets": [
-      "Publieksfavoriet / Wakker Open Verse Challenge",
-      "Gastoptredens / Brugge en Knokke",
-      "Eerste track binnenkort"
-    ],
+    "bullets": [],
     "links": [
       {
         "label": "Instagram",

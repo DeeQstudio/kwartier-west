@@ -44,6 +44,7 @@ export function ArtistDetail({ artist }: { artist: Artist }) {
       <section className="artist-story section-pad">
         <div><span className="eyebrow">Profiel</span><h2>Over {artist.name}</h2></div>
         <div className="artist-story-copy">
+          {artist.biographyTitle && <h3>{artist.biographyTitle}</h3>}
           {artist.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           {artist.bullets.length > 0 && (
             <ul>{artist.bullets.map((item) => <li key={item}>{item}</li>)}</ul>

@@ -21,6 +21,7 @@ export type ArtistSource = {
   mediaKind: ArtistMediaKind;
   focus?: ArtistFocus;
   quote: string;
+  biographyTitle?: string;
   paragraphs: readonly string[];
   bullets: readonly string[];
   links: readonly ArtistLink[];
