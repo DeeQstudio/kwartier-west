@@ -10,7 +10,7 @@ export function RosterBoard() {
       <div className="roster-board-body">
         <div className="roster-board-grid">
           {artists.map((artist, index) => (
-            <figure key={artist.slug} data-media-kind={artist.mediaKind}>
+            <figure key={artist.slug} data-artist-slug={artist.slug} data-media-kind={artist.mediaKind}>
               <img src={artist.image} alt={artist.name} loading={index < 7 ? "eager" : "lazy"} />
               <figcaption><small>{String(index + 1).padStart(2, "0")}</small><span>{artist.name}</span></figcaption>
             </figure>

@@ -6,8 +6,8 @@ import { hiphopArtists } from "@/data/artists";
 import { makeMetadata } from "@/lib/metadata";
 
 export const metadata = makeMetadata({
-  title: "Hip hop West-Vlaanderen | De Kweker & Kwartier West",
-  description: "West-Vlaamse hip hop bij Kwartier West, met De Kweker, rappers, producers en live-artiesten, profielen, bookings en officiële artiestenlinks.",
+  title: "Hip hop West-Vlaanderen | Kwartier West",
+  description: "West-Vlaamse hip hop bij Kwartier West: artiesten, profielen, bookings en een TuffTracks-spotlight met Krank.",
   canonical: "https://kwartierwest.be/hiphop",
   og: "https://kwartierwest.be/assets/og/hiphop.jpg",
 });
@@ -64,21 +64,33 @@ export default function HiphopPage() {
         </div>
       </section>
 
-      <section className="artist-spotlight artist-spotlight--kweker section-pad">
-        <div className="artist-spotlight-photo" data-artist-slug="de-kweker" data-media-kind="photo"><img src="/assets/media/artists/de-kweker-feature.webp" alt="De Kweker uit Brugge" /></div>
-        <div className="artist-spotlight-copy">
-          <span className="eyebrow">Brugge / 8000 / spotlight</span>
-          <h2>De Kweker</h2>
-          <p>De Kweker is een rapper uit Brugge (8000). Hij schrijft over twijfel, trots, frustratie, vriendschap en de stad rondom hem, met sterke hooks en eerlijke bars in zijn eigen taal.</p>
-          <div className="artist-spotlight-links">
-            <Link href="/artiesten/de-kweker">Ontdek De Kweker</Link>
-            <a href="https://kwkr.be">Muziek & video — kwkr.be</a>
+      <HiphopRoster />
+
+      <section className="artist-spotlight artist-spotlight--tufftracks section-pad" aria-labelledby="tufftracks-title">
+        <div className="tufftracks-feature-inner">
+          <header className="tufftracks-feature-header">
+            <div>
+              <span className="eyebrow">Uit de scene / TuffTracks 01</span>
+              <h2 id="tufftracks-title">Krank bij<br />TuffTracks.</h2>
+            </div>
+            <a className="tufftracks-brand" href="https://www.instagram.com/tufftracks_/" target="_blank" rel="noopener noreferrer" aria-label="TuffTracks op Instagram"><img src="/assets/media/features/tufftracks-logo.png" alt="TuffTracks Live Sessions" loading="lazy" /></a>
+          </header>
+          <div className="tufftracks-feature-media">
+            <img src="/assets/media/features/krank-tufftracks.png" alt="Krank aan de microfoon tijdens TuffTracks" loading="lazy" />
+            <span>TuffTracks / live session 01</span>
+          </div>
+          <div className="tufftracks-feature-footer">
+            <p>Krank is de eerste gast bij TuffTracks. Hij praat over zijn album De Statement en brengt tracks live in de studio.</p>
+            <nav className="artist-spotlight-links" aria-label="Krank bij TuffTracks">
+              <a href="https://www.instagram.com/p/DeTv1kFuI3z/" target="_blank" rel="noopener noreferrer">Bekijk op Instagram</a>
+              <a href="https://www.youtube.com/watch?v=HO6qwdOh5XE" target="_blank" rel="noopener noreferrer">Volledige aflevering</a>
+              <Link href="/artiesten/krank">Ontdek Krank</Link>
+            </nav>
           </div>
         </div>
       </section>
 
       <ArtistAnnouncements compact />
-      <HiphopRoster />
       <section className="scene-book scene-book--light"><span>Hip hop / booking</span><h2>Live, productie of meerdere artiesten op één avond.</h2><Link href="/booking?scene=hiphop">Start een Hip hop-aanvraag</Link></section>
     </main>
   );

@@ -67,8 +67,8 @@ if (!artistIndexPage.includes("{artists.length}")) errors.push("artist roster he
 if (!artistIndexPage.includes("<RosterBoard />")) errors.push("artist roster visual must render from typed artist data");
 if (/artists-banner(?:-v\d+)?\.webp/.test(artistIndexPage)) errors.push("artist page still references a static roster-count image");
 for (const slug of artistSlugs) {
-  if (!existsSync(join(publicDir, `assets/media/artists/${slug}.webp`))) {
-    errors.push(`artist asset missing: ${slug}.webp`);
+  if (!["webp", "jpg"].some((extension) => existsSync(join(publicDir, `assets/media/artists/${slug}.${extension}`)))) {
+    errors.push(`artist asset missing: ${slug}.webp or ${slug}.jpg`);
   }
 }
 if (/"index"\s*:|"nextSlug"\s*:|"nextName"\s*:/.test(artists)) {

@@ -26,11 +26,10 @@ export default function EventsPage() {
       {schemas.map((schema, index) => <JsonLd key={index} data={schema} />)}
       <section className="events-hero" data-events-hero="">
         <div className="events-poster-a"><img src="/assets/media/events/villa-west-summer-recap-2026.webp" alt="Villa West Summer Recap 2026" width={1080} height={1080} /></div>
-        <div className="events-poster-b"><img src="/assets/media/archive/teknorelics-03.webp" alt="Teknorelics live" /></div>
+        <div className="events-poster-b"><img src="/assets/media/archive/teknorelics-06.webp" alt="Podium en publiek tijdens Teknorelics" /></div>
         <div className="events-hero-title">
           <span>04 / EVENTS / ARCHIEF</span>
           <h1>EVENTS</h1>
-          <p>Villa West sloot de zomer af op 28 augustus bij Villa Bota.</p>
         </div>
       </section>
 
@@ -40,7 +39,7 @@ export default function EventsPage() {
           <div><span>Summer recap 2026 / Villa Bota</span><h2>Villa West</h2><p>Archief / laatste editie 28.08.2026 / Natte23 / Alexer</p></div>
         </Link>
         <Link className="event-card event-card--photo" href="/events/teknorelics-eye-of-the-temple">
-          <figure><img src="/assets/media/archive/teknorelics-03.webp" alt="Teknorelics Eye of the Temple" /></figure>
+          <figure><img src="/assets/media/archive/teknorelics-06.webp" alt="Podium en publiek tijdens Teknorelics: Eye of the Temple" /></figure>
           <div><span>28.03.2026 / Het Entrepot</span><h2>Teknorelics:<br />Eye of the Temple</h2><p>Tekno / multi-artist night / Brugge</p></div>
         </Link>
       </section>

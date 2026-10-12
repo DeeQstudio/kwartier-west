@@ -123,31 +123,29 @@ export default function HomePage() {
         </Link>
       </section>
 
-      <ArtistAnnouncements />
-
       <HomeRoster />
 
-      <section className="event-home event-home--archive" id="villa-west-recap">
-        <Link className="event-home-poster" href="/events/villa-west-2026" data-reveal="left">
-          <img
-            src="/assets/media/events/villa-west-summer-recap-2026.webp"
-            alt="Villa West Summer Recap 2026"
-            width={1080}
-            height={1080}
-            loading="lazy"
-            decoding="async"
-          />
-        </Link>
+      <ArtistAnnouncements />
+
+      <section className="event-home event-home--index" id="events-archief">
+        <div className="event-home-posters" data-reveal="left">
+          <Link href="/events/teknorelics-eye-of-the-temple" aria-label="Bekijk Teknorelics: Eye of the Temple">
+            <img src="/assets/media/archive/teknorelics-06.webp" alt="Podium en publiek tijdens Teknorelics" loading="lazy" decoding="async" />
+            <span>Teknorelics <small>28.03.2026</small></span>
+          </Link>
+          <Link href="/events/villa-west-2026" aria-label="Bekijk het Villa West-archief">
+            <img src="/assets/media/events/villa-west-summer-recap-2026.webp" alt="Villa West Summer Recap 2026" width={1080} height={1080} loading="lazy" decoding="async" />
+            <span>Villa West <small>Zomer 2026</small></span>
+          </Link>
+        </div>
         <div className="event-home-copy">
-          <span className="eyebrow">04 / Archief / Villa West</span>
-          <h2><span>Villa West</span><span className="event-home-date">Recap 2026</span></h2>
-          <p>De zomerreeks bij Villa Bota is afgerond. Herbekijk Villa West en de laatste editie van 28 augustus in het archief.</p>
-          <dl className="event-meta-list">
-            <div><dt>Locatie</dt><dd>Villa Bota / Brugge</dd></div>
-            <div><dt>Laatste editie</dt><dd>28.08.2026</dd></div>
-            <div><dt>Status</dt><dd>Voorbij / archief</dd></div>
-          </dl>
-          <Link className="arrow-link" href="/events/villa-west-2026">Open Villa West-archief <span>↗</span></Link>
+          <span className="eyebrow">04 / Kwartier West / Events</span>
+          <h2><span>Events</span><span className="event-home-date">& archief.</span></h2>
+          <p>Nachten, line-ups en beelden uit Kwartier West. Bekijk de voorbije events en herbeleef de momenten in het fotoarchief.</p>
+          <div className="event-home-actions">
+            <Link href="/events">Alle events</Link>
+            <Link href="/archive">Fotoarchief</Link>
+          </div>
         </div>
       </section>
 
@@ -158,22 +156,22 @@ export default function HomePage() {
         </div>
         <div className="network-logo-line">
           <Link href="/partners#all-tek-soundsystem">
-            <img src="/assets/partners/all-tek-soundsystem.jpg" alt="All-Tek Soundsystem" loading="lazy" />
+            <img src="/assets/partners/cutouts/all-tek-soundsystem-cutout.svg" alt="All-Tek Soundsystem" loading="lazy" />
           </Link>
           <Link href="/partners#absurd-soundsystem">
-            <img src="/assets/partners/absurd-soundsystem.jpg" alt="Absurd Soundsystem" loading="lazy" />
+            <img src="/assets/partners/cutouts/absurd-soundsystem-cutout.svg" alt="Absurd Soundsystem" loading="lazy" />
           </Link>
           <Link href="/partners#imakari-projects">
-            <img src="/assets/partners/imakari-projects.jpg" alt="Imakari projects" loading="lazy" />
+            <img src="/assets/partners/cutouts/imakari-projects-cutout.svg" alt="Imakari projects" loading="lazy" />
           </Link>
           <Link href="/partners#tektopia">
-            <img src="/assets/partners/tektopia.webp" alt="TekTopia" loading="lazy" />
+            <img src="/assets/partners/cutouts/tektopia-cutout.svg" alt="TekTopia" loading="lazy" />
           </Link>
           <Link href="/partners#acidelics">
-            <img src="/assets/partners/acidelics.webp" alt="Acidelics" loading="lazy" />
+            <img src="/assets/partners/cutouts/acidelics-cutout.svg" alt="Acidelics" loading="lazy" />
           </Link>
           <Link href="/partners#spoorloos-soundsystem">
-            <img src="/assets/partners/spoorloos-soundsystem.webp" alt="Spoorloos Soundsystem" loading="lazy" />
+            <img src="/assets/partners/cutouts/spoorloos-soundsystem-cutout.svg" alt="Spoorloos Soundsystem" loading="lazy" />
           </Link>
           <Link href="/partners#deeqstudio">
             <img src="/assets/partners/deeqstudio.svg" alt="DEEQSTUDIO" loading="lazy" />

@@ -643,31 +643,6 @@ const artistSources = [
     }
   },
   {
-    "slug": "bruce",
-    "name": "Bruce",
-    "role": "Producent",
-    "scene": "hiphop",
-    "image": "/assets/media/artists/bruce.webp",
-    "quote": "Precies drumwerk en schaduwrijk klankdesign.",
-    "paragraphs": [
-      "Producer met focus op diepe drums, donkere melodische lagen en mixklare arrangementen.",
-      "Bruce bouwt tracks vanuit ritme eerst. De productietaal is strak maar zwaar, met laagfrequente discipline en filmische transities.",
-      "Studiogerichte werkwijze, beschikbaar voor schrijfsessies, maatproductie en collaboratieve arrangementstrajecten."
-    ],
-    "bullets": [
-      "Beatproductie",
-      "Arrangement en structuur",
-      "Sessieklare sporen"
-    ],
-    "links": [],
-    "description": "Producer met focus op diepe drums, donkere melodische lagen en mixklare arrangementen.",
-    "mediaKind": "photo",
-    "focus": {
-      "desktop": "58% 24%",
-      "mobile": "58% 18%"
-    }
-  },
-  {
     "slug": "creamz",
     "name": "Creamz",
     "role": "Producent / Beatmaker",
@@ -687,6 +662,32 @@ const artistSources = [
     "links": [],
     "description": "Beatmaker die bounce-gedreven grooves vormt met gelaagde drumtexturen.",
     "mediaKind": "artwork"
+  },
+  {
+    "slug": "rynuz",
+    "name": "Rynuz",
+    "role": "Rapper",
+    "scene": "hiphop",
+    "image": "/assets/media/artists/rynuz.jpg",
+    "mediaKind": "photo",
+    "focus": {
+      "desktop": "40% 25%",
+      "mobile": "37% 20%"
+    },
+    "quote": "Rynuz live op het podium.",
+    "paragraphs": [
+      "Rynuz is rapper binnen de Hip hop-sectie van Kwartier West.",
+      "Je vindt Rynuz op Instagram onder @rynuz."
+    ],
+    "bullets": [],
+    "links": [
+      {
+        "label": "Instagram",
+        "value": "@rynuz",
+        "href": "https://www.instagram.com/rynuz/"
+      }
+    ],
+    "description": "Rynuz is rapper binnen de Hip hop-sectie van Kwartier West. Bekijk zijn profiel en Instagram-link."
   },
   {
     "slug": "zwoantje",
